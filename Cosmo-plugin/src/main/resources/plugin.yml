@@ -1,0 +1,10 @@
+name: Cosmo
+author: SenseiJu
+
+version: ${version}
+api-version: 1.16
+
+main: me.senseiju.cosmo_plugin.Cosmo
+
+depend:
+  - ProtocolLib
