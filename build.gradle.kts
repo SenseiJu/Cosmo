@@ -15,12 +15,12 @@ allprojects {
 
     repositories {
         mavenCentral()
+        maven("https://papermc.io/repo/repository/maven-public/")
     }
 
     dependencies {
-        implementation(kotlin("stdlib-jdk8"))
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+        implementation("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
 
         testImplementation(kotlin("test-junit5"))
         testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
@@ -28,8 +28,11 @@ allprojects {
     }
 }
 
+/**
+ * All projects, excludes Cosmo-commons
+ */
 configure(allprojects - project(":Cosmo-commons")) {
     dependencies {
-        compileOnly(project(":Cosmo-commons"))
+        implementation(project(":Cosmo-commons"))
     }
 }

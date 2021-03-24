@@ -1,0 +1,26 @@
+[
+    {
+        "modelData": 100,
+        "name": "This is the models name",
+        "author": "SenseiJu",
+        "modelType": "HAT"
+    },
+    {
+        "modelData": 2,
+        "name": "This is the models name",
+        "author": "SenseiJu",
+        "modelType": "HAT"
+    },
+    {
+        "modelData": 3,
+        "name": "This is the models name",
+        "author": "SenseiJu",
+        "modelType": "BACKPACK"
+    },
+    {
+        "modelData": 1,
+        "name": "This is the models name",
+        "author": "SenseiJu",
+        "modelType": "BACKPACK"
+    }
+]

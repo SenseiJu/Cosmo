@@ -1,1 +1,3 @@
 PREFIX: "&d&lCosmo &8&l»"
+
+COMMAND-COSMO-PACK-REQUIRED: "&cYou must have the server resource pack active to use this command"

@@ -10,8 +10,7 @@ class Cosmo : JavaPlugin() {
     val messagesFile = DataFile(this, "messages.yml", true)
 
     lateinit var commandManager: CommandManager
-
-    private lateinit var modelManager: ModelManager
+    lateinit var modelManager: ModelManager
 
     override fun onEnable() {
         commandManager = CommandManager(this)
@@ -19,12 +18,11 @@ class Cosmo : JavaPlugin() {
 
         if (!modelManager.requestModelsJson()) {
             server.pluginManager.disablePlugin(this)
-
             return
         }
     }
 
     override fun onDisable() {
-
+        modelManager.saveActiveModels()
     }
 }

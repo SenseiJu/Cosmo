@@ -11,22 +11,25 @@ dependencies {
     implementation("io.ktor:ktor-serialization:$ktorVersion")
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
 
 tasks {
-    named<Jar>("jar") {
+    "jar"(Jar::class) {
         manifest {
             attributes["Main-Class"] = "me.senseiju.cosmo_web_app.MainKt"
         }
     }
 
-    named<ShadowJar>("shadowJar") {
+    "shadowJar"(ShadowJar::class) {
         archiveFileName.set("Cosmo-web-app.jar")
 
         manifest {
             attributes["Main-Class"] = "me.senseiju.cosmo_web_app.MainKt"
         }
+
+        minimize()
     }
 }
