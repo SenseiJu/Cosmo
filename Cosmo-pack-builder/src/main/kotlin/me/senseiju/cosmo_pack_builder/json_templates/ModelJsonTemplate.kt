@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 import me.senseiju.cosmo_commons.ModelType
 
 fun createModelJson(modelType: ModelType, modelData: Collection<Int>): ModelJsonTemplate {
-    return ModelJsonTemplate(modelType.getParentJsonElement(), modelData.map { createOverrideJsonElement(it) })
+    return ModelJsonTemplate(modelType.getParentJsonElement(), modelData.map { createOverrideJsonElement(modelType, it) })
 }
 
-private fun createOverrideJsonElement(modelData: Int): OverrideJsonElement {
-    return OverrideJsonElement(CustomModelDataJsonElement(modelData), "item/$modelData")
+private fun createOverrideJsonElement(modelType: ModelType, modelData: Int): OverrideJsonElement {
+    return OverrideJsonElement(CustomModelDataJsonElement(modelData), "item/$modelType/$modelData")
 }
 
 @Serializable

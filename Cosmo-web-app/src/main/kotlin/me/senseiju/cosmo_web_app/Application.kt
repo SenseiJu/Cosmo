@@ -1,6 +1,7 @@
 package me.senseiju.cosmo_web_app
 
 import io.ktor.application.*
+import io.ktor.auth.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
@@ -15,11 +16,23 @@ fun Application.cosmo(testing: Boolean = false) {
         json()
     }
 
-    routing {
-        getResourcePack()
+    install(Authentication) {
+        basic("test") {
+            validate { credentials ->
+                if (credentials.name == credentials.password) {
+                    UserIdPrincipal(credentials.name)
+                } else {
+                    null
+                }
+            }
+        }
     }
 
-
+    routing {
+        authenticate("test") {
+            getResourcePack()
+        }
+    }
 }
 
 fun Route.getResourcePack() {

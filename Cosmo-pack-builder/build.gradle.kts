@@ -1,8 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
-dependencies {
-    compileOnly("org.litote.kmongo:kmongo:4.2.5")
-}
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 tasks {
     "shadowJar"(ShadowJar::class) {
@@ -14,4 +11,11 @@ tasks {
 
         minimize()
     }
+}
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("net.lingala.zip4j:zip4j:2.7.0")
+}
+repositories {
+    mavenCentral()
 }
