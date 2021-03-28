@@ -8,12 +8,10 @@ import me.senseiju.cosmo_pack_builder.json_templates.ItemJsonTemplate
 import me.senseiju.cosmo_pack_builder.json_templates.createModelJson
 import me.senseiju.cosmo_pack_builder.json_templates.createPackMcmetaJson
 import net.lingala.zip4j.ZipFile
-import org.apache.commons.codec.digest.DigestUtils
 import java.io.File
 import java.util.*
 
 const val PACK_TEMP_DIR = "/temp/"
-const val PACK_BASE_DIR = "/assets/minecraft/"
 
 private val models = File("D:\\Intellij Projects\\Cosmo\\Cosmo-pack-builder\\src\\test\\resources\\models")
 
@@ -27,11 +25,11 @@ fun main(args: Array<String>) {
     val modelTypeDataList = if (packId != null) {
         parseModelTypeDataMap(args.copyOfRange(0, args.lastIndex - 1))
     } else {
-        packId = UUID.randomUUID()
+        packId = UUID.randomUUID()!!
         parseModelTypeDataMap(args)
     }
 
-    val pack = File("/temp/$packId/$PACK_BASE_DIR")
+    val pack = File("$PACK_TEMP_DIR/$packId/assets/minecraft/")
     modelTypeDataList.forEach { (modelType, modelDataList) ->
         val modelJson = createModelJson(modelType, modelDataList)
         val modelTypeLower = modelType.toString().toLowerCase()
@@ -44,27 +42,18 @@ fun main(args: Array<String>) {
             itemJson.textures = reformatModelTextures(itemJson.textures ?: emptyMap(), modelType, it)
 
             File(pack, "/models/item/$modelTypeLower").mkdirs()
-            val a = File(pack, "/models/item/$modelTypeLower/$it.json")
-            a.writeText(Json.encodeToString(itemJson))
+            File(pack, "/models/item/$modelTypeLower/$it.json").writeText(Json.encodeToString(itemJson))
         }
 
         File(pack, "/models/item/${modelType.material.toString().toLowerCase()}.json").writeText(Json.encodeToString(modelJson))
 
     }
-    val mcmetaFile = File("/temp/$packId/pack.mcmeta")
-    mcmetaFile.writeText(Json.encodeToString(createPackMcmetaJson()))
+    createMcmeta(packId)
 
-    val zipFile = ZipFile(File("/temp/$packId.zip"))
-    zipFile.addFolder(File("/temp/$packId/assets"))
-    zipFile.addFile(mcmetaFile)
+    createZip(packId)
+    createZipSHA1(packId)
 
-
-    File("/temp/$packId.sha1").writeText(DigestUtils.sha1Hex(File("/temp/$packId.zip").inputStream()))
-    File("/temp/$packId").deleteRecursively()
-}
-
-private fun saveToZip() {
-
+    deleteDir(packId)
 }
 
 private fun parseModelTypeDataMap(args: Array<String>): Map<ModelType, Set<Int>> {
