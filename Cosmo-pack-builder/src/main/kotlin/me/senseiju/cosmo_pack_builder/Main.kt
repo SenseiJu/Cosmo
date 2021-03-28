@@ -13,20 +13,20 @@ import java.util.*
 
 const val PACK_TEMP_DIR = "/temp/"
 
-private val models = File("D:\\Intellij Projects\\Cosmo\\Cosmo-pack-builder\\src\\test\\resources\\models")
-
 fun main(args: Array<String>) {
-    if (args.size < 2) {
+    if (args.size < 3) {
         println("Invalid number of args, use `java -jar cosmo-pack-builder <models-dir> <<modelType> <modelData>... [modelType] [modelData]...>`")
         return
     }
 
+    val models = File(args[0])
+
     var packId = stringToUUID(args.last())
     val modelTypeDataList = if (packId != null) {
-        parseModelTypeDataMap(args.copyOfRange(0, args.lastIndex - 1))
+        parseModelTypeDataMap(args.copyOfRange(1, args.size - 1))
     } else {
         packId = UUID.randomUUID()!!
-        parseModelTypeDataMap(args)
+        parseModelTypeDataMap(args.copyOfRange(1, args.size))
     }
 
     val pack = File("$PACK_TEMP_DIR/$packId/assets/minecraft/")

@@ -9,7 +9,7 @@ import java.io.File
 import java.util.*
 
 fun createMcmeta(packId: UUID) {
-    File("/$PACK_TEMP_DIR/$packId/pack.mcmeta").writeText(Json.encodeToString(createPackMcmetaJson()))
+    File("$PACK_TEMP_DIR/$packId/pack.mcmeta").writeText(Json.encodeToString(createPackMcmetaJson()))
 }
 
 fun deleteDir(packId: UUID) {
