@@ -15,6 +15,7 @@ tasks {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("net.lingala.zip4j:zip4j:2.7.0")
+    implementation("commons-codec:commons-codec:1.9")
 }
 repositories {
     mavenCentral()

@@ -9,7 +9,10 @@ fun createModelJson(modelType: ModelType, modelData: Collection<Int>): ModelJson
 }
 
 private fun createOverrideJsonElement(modelType: ModelType, modelData: Int): OverrideJsonElement {
-    return OverrideJsonElement(CustomModelDataJsonElement(modelData), "item/$modelType/$modelData")
+    return OverrideJsonElement(
+        CustomModelDataJsonElement(modelData),
+        "item/${modelType.toString().toLowerCase()}/$modelData"
+    )
 }
 
 @Serializable
