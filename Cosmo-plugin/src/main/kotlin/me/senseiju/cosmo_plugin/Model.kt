@@ -20,7 +20,7 @@ data class Model(val modelData: Int, val name: String, val author: String, val m
                 .setLore("", "&7Author: $author".color())
                 .build()
         )
-        nbtItem.setInteger("CustomModelData", modelData)
+        nbtItem.setInteger(CUSTOM_MODEL_DATA_TAG, modelData)
         nbtItem.item
     }
 
@@ -29,7 +29,7 @@ data class Model(val modelData: Int, val name: String, val author: String, val m
         new.type = modelType.material
 
         val nbtItem = NBTItem(new)
-        nbtItem.setInteger("CustomModelData", modelData)
+        nbtItem.setInteger(CUSTOM_MODEL_DATA_TAG, modelData)
 
         return nbtItem.item
     }

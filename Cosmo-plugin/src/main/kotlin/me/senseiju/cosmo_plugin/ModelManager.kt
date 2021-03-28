@@ -1,6 +1,5 @@
 package me.senseiju.cosmo_plugin
 
-import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.events.PacketContainer
 import com.comphenix.protocol.wrappers.EnumWrappers
 import com.comphenix.protocol.wrappers.Pair
@@ -22,7 +21,8 @@ import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import org.bukkit.entity.Player
 import java.net.URL
 import java.util.*
-import kotlin.collections.HashMap
+
+const val CUSTOM_MODEL_DATA_TAG = "CustomModelData"
 
 class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
@@ -35,7 +35,6 @@ class ModelManager(private val plugin: Cosmo) {
 
     private val activeModelsFile = RawDataFile(plugin, "activeModels.json")
     private val logger = plugin.slF4JLogger
-    private val protocolManager = ProtocolLibrary.getProtocolManager()
 
     /**
      * Save all players active models
@@ -51,7 +50,6 @@ class ModelManager(private val plugin: Cosmo) {
         playersActiveModels = try {
             Json.decodeFromString<ActivePlayerModels>(activeModelsFile.read()).toTypedMap()
         } catch (ex: Exception) {
-            ex.printStackTrace()
             hashMapOf()
         }
     }
@@ -191,6 +189,10 @@ class ModelManager(private val plugin: Cosmo) {
         handleOnlinePlayers()
     }
 
+    /**
+     * If server/plugin is reloaded with aan external manager, this will re-add all players online back
+     * to the [playersWithPack] list so the plugin still recognises them
+     */
     private fun handleOnlinePlayers() {
         plugin.server.onlinePlayers.forEach {
             if (it.hasResourcePack()) {
