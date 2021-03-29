@@ -4,9 +4,12 @@ import kotlinx.coroutines.launch
 import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
+import me.senseiju.cosmo_plugin.utils.ColorScheme
 import me.senseiju.cosmo_plugin.utils.defaultScope
+import me.senseiju.cosmo_plugin.utils.extensions.color
 import me.senseiju.cosmo_plugin.utils.extensions.defaultGuiTemplate
 import me.senseiju.cosmo_plugin.utils.extensions.defaultPaginatedGuiTemplate
+import me.senseiju.sennetmc.utils.extensions.color
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -18,14 +21,22 @@ private val modelManager = plugin.modelManager
 
 fun openCosmoGui(player: Player) {
     defaultScope.launch {
-        val gui = defaultGuiTemplate(3, "Cosmo")
+        val gui = defaultGuiTemplate(3, "${ColorScheme.PRIMARY}&lCosmo")
+
+        val modelLore = listOf(
+            "",
+            "&aLeft-click &7to select a different model",
+            "&aRight-click &7to remove your current model"
+        )
 
         val helmetGuiItem = ItemBuilder
             .from(getPlayersActiveModelAsItem(player, ModelType.HAT))
-            .setName("Hats")
+            .setName("${ColorScheme.SECONDARY}Hats".color())
+            .setLore(modelLore.color())
             .asGuiItem {
                 if (it.isRightClick) {
                     modelManager.setActiveModel(player.uniqueId, ModelType.HAT, null)
+                    openCosmoGui(player)
                     return@asGuiItem
                 }
 
@@ -39,11 +50,11 @@ fun openCosmoGui(player: Player) {
 }
 
 private fun getPlayersActiveModelAsItem(player: Player, modelType: ModelType): ItemStack {
-    return modelManager.getPlayersActiveModel(player, modelType)?.item ?: ItemStack(Material.BARRIER)
+    return modelManager.getPlayersActiveModel(player, modelType)?.item?.clone() ?: ItemStack(Material.BARRIER)
 }
 
 private fun openSelectActiveModelGui(player: Player, modelType: ModelType) {
-    val gui = defaultPaginatedGuiTemplate(6, 45, "Select model")
+    val gui = defaultPaginatedGuiTemplate(6, 45, "${ColorScheme.PRIMARY}&lSelect model")
 
     gui.setCloseGuiAction {
         openCosmoGui(player)

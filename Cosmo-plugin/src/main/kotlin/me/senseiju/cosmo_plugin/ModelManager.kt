@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.commands.CosmoCommand
 import me.senseiju.cosmo_plugin.listeners.PlayerListeners
@@ -18,6 +19,7 @@ import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.net.URL
 import java.util.*
@@ -33,7 +35,7 @@ class ModelManager(private val plugin: Cosmo) {
 
     private lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
 
-    private val activeModelsFile = RawDataFile(plugin, "activeModels.json")
+    private val activeModelsFile = RawDataFile(plugin, "active-models.json")
     private val logger = plugin.slF4JLogger
 
     /**
@@ -43,6 +45,10 @@ class ModelManager(private val plugin: Cosmo) {
         activeModelsFile.write(Json.encodeToString(ActivePlayerModels(playersActiveModels)))
     }
 
+    fun arePlayersActiveModelsInitialised(): Boolean {
+        return this::playersActiveModels.isInitialized
+    }
+
     /**
      * Load all players active models
      */
@@ -50,7 +56,7 @@ class ModelManager(private val plugin: Cosmo) {
         playersActiveModels = try {
             Json.decodeFromString<ActivePlayerModels>(activeModelsFile.read()).toTypedMap()
         } catch (ex: Exception) {
-            hashMapOf()
+            HashMap()
         }
     }
 

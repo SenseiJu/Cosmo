@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import kotlinx.coroutines.launch
 import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.utils.defaultScope
+import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -33,7 +34,7 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
     }
 
     @EventHandler
-    private fun onPlayerMove(e: PlayerChangedWorldEvent) {
+    private fun onWorldChange(e: PlayerChangedWorldEvent) {
         modelManager.updateModelsToActivePlayers(e.player)
     }
 
@@ -45,6 +46,7 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
             }
 
             if (e.newItem?.type == Material.AIR) {
+                e.player.updateInventory()
                 return@launch
             }
 

@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
-import me.senseiju.sennetmc.utils.extensions.color
+import me.senseiju.cosmo_plugin.utils.ColorScheme
+import me.senseiju.cosmo_plugin.utils.extensions.color
 import org.bukkit.inventory.ItemStack
 
 @Serializable
@@ -16,7 +17,7 @@ data class Model(val modelData: Int, val name: String, val author: String, val m
         val nbtItem = NBTItem(
             ItemBuilder
                 .from(modelType.material)
-                .setName(name)
+                .setName("${ColorScheme.SECONDARY}$name".color())
                 .setLore("", "&7Author: $author".color())
                 .build()
         )

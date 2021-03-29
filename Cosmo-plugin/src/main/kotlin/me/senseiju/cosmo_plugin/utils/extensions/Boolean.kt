@@ -1,5 +1,7 @@
 package me.senseiju.sennetmc.utils.extensions
 
+import me.senseiju.cosmo_plugin.utils.extensions.color
+
 val Boolean.int
     get() = if (this) 1 else 0
 
