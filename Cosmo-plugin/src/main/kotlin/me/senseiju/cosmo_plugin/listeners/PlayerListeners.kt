@@ -14,8 +14,8 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
     @EventHandler
     private fun onPlayerJoin(e: PlayerJoinEvent) {
         e.player.setResourcePack(
-            "http://86.172.51.14:8080/${modelManager.resourcePackUUID}?dl=1",
-            modelManager.resourcePackSHA1Digest)
+            "http://cosmo.senseiju.me:8080/${modelManager.packId}?type=zip",
+            modelManager.packSha1)
     }
 
     @EventHandler

@@ -27,8 +27,8 @@ const val CUSTOM_MODEL_DATA_TAG = "CustomModelData"
 class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
     val playersWithPack = hashSetOf<Player>()
-    val resourcePackUUID = plugin.configFile.config.getString("resource-pack-uuid", null)
-    var resourcePackSHA1Digest = ""
+    val packId = plugin.configFile.config.getString("resource-pack-uuid", null)
+    var packSha1 = ""
         private set
 
     private lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
@@ -119,16 +119,16 @@ class ModelManager(private val plugin: Cosmo) {
      */
     fun requestModelsJson(): Boolean {
         try {
-            Json.decodeFromString<List<Model>>(URL("http://cosmo.senseiju.me:8080/$resourcePackUUID").readText())
+            Json.decodeFromString<List<Model>>(URL("http://cosmo.senseiju.me:8080/$packId?type=json").readText())
                 .forEach {
                     models.computeIfAbsent(it.modelType) {
                         hashMapOf()
                     }[it.modelData] = it
                 }
 
-            resourcePackSHA1Digest = URL("http://cosmo.senseiju.me:8080/${resourcePackUUID}?digest=1").readText()
+            packSha1 = URL("http://cosmo.senseiju.me:8080/$packId?type=sha1").readText()
         } catch (e: Exception) {
-            logger.error("Failed to find a valid resource pack with UUID: $resourcePackUUID")
+            logger.error("Failed to find a valid resource pack with UUID: $packId")
             return false
         }
 
