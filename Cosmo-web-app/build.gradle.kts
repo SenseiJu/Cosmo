@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val ktorVersion = "1.5.2"
 
@@ -15,19 +14,20 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("software.amazon.awssdk:cognitoidentityprovider:2.16.30")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks {
-    "jar"(Jar::class) {
+    withType(Jar::class) {
         manifest {
             attributes["Main-Class"] = "me.senseiju.cosmo_web_app.MainKt"
         }
     }
 
-    "shadowJar"(ShadowJar::class) {
+    withType(ShadowJar::class) {
         archiveFileName.set("Cosmo-web-app.jar")
 
         manifest {
@@ -36,12 +36,11 @@ tasks {
 
         minimize()
     }
-}
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+
+    withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java) {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+
+    }
 }

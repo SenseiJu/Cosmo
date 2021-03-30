@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 tasks {
-    "shadowJar"(ShadowJar::class) {
+    withType(ShadowJar::class) {
         archiveFileName.set("Cosmo-pack-builder.jar")
 
         manifest {
