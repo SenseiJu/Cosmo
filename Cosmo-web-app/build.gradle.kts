@@ -13,8 +13,9 @@ dependencies {
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-sessions:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("software.amazon.awssdk:cognitoidentityprovider:2.16.30")
+    implementation("org.apache.httpcomponents:httpclient:4.5.13")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     implementation(kotlin("stdlib-jdk8"))
