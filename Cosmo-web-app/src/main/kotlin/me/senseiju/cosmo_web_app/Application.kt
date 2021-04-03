@@ -14,7 +14,12 @@ import io.ktor.serialization.*
 import io.ktor.sessions.*
 import me.senseiju.cosmo_web_app.data_storage.select
 import me.senseiju.cosmo_web_app.discord_api.*
+import me.senseiju.cosmo_web_app.discord_api.requests.exchangeCodeForAccessToken
+import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.routes.api
+import me.senseiju.cosmo_web_app.routes.authenticate
+import me.senseiju.cosmo_web_app.routes.logout
+import me.senseiju.cosmo_web_app.routes.assets
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import me.senseiju.cosmo_web_app.templates.ModelPageTemplate
 import java.io.File
@@ -37,20 +42,16 @@ fun Application.cosmo(testing: Boolean = false) {
     }
 
     routing {
+        authenticate()
+        logout()
+        assets()
         api()
         getResourcePack()
         loggedIn()
-        css()
     }
 }
 
 fun Route.loggedIn() {
-    route("/auth") {
-        handle {
-            call.respondRedirect("https://discord.com/api/oauth2/authorize?client_id=827167286104293407&redirect_uri=http%3A%2F%2Fcosmo.senseiju.me%3A8080%2Fhome&response_type=code&scope=identify")
-        }
-    }
-
     route("/home") {
         handle {
             val code = try {
@@ -83,16 +84,6 @@ fun Route.loggedIn() {
 
             }
         }
-    }
-}
-
-fun Route.css() {
-    static("css") {
-        resources("css")
-    }
-
-    static("js") {
-        resources("js")
     }
 }
 

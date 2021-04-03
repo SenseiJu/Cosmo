@@ -1,4 +1,4 @@
-package me.senseiju.cosmo_web_app.discord_api
+package me.senseiju.cosmo_web_app.discord_api.responses
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

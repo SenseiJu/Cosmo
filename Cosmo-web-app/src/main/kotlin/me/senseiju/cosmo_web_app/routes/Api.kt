@@ -7,14 +7,12 @@ import io.ktor.routing.*
 import io.ktor.sessions.*
 import io.ktor.util.*
 import me.senseiju.cosmo_commons.ModelType
-import me.senseiju.cosmo_web_app.Endpoint
 import me.senseiju.cosmo_web_app.data_storage.deleteModelsFromResourcePack
 import me.senseiju.cosmo_web_app.data_storage.isUserPackOwner
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelDataType
-import me.senseiju.cosmo_web_app.discord_api.getDiscordUser
+import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import java.util.*
-import kotlin.reflect.KType
 
 fun Route.api() {
     route("/api") {

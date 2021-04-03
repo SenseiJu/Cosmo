@@ -1,24 +1,26 @@
-package me.senseiju.cosmo_web_app.discord_api
+package me.senseiju.cosmo_web_app.discord_api.requests
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import me.senseiju.cosmo_web_app.DISCORD_CLIENT_ID
 import me.senseiju.cosmo_web_app.DISCORD_CLIENT_SECRET
+import me.senseiju.cosmo_web_app.discord_api.DiscordEndpoint
+import me.senseiju.cosmo_web_app.discord_api.responses.DiscordAccessTokenResponse
 import org.apache.http.client.entity.UrlEncodedFormEntity
-import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.util.EntityUtils
 
-private const val BOT_TOKEN = "ODI3MTY3Mjg2MTA0MjkzNDA3.YGXFkQ.nokrzV4AfhlQddZoMEDFImaDlFk"
-private const val API_ENDPOINT = "https://discord.com/api"
-private const val TOKEN_ENDPOINT = "$API_ENDPOINT/oauth2/token"
-private const val USERS_ENDPOINT = "$API_ENDPOINT/users"
-
+/**
+ * Exchanges an auth code for access token
+ *
+ * @param code the code
+ * @return the token response
+ */
 fun exchangeCodeForAccessToken(code: String): DiscordAccessTokenResponse {
     val client = HttpClients.createDefault()
-    val request = HttpPost(TOKEN_ENDPOINT)
+    val request = HttpPost("${DiscordEndpoint.TOKEN}")
     val data = listOf(
         BasicNameValuePair("client_id", DISCORD_CLIENT_ID),
         BasicNameValuePair("client_secret", DISCORD_CLIENT_SECRET),
@@ -33,18 +35,12 @@ fun exchangeCodeForAccessToken(code: String): DiscordAccessTokenResponse {
     return Json.decodeFromString(EntityUtils.toString(client.execute(request).entity))
 }
 
-fun getDiscordUser(accessToken: String): DiscordUserResponse {
+fun revokeAccessToken(accessToken: String) {
     val client = HttpClients.createDefault()
-    val request = HttpGet("$USERS_ENDPOINT/@me")
-    request.setHeader("Authorization", "Bearer $accessToken")
+    val request = HttpPost("${DiscordEndpoint.TOKEN}/revoke")
+    val data = listOf(BasicNameValuePair("client_id", DISCORD_CLIENT_ID))
+    request.entity = UrlEncodedFormEntity(data)
+    request.setHeader("Content-Type", "application/x-www-form-urlencoded")
 
-    return Json {ignoreUnknownKeys = true}.decodeFromString(EntityUtils.toString(client.execute(request).entity))
-}
-
-fun getDiscordUserById(userId: String): DiscordUserResponse {
-    val client = HttpClients.createDefault()
-    val request = HttpGet("$USERS_ENDPOINT/$userId")
-    request.setHeader("Authorization", "Bot $BOT_TOKEN")
-
-    return Json {ignoreUnknownKeys = true}.decodeFromString(EntityUtils.toString(client.execute(request).entity))
+    client.execute(request)
 }
