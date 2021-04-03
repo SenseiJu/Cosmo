@@ -1,0 +1,83 @@
+.model {
+  list-style-type: none;
+  padding: 0;
+}
+.model li {
+  background-color: #343437;
+  padding: 0 1.5%;
+  border: white solid 1px;
+  border-radius: 20px;
+  float: left;
+  width: 20%;
+  margin: 2.5%;
+}
+.model p {
+  color: white;
+}
+.model .top {
+  display: flex;
+  align-items: center;
+}
+.model .top h1 {
+  flex: 1;
+  color: #c64fbd;
+}
+.model .top i:hover {
+  cursor: pointer;
+}
+.model .top .options {
+  display: inline-block;
+  position: relative;
+}
+.model .top .options:hover .options-content {
+  display: block;
+}
+.model .top .options-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+.model .top .options-content button {
+  box-shadow: none;
+  border: black solid 1px;
+  background-color: white;
+  color: red;
+  width: 100px;
+  padding: 5%;
+  font-weight: bold;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+.model .top .options-content button:hover {
+  background-color: red;
+  color: white;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+.gg-more-vertical-r {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 1));
+  width: 20px;
+  height: 24px;
+  border: 2px solid;
+  border-radius: 3px;
+  color: white;
+}
+.gg-more-vertical-r::before {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 20px;
+  top: 8px;
+  left: 6px;
+  box-shadow: 0 -5px 0, 0 5px 0;
+}
+body {
+  background-color: #131417;
+}
