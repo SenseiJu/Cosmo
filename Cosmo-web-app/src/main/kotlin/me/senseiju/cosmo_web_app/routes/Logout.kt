@@ -4,7 +4,7 @@ import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
-import me.senseiju.cosmo_web_app.Endpoint
+import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.discord_api.requests.revokeAccessToken
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 
@@ -13,14 +13,14 @@ fun Route.logout() {
         handle {
             val loginSession = call.sessions.get<LoginSession>()
             if (loginSession == null) {
-                call.respondRedirect("${Endpoint.INDEX}")
+                call.respondRedirect("${AppPath.INDEX}")
                 return@handle
             }
 
             revokeAccessToken(loginSession.accessToken)
 
             call.sessions.clear<LoginSession>()
-            call.respondRedirect("${Endpoint.INDEX}")
+            call.respondRedirect("${AppPath.INDEX}")
         }
     }
 }

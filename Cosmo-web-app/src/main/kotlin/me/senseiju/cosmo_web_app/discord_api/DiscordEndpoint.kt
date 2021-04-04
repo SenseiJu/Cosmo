@@ -4,7 +4,7 @@ private const val API_ENDPOINT = "https://discord.com/api"
 
 enum class DiscordEndpoint(private val url: String) {
     USERS("users"),
-    TOKEN("token");
+    TOKEN("oauth2/token");
 
     override fun toString(): String {
         return "$API_ENDPOINT/$url"

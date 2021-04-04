@@ -12,16 +12,10 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.sessions.*
-import me.senseiju.cosmo_web_app.data_storage.select
 import me.senseiju.cosmo_web_app.discord_api.*
 import me.senseiju.cosmo_web_app.discord_api.requests.exchangeCodeForAccessToken
-import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
-import me.senseiju.cosmo_web_app.routes.api
-import me.senseiju.cosmo_web_app.routes.authenticate
-import me.senseiju.cosmo_web_app.routes.logout
-import me.senseiju.cosmo_web_app.routes.assets
+import me.senseiju.cosmo_web_app.routes.*
 import me.senseiju.cosmo_web_app.sessions.LoginSession
-import me.senseiju.cosmo_web_app.templates.ModelPageTemplate
 import java.io.File
 import java.util.*
 
@@ -42,48 +36,15 @@ fun Application.cosmo(testing: Boolean = false) {
     }
 
     routing {
+        assets()
+
         authenticate()
         logout()
-        assets()
+
+        index()
         api()
+        packs()
         getResourcePack()
-        loggedIn()
-    }
-}
-
-fun Route.loggedIn() {
-    route("/home") {
-        handle {
-            val code = try {
-                call.parameters["code"] ?: throw java.lang.Exception()
-            } catch (e: Exception) {
-                call.respondText("Bad code supplied", status = HttpStatusCode.BadRequest)
-                return@handle
-            }
-
-            val discordAccessTokenResponse = exchangeCodeForAccessToken(code)
-
-            call.sessions.set(LoginSession(discordAccessTokenResponse.accessToken))
-
-            call.respondText {
-                "Logged in successfully with token, ${discordAccessTokenResponse.accessToken}"
-            }
-        }
-    }
-
-    route("/away") {
-        handle {
-            val loginSession = call.sessions.get<LoginSession>()
-
-            if (loginSession == null) {
-                call.respondRedirect("http://cosmo.senseiju.me:8080/auth")
-                return@handle
-            }
-
-            call.respondHtmlTemplate(ModelPageTemplate(loginSession.accessToken, select())) {
-
-            }
-        }
     }
 }
 
@@ -96,8 +57,6 @@ fun Route.getResourcePack() {
                 call.respondRedirect("http://cosmo.senseiju.me:8080/auth")
                 return@get
             }
-
-            println(getDiscordUser(loginSession.accessToken))
 
             val packId = try {
                 UUID.fromString(call.parameters["packId"])
@@ -127,6 +86,7 @@ fun Route.getResourcePack() {
         }
     }
 }
+
 
 private suspend fun sendPackZip(call: ApplicationCall, packZip: File) {
     call.response.header(

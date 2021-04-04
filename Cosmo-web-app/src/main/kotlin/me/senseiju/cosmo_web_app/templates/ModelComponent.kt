@@ -2,7 +2,9 @@ package me.senseiju.cosmo_web_app.templates
 
 import io.ktor.html.*
 import kotlinx.html.*
-import me.senseiju.cosmo_web_app.discord_api.getDiscordUserById
+import me.senseiju.cosmo_web_app.data_storage.selectModelsFromResourcePackJoinedWithModels
+import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
+import java.util.*
 import javax.sql.rowset.CachedRowSet
 
 class ModelComponent(private val modelResults: CachedRowSet): Template<FlowContent> {
@@ -12,14 +14,15 @@ class ModelComponent(private val modelResults: CachedRowSet): Template<FlowConte
                 li {
                     div(classes = "top") {
                         h1 {
-                            +modelResults.getString("name")
+                            + modelResults.getString("name")
                         }
 
                         options(modelResults)
                     }
 
                     p {
-                        + "Author: ${getDiscordUserById(modelResults.getString("user_id")).username}"
+                        + "Author: <PLACEHOLDER>"
+                        //+ "Author: ${getDiscordUserById(modelResults.getString("user_id")).username}"
                     }
                 }
             }
@@ -40,15 +43,15 @@ private fun FlowContent.options(modelResults: CachedRowSet) {
 
 @HtmlTagMarker
 private fun FlowContent.removeButton(modelResults: CachedRowSet) {
+    val modelData = modelResults.getString("model_data")
+    val modelType = modelResults.getString("model_type")
+
     button {
         onClick = """
             sendDeleteModelFromPackRequest(
-            '${modelResults.getString("model_data")}', 
-            '${modelResults.getString("model_type")}')
+            '$modelData', 
+            '$modelType')
             """.trimIndent()
-
-        attributes["model_data"] = modelResults.getString("model_data")
-        attributes["model_type"] = modelResults.getString("model_type")
 
         + "Remove"
     }

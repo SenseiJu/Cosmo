@@ -5,14 +5,13 @@ import kotlinx.html.*
 import javax.sql.rowset.CachedRowSet
 import kotlin.random.Random
 
-class ModelPageTemplate(private val accessToken: String, private val modelResults: CachedRowSet): Template<HTML> {
+class ResourcePackModelsPage(private val modelResults: CachedRowSet): Template<HTML> {
     override fun HTML.apply() {
-        head {
-            script(src = "js/scripts.js") {}
-            link(rel = "stylesheet", href = "css/styles.css?v=${Random.nextInt()}", type = "text/css")
-        }
+        insert(HTMLHeadTemplate(), TemplatePlaceholder())
 
         body {
+            id = "resource-pack-models-page"
+
             insert(ModelComponent(modelResults), TemplatePlaceholder())
         }
     }

@@ -82,11 +82,28 @@ fun insertModel(modelDataType: ModelDataType, name: String, userId: String) {
     }
 }
 
-
-suspend fun select(): CachedRowSet {
-    return db.asyncQuery("SELECT * FROM `${Table.MODELS}`;")
+/**
+ * Selects all models from the resource pack
+ *
+ * @param packId the pack id
+ * @return the models results set [`model_data` `model_type` `name` `user_id`]
+ */
+suspend fun selectModelsFromResourcePackJoinedWithModels(packId: UUID): CachedRowSet {
+    val query = "SELECT `${Table.RESOURCE_PACK_MODELS}`.`model_data`, `${Table.RESOURCE_PACK_MODELS}`.`model_type`, `${Table.MODELS}`.`name`, `${Table.MODELS}`.`user_id` " +
+            "FROM `${Table.RESOURCE_PACK_MODELS}` " +
+            "LEFT JOIN `${Table.MODELS}` ON `${Table.MODELS}`.`model_data` = `${Table.RESOURCE_PACK_MODELS}`.`model_data` " +
+            "AND `${Table.MODELS}`.`model_type` = `${Table.RESOURCE_PACK_MODELS}`.`model_type` " +
+            "WHERE `${Table.RESOURCE_PACK_MODELS}`.`pack_id`=?;"
+    return db.asyncQuery(query, packId.toString())
 }
 
+/**
+ * Checks if user owns a pack
+ *
+ * @param packId the pack id
+ * @param userId the user id
+ * @return if owned
+ */
 suspend fun isUserPackOwner(packId: UUID, userId: String): Boolean {
     val query = "SELECT `user_id` FROM `${Table.RESOURCE_PACKS}` WHERE `pack_id`=?;"
     val results = db.asyncQuery(query, packId.toString())

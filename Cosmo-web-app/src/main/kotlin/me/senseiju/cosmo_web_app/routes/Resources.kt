@@ -11,4 +11,8 @@ fun Route.assets() {
     static("js") {
         resources("js")
     }
+
+    static("img") {
+        resources("img")
+    }
 }
