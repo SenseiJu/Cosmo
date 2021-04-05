@@ -26,7 +26,7 @@ fun exchangeCodeForAccessToken(code: String): DiscordAccessTokenResponse {
         BasicNameValuePair("client_secret", DISCORD_CLIENT_SECRET),
         BasicNameValuePair("grant_type", "authorization_code"),
         BasicNameValuePair("code", code),
-        BasicNameValuePair("redirect_uri", "http://cosmo.senseiju.me:8080/home"),
+        BasicNameValuePair("redirect_uri", "http://cosmo.senseiju.me:8080/auth"),
         BasicNameValuePair("scope", "identify email")
     )
     request.entity = UrlEncodedFormEntity(data)

@@ -1,7 +1,31 @@
+@import "header";
 @import "resource-pack-models";
 @import "index";
 @import "verticle-alt";
+@import "colors";
 
-body {
+html {
   font-family: "Courier New", monospace;
+  font-weight: bold;
+}
+
+.title {
+  margin: 0;
+  font-size: 70px;
+  color: @primary-color;
+  font-weight: bold;
+  letter-spacing: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.no-transition-on-load * {
+  transition: none !important;
 }

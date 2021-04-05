@@ -30,7 +30,6 @@ class ModelComponent(private val modelResults: CachedRowSet): Template<FlowConte
     }
 }
 
-@HtmlTagMarker
 private fun FlowContent.options(modelResults: CachedRowSet) {
     div(classes = "options") {
         i(classes = "gg-more-vertical-r")
@@ -41,7 +40,6 @@ private fun FlowContent.options(modelResults: CachedRowSet) {
     }
 }
 
-@HtmlTagMarker
 private fun FlowContent.removeButton(modelResults: CachedRowSet) {
     val modelData = modelResults.getString("model_data")
     val modelType = modelResults.getString("model_type")

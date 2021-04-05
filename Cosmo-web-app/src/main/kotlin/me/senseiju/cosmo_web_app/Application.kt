@@ -42,6 +42,8 @@ fun Application.cosmo(testing: Boolean = false) {
         logout()
 
         index()
+        home()
+
         api()
         packs()
         getResourcePack()

@@ -1,3 +1,79 @@
+header {
+  display: flex;
+  align-items: center;
+  margin: 0 10%;
+  flex-direction: row;
+}
+header * {
+  flex: 1;
+}
+header .title {
+  flex-grow: 0.4;
+}
+header .page-options a {
+  color: white;
+  margin-right: 10%;
+  font-weight: bold;
+}
+header .page-options a:before {
+  content: "|";
+  margin-right: 1%;
+}
+header .page-options a:hover {
+  color: #c64fbd;
+}
+header .user-options {
+  flex-grow: 0;
+  cursor: pointer;
+}
+header .user-options:hover .user-options-content {
+  display: block;
+}
+header .user-options .user-options-button {
+  display: flex;
+  align-items: center;
+}
+header .user-options .user-options-button .dropdown-arrow {
+  color: gray;
+  content: "";
+  border-top-style: solid;
+  border-top-width: 10px;
+  border-right: 7px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 7px solid transparent;
+}
+header .user-options .user-options-button img {
+  margin-left: 10%;
+  border: #41444e solid 2px;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+}
+header .user-options .user-options-content {
+  float: right;
+  right: 10%;
+  display: none;
+  border-radius: 20px;
+  background-color: #21262d;
+  border: #41444e solid 1px;
+  position: absolute;
+  padding: 1% 0;
+  width: 250px;
+}
+header .user-options .user-options-content .spacer {
+  height: 1px;
+  background: #41444e;
+  margin: 10px 0;
+}
+header .user-options .user-options-content a {
+  display: block;
+  padding: 0 5%;
+  color: white;
+  text-decoration: none;
+}
+header .user-options .user-options-content a:nth-child(n + 2):hover {
+  background: #0087b0;
+}
 .model {
   list-style-type: none;
   padding: 0;
@@ -128,9 +204,6 @@ html {
   -webkit-background-clip: text;
   fill: transparent;
 }
-#title a .no-transition-on-load * {
-  transition: none !important;
-}
 #title a div {
   padding: 0 2%;
   margin: 2% auto;
@@ -189,6 +262,24 @@ html {
   left: 6px;
   box-shadow: 0 -5px 0, 0 5px 0;
 }
-body {
+html {
   font-family: "Courier New", monospace;
+  font-weight: bold;
+}
+.title {
+  margin: 0;
+  font-size: 70px;
+  color: #c64fbd;
+  font-weight: bold;
+  letter-spacing: 10px;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+.no-transition-on-load * {
+  transition: none !important;
 }

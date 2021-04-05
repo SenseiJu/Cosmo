@@ -1,7 +1,9 @@
 const url = "http://cosmo.senseiju.me:8080/api"
 
 window.addEventListener('load', function () {
-    document.body.classList.remove("no-transition-on-load")
+    setTimeout(function () {
+        document.body.classList.remove("no-transition-on-load")
+    }, 1)
 })
 
 function sendDeleteModelFromPackRequest(packId, modelData, modelType) {
@@ -10,8 +12,4 @@ function sendDeleteModelFromPackRequest(packId, modelData, modelType) {
     request.send()
 
     window.location.href = "http://cosmo.senseiju.me:8080/away"
-}
-
-window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
 }

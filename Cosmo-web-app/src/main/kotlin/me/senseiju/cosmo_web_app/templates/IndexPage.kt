@@ -2,12 +2,13 @@ package me.senseiju.cosmo_web_app.templates
 
 import io.ktor.html.*
 import kotlinx.html.*
+import me.senseiju.cosmo_web_app.templates.common_components.HTMLHeadComponent
 
 class IndexPage: Template<HTML> {
     override fun HTML.apply() {
-        insert(HTMLHeadTemplate(), TemplatePlaceholder())
+        insert(HTMLHeadComponent(), TemplatePlaceholder())
 
-        body {
+        body(classes = "no-transition-on-load") {
             stars()
 
             div {
@@ -41,7 +42,7 @@ private fun FlowContent.discordButton() {
     a {
         href = "/auth"
 
-        div(classes = "no-transition-on-load") {
+        div {
             img("discord-logo", "/img/discord.png")
             p {
                 + "Login with discord"
