@@ -13,8 +13,8 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.sessions.*
 import me.senseiju.cosmo_web_app.discord_api.*
-import me.senseiju.cosmo_web_app.discord_api.requests.exchangeCodeForAccessToken
 import me.senseiju.cosmo_web_app.routes.*
+import me.senseiju.cosmo_web_app.routes.api.api
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import java.io.File
 import java.util.*

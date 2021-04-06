@@ -59,7 +59,7 @@ fun Route.packs() {
 
             val modelResults = selectModelsFromResourcePackJoinedWithModels(packId)
 
-            call.respondHtmlTemplate(PackModelsPage(user, modelResults)) {}
+            call.respondHtmlTemplate(PackModelsPage(user, packId, modelResults)) {}
         }
     }
 }

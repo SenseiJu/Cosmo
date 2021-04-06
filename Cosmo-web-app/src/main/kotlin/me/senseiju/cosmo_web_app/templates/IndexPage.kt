@@ -6,6 +6,8 @@ import me.senseiju.cosmo_web_app.templates.common_components.HTMLHeadComponent
 
 class IndexPage: Template<HTML> {
     override fun HTML.apply() {
+        id = "index"
+
         insert(HTMLHeadComponent(), TemplatePlaceholder())
 
         body(classes = "no-transition-on-load") {

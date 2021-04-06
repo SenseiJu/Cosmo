@@ -4,7 +4,6 @@ val ktorVersion = "1.5.2"
 
 repositories {
     maven("https://kotlin.bintray.com/ktor")
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
     jcenter()
     mavenCentral()
 }

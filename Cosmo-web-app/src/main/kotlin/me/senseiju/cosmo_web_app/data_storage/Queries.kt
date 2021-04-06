@@ -31,7 +31,7 @@ fun insertModelToResourcePack(packId: UUID, modelDataType: ModelDataType) {
  */
 fun deleteModelsFromResourcePack(packId: UUID, vararg modelDataTypes: ModelDataType) {
     defaultScope.launch {
-        val query = "DELETE FROM `${Table.RESOURCE_PACK_MODELS}` WHERE `pack_id`=?, `model_data`=?, `model_type`=?;"
+        val query = "DELETE FROM `${Table.RESOURCE_PACK_MODELS}` WHERE `pack_id`=? AND `model_data`=? AND `model_type`=?;"
         val replacements = modelDataTypes.map {
             Replacement(packId.toString(), it.modelData, it.modelType.toString())
         }.toTypedArray()

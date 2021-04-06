@@ -5,10 +5,12 @@ import kotlinx.html.*
 import me.senseiju.cosmo_web_app.discord_api.responses.DiscordUserResponse
 import me.senseiju.cosmo_web_app.templates.common_components.HTMLHeadComponent
 import me.senseiju.cosmo_web_app.templates.common_components.HeaderComponent
+import java.util.*
 import javax.sql.rowset.CachedRowSet
 
 class PackModelsPage(
     private val user: DiscordUserResponse,
+    private val packId: UUID,
     private val modelResults: CachedRowSet
     )
     : Template<HTML>
@@ -21,7 +23,7 @@ class PackModelsPage(
 
             insert(HeaderComponent(user), TemplatePlaceholder())
 
-            insert(ModelComponent(modelResults), TemplatePlaceholder())
+            insert(ModelComponent(packId, modelResults), TemplatePlaceholder())
         }
     }
 }

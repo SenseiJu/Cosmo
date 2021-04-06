@@ -1,11 +1,8 @@
-package me.senseiju.cosmo_web_app.routes
+package me.senseiju.cosmo_web_app.routes.api
 
 import io.ktor.application.*
-import io.ktor.request.*
-import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
-import io.ktor.util.*
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_web_app.data_storage.deleteModelsFromResourcePack
 import me.senseiju.cosmo_web_app.data_storage.isUserPackOwner
@@ -14,9 +11,13 @@ import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import java.util.*
 
-fun Route.api() {
-    route("/api") {
+fun Route.apiPacks() {
+    route("/packs") {
         delete {
+
+        }
+
+        delete("/models") {
             val loginSession = call.sessions.get<LoginSession>() ?: return@delete
 
             val user = getDiscordUser(loginSession.accessToken)
@@ -30,13 +31,13 @@ fun Route.api() {
                 return@delete
             }
 
-            val modelData = call.parameters["model_data"]?.toIntOrNull() ?: return@delete
-
-            val modelType = ModelType.parse(call.parameters["model_type"] ?: "") ?: return@delete
-
             if (!isUserPackOwner(packId, user.id)) {
                 return@delete
             }
+
+            val modelData = call.parameters["model_data"]?.toIntOrNull() ?: return@delete
+
+            val modelType = ModelType.parse(call.parameters["model_type"] ?: "") ?: return@delete
 
             deleteModelsFromResourcePack(packId, ModelDataType(modelData, modelType))
         }
