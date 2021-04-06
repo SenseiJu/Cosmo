@@ -7,7 +7,7 @@ import me.senseiju.cosmo_web_app.templates.common_components.HTMLHeadComponent
 import me.senseiju.cosmo_web_app.templates.common_components.HeaderComponent
 import javax.sql.rowset.CachedRowSet
 
-class ResourcePackModelsPage(
+class PackModelsPage(
     private val user: DiscordUserResponse,
     private val modelResults: CachedRowSet
     )

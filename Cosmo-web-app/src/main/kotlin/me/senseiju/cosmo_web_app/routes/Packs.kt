@@ -10,7 +10,8 @@ import me.senseiju.cosmo_web_app.data_storage.isUserPackOwner
 import me.senseiju.cosmo_web_app.data_storage.selectModelsFromResourcePackJoinedWithModels
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
-import me.senseiju.cosmo_web_app.templates.ResourcePackModelsPage
+import me.senseiju.cosmo_web_app.templates.PackModelsPage
+import me.senseiju.cosmo_web_app.templates.PacksPage
 import java.util.*
 
 fun Route.packs() {
@@ -22,7 +23,13 @@ fun Route.packs() {
                 return@handle
             }
 
-            // Respond with list of packs
+            val user = getDiscordUser(loginSession.accessToken)
+            if (user.id == null) {
+                call.respondRedirect("${AppPath.AUTH}")
+                return@handle
+            }
+
+            call.respondHtmlTemplate(PacksPage(user)) {}
         }
 
         get("{packId}") {
@@ -52,7 +59,7 @@ fun Route.packs() {
 
             val modelResults = selectModelsFromResourcePackJoinedWithModels(packId)
 
-            call.respondHtmlTemplate(ResourcePackModelsPage(user, modelResults)) {}
+            call.respondHtmlTemplate(PackModelsPage(user, modelResults)) {}
         }
     }
 }

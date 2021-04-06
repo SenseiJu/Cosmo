@@ -40,8 +40,12 @@ fun getDiscordUserById(userId: String): DiscordUserResponse {
     return Json {ignoreUnknownKeys = true}.decodeFromString(EntityUtils.toString(client.execute(request).entity))
 }
 
+/**
+ * Gets a user avatar
+ *
+ * @param user the user
+ * @return the image URL
+ */
 fun getDiscordUserAvatar(user: DiscordUserResponse): String {
-    println("${DiscordEndpoint.AVATARS}/${user.id}/${user.avatar}.png")
-
     return "${DiscordEndpoint.AVATARS}/${user.id}/${user.avatar}.png"
 }

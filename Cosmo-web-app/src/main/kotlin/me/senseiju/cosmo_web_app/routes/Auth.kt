@@ -25,7 +25,7 @@ fun Route.authenticate() {
 
             call.sessions.set(LoginSession(discordAccessTokenResponse.accessToken))
 
-            call.respondRedirect("${AppPath.HOME}")
+            call.respondRedirect("${AppPath.PACKS}")
         }
     }
 }

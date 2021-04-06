@@ -131,11 +131,6 @@ header .user-options .user-options-content a:nth-child(n + 2):hover {
   transition-duration: 0.3s;
   cursor: pointer;
 }
-html {
-  height: 100%;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  overflow: hidden;
-}
 #stars1 {
   width: 1px;
   height: 1px;
@@ -265,6 +260,9 @@ html {
 html {
   font-family: "Courier New", monospace;
   font-weight: bold;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden;
 }
 .title {
   margin: 0;

@@ -1,8 +1,4 @@
-html {
-  height: 100%;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  overflow: hidden;
-}
+@import "colors";
 
 #stars1 {
   width: 1px;
@@ -60,7 +56,7 @@ html {
   top: 40%;
   left: 0;
   right: 0;
-  color: #c64fbd;
+  color: @primary-color;
   text-align: center;
   font-weight: bold;
   font-size: 25px;
@@ -71,7 +67,7 @@ html {
 #title h1 {
   margin: 0;
   font-size: 70px;
-  background: #c64fbd;
+  background: @primary-color;
   -webkit-background-clip: text;
   fill: transparent;
 }
