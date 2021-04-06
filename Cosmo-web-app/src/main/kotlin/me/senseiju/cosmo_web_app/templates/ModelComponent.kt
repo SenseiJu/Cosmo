@@ -2,9 +2,7 @@ package me.senseiju.cosmo_web_app.templates
 
 import io.ktor.html.*
 import kotlinx.html.*
-import me.senseiju.cosmo_web_app.data_storage.selectModelsFromResourcePackJoinedWithModels
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
-import java.util.*
 import javax.sql.rowset.CachedRowSet
 
 class ModelComponent(private val modelResults: CachedRowSet): Template<FlowContent> {
@@ -21,8 +19,7 @@ class ModelComponent(private val modelResults: CachedRowSet): Template<FlowConte
                     }
 
                     p {
-                        + "Author: <PLACEHOLDER>"
-                        //+ "Author: ${getDiscordUserById(modelResults.getString("user_id")).username}"
+                        + "Author: ${getDiscordUserById(modelResults.getString("user_id")).username}"
                     }
                 }
             }
