@@ -7,7 +7,8 @@ import io.ktor.routing.*
 import io.ktor.sessions.*
 import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.data_storage.isUserPackOwner
-import me.senseiju.cosmo_web_app.data_storage.selectModelsFromResourcePackJoinedWithModels
+import me.senseiju.cosmo_web_app.data_storage.selectModelsFromPackJoinedWithModels
+import me.senseiju.cosmo_web_app.data_storage.selectPackName
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import me.senseiju.cosmo_web_app.templates.PackModelsPage
@@ -57,9 +58,9 @@ fun Route.packs() {
                 return@get
             }
 
-            val modelResults = selectModelsFromResourcePackJoinedWithModels(packId)
+            val modelResults = selectModelsFromPackJoinedWithModels(packId)
 
-            call.respondHtmlTemplate(PackModelsPage(user, packId, modelResults)) {}
+            call.respondHtmlTemplate(PackModelsPage(user, selectPackName(packId), packId, modelResults)) {}
         }
     }
 }

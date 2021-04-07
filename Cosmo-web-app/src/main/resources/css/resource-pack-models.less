@@ -1,67 +1,91 @@
-.model {
-  list-style-type: none;
-  padding: 0;
-
-  li {
-    background-color: #343437;
-    padding: 0 1.5%;
-    border: white solid 1px;
-    border-radius: 20px;
-    float: left;
-    width: 25%;
-    height: 400px;
-    margin: 2.5%;
-  }
-
-  p {
+#resource-pack-models-page {
+  h1 {
     color: white;
   }
 
-  .top {
-    display: flex;
+  p {
+    color: ghostwhite;
+  }
 
-    h1 {
-      flex: 1;
-      color: #c64fbd;
-      word-wrap: anywhere;
-    }
+  .model {
+    list-style-type: none;
+    padding: 0;
 
-    i:hover {
-      cursor: pointer;
-    }
-
-    .options {
-      display: inline-block;
+    li {
       position: relative;
-      margin-top: 7.5%;
+      background-color: #343437;
+      padding: 0 1.4%;
+      border: white solid 1px;
+      border-radius: 20px;
+      float: left;
+      width: 20%;
+      height: 300px;
+      margin: 1%;
     }
 
-    .options:hover .options-content {
+    img {
       display: block;
+      max-width: 100%;
+      max-height: 150px;
+      margin: 0 auto;
     }
 
-    .options-content {
-      display: none;
+    p {
       position: absolute;
-      z-index: 1;
+      bottom: 0;
+      left: 7.5%;
+      color: white;
+    }
 
-      button {
-        box-shadow: none;
-        border: black solid 1px;
-        background-color: white;
-        color: red;
-        width: 100px;
-        padding: 5%;
-        font-weight: bold;
-        border-radius: 5px;
-        transition-duration: 0.3s;
+    .top {
+      display: flex;
+
+      h1 {
+        flex: 1;
+        color: @secondary-color;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: calc(80%);
+        overflow: hidden;
       }
 
-      button:hover {
-        background-color: red;
-        color: white;
-        transition-duration: 0.3s;
+      i:hover {
         cursor: pointer;
+      }
+
+      .options {
+        display: inline-block;
+        position: relative;
+        margin-top: 8.5%;
+      }
+
+      .options:hover .options-content {
+        display: block;
+      }
+
+      .options-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+
+        button {
+          box-shadow: none;
+          border: black solid 1px;
+          background-color: white;
+          color: red;
+          width: 100px;
+          padding: 5%;
+          font-weight: bold;
+          border-radius: 5px;
+          transition-duration: 0.3s;
+        }
+
+        button:hover {
+          background-color: red;
+          color: white;
+          transition-duration: 0.3s;
+          cursor: pointer;
+        }
       }
     }
   }

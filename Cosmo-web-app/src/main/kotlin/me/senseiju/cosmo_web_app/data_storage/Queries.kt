@@ -15,7 +15,7 @@ private val db = Database()
  * @param packId the pack id
  * @param modelDataType the model data and type
  */
-fun insertModelToResourcePack(packId: UUID, modelDataType: ModelDataType) {
+fun insertModelToPack(packId: UUID, modelDataType: ModelDataType) {
     defaultScope.launch {
         val query = "INSERT INTO `${Table.RESOURCE_PACK_MODELS}`(`pack_id`, `model_data`, `model_type`) VALUES(?,?,?);"
 
@@ -29,7 +29,7 @@ fun insertModelToResourcePack(packId: UUID, modelDataType: ModelDataType) {
  * @param packId the pack id
  * @param modelDataTypes the model data and type
  */
-fun deleteModelsFromResourcePack(packId: UUID, vararg modelDataTypes: ModelDataType) {
+fun deleteModelsFromPack(packId: UUID, vararg modelDataTypes: ModelDataType) {
     defaultScope.launch {
         val query = "DELETE FROM `${Table.RESOURCE_PACK_MODELS}` WHERE `pack_id`=? AND `model_data`=? AND `model_type`=?;"
         val replacements = modelDataTypes.map {
@@ -41,25 +41,11 @@ fun deleteModelsFromResourcePack(packId: UUID, vararg modelDataTypes: ModelDataT
 }
 
 /**
- * Create a new resource pack
- *
- * @param packId the pack id
- * @param userId the user id
- */
-fun insertResourcePack(packId: UUID, userId: String) {
-    defaultScope.launch {
-        val query = "INSERT INTO `${Table.RESOURCE_PACKS}`(`pack_id`, `user_id`) VALUES(?,?);"
-
-        db.asyncUpdateQuery(query, packId.toString(), userId)
-    }
-}
-
-/**
  * Delete a resource pack
  *
  * @param packId the pack id
  */
-fun deleteResourcePack(packId: UUID) {
+fun deletePack(packId: UUID) {
     defaultScope.launch {
         val query = "DELETE FROM `${Table.RESOURCE_PACKS}` WHERE `pack_id`=?;"
 
@@ -86,9 +72,10 @@ fun insertModel(modelDataType: ModelDataType, name: String, userId: String) {
  * Selects all models from the resource pack
  *
  * @param packId the pack id
+ *
  * @return the models results set [`model_data` `model_type` `name` `user_id`]
  */
-suspend fun selectModelsFromResourcePackJoinedWithModels(packId: UUID): CachedRowSet {
+suspend fun selectModelsFromPackJoinedWithModels(packId: UUID): CachedRowSet {
     val query = "SELECT `${Table.RESOURCE_PACK_MODELS}`.`model_data`, `${Table.RESOURCE_PACK_MODELS}`.`model_type`, `${Table.MODELS}`.`name`, `${Table.MODELS}`.`user_id` " +
             "FROM `${Table.RESOURCE_PACK_MODELS}` " +
             "LEFT JOIN `${Table.MODELS}` ON `${Table.MODELS}`.`model_data` = `${Table.RESOURCE_PACK_MODELS}`.`model_data` " +
@@ -98,10 +85,31 @@ suspend fun selectModelsFromResourcePackJoinedWithModels(packId: UUID): CachedRo
 }
 
 /**
+ * Selects the name of a model
+ *
+ * @param packId the pack id
+ *
+ * @return the name or invalid string
+ */
+suspend fun selectPackName(packId: UUID): String {
+    val query = "SELECT `name` FROM `${Table.RESOURCE_PACKS}` WHERE `pack_id`=?;"
+    val results = db.asyncQuery(query, packId.toString())
+    if (results.next()) {
+        val name = results.getString("name")
+        if (name.isBlank()) {
+            return "{{ INVALID PACK NAME }}"
+        }
+        return results.getString("name")
+    }
+    return "{{ INVALID PACK NAME }}"
+}
+
+/**
  * Checks if user owns a pack
  *
  * @param packId the pack id
  * @param userId the user id
+ *
  * @return if owned
  */
 suspend fun isUserPackOwner(packId: UUID, userId: String): Boolean {
@@ -113,4 +121,24 @@ suspend fun isUserPackOwner(packId: UUID, userId: String): Boolean {
     }
 
     return results.getString("user_id").equals(userId)
+}
+
+/**
+ * Create a new pack
+ *
+ * @param name the pack name
+ * @param userId the user id
+ *
+ * @return the pack id
+ */
+fun insertPack(name: String, userId: String): UUID {
+    val packId = UUID.randomUUID()
+
+    defaultScope.launch {
+        val query = "INSERT INTO `${Table.RESOURCE_PACKS}`(`pack_id`, `user_id`, `name`) VALUES(?,?,?);"
+
+        db.asyncUpdateQuery(query, packId.toString(), userId, name)
+    }
+
+    return packId
 }

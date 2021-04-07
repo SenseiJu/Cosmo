@@ -23,7 +23,7 @@ header {
       }
 
       &:hover {
-        color: #c64fbd;
+        color: @primary-color;
       }
     }
   }
@@ -31,6 +31,7 @@ header {
   .user-options {
     flex-grow: 0;
     cursor: pointer;
+    z-index: 1;
 
     &:hover {
       .user-options-content {

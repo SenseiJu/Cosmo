@@ -19,6 +19,8 @@ class ModelComponent(private val packId: UUID, private val modelResults: CachedR
                         options(packId, modelResults)
                     }
 
+                    img(src = "https://www.arblease.co.uk/wp-content/uploads/2015/04/placeholder-200x200.png", alt = "temp")
+
                     p {
                         + "Author: ${getDiscordUserById(modelResults.getString("user_id")).username}"
                     }

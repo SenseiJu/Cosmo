@@ -1,4 +1,4 @@
-const url = "http://cosmo.senseiju.me:8080/api/packs/models"
+const api = "/api"
 
 window.addEventListener('load', function () {
     setTimeout(function () {
@@ -10,12 +10,26 @@ function sendDeleteModelFromPackRequest(packId, modelData, modelType) {
     const request = new XMLHttpRequest()
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
-            window.location.href = "http://cosmo.senseiju.me:8080/packs/" + packId
+            window.location.href = "/packs/" + packId
         }
     }
     request.open(
         "DELETE",
-        url + "?pack_id=" + packId + "&model_data=" + modelData + "&model_type=" + modelType
+        api + "/packs/model" + "?pack_id=" + packId + "&model_data=" + modelData + "&model_type=" + modelType
+    )
+    request.send()
+}
+
+function sendDeletePackRequest(packId) {
+    const request = new XMLHttpRequest()
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            window.location.href = "/packs"
+        }
+    }
+    request.open(
+        "DELETE",
+        api + "/packs" + "?pack_id=" + packId
     )
     request.send()
 }

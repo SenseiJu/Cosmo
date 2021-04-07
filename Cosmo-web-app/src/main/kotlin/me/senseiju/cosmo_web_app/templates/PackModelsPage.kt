@@ -2,6 +2,7 @@ package me.senseiju.cosmo_web_app.templates
 
 import io.ktor.html.*
 import kotlinx.html.*
+import me.senseiju.cosmo_web_app.data_storage.selectPackName
 import me.senseiju.cosmo_web_app.discord_api.responses.DiscordUserResponse
 import me.senseiju.cosmo_web_app.templates.common_components.HTMLHeadComponent
 import me.senseiju.cosmo_web_app.templates.common_components.HeaderComponent
@@ -10,8 +11,9 @@ import javax.sql.rowset.CachedRowSet
 
 class PackModelsPage(
     private val user: DiscordUserResponse,
+    private val packName: String,
     private val packId: UUID,
-    private val modelResults: CachedRowSet
+    private val modelResults: CachedRowSet,
     )
     : Template<HTML>
 {
@@ -19,11 +21,21 @@ class PackModelsPage(
         insert(HTMLHeadComponent(), TemplatePlaceholder())
 
         body {
-            id = "resource-pack-models-page"
-
             insert(HeaderComponent(user), TemplatePlaceholder())
 
-            insert(ModelComponent(packId, modelResults), TemplatePlaceholder())
+            main {
+                id = "resource-pack-models-page"
+
+                h1 {
+                    + packName
+                }
+
+                p {
+                    + "Pack ID: $packId"
+                }
+
+                insert(ModelComponent(packId, modelResults), TemplatePlaceholder())
+            }
         }
     }
 }

@@ -1,3 +1,80 @@
+#resource-pack-models-page h1 {
+  color: white;
+}
+#resource-pack-models-page p {
+  color: ghostwhite;
+}
+#resource-pack-models-page .model {
+  list-style-type: none;
+  padding: 0;
+}
+#resource-pack-models-page .model li {
+  position: relative;
+  background-color: #343437;
+  padding: 0 1.4%;
+  border: white solid 1px;
+  border-radius: 20px;
+  float: left;
+  width: 20%;
+  height: 300px;
+  margin: 1%;
+}
+#resource-pack-models-page .model img {
+  display: block;
+  max-width: 100%;
+  max-height: 150px;
+  margin: 0 auto;
+}
+#resource-pack-models-page .model p {
+  position: absolute;
+  bottom: 0;
+  left: 7.5%;
+  color: white;
+}
+#resource-pack-models-page .model .top {
+  display: flex;
+}
+#resource-pack-models-page .model .top h1 {
+  flex: 1;
+  color: #55FFFF;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: calc(80%);
+  overflow: hidden;
+}
+#resource-pack-models-page .model .top i:hover {
+  cursor: pointer;
+}
+#resource-pack-models-page .model .top .options {
+  display: inline-block;
+  position: relative;
+  margin-top: 8.5%;
+}
+#resource-pack-models-page .model .top .options:hover .options-content {
+  display: block;
+}
+#resource-pack-models-page .model .top .options-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+#resource-pack-models-page .model .top .options-content button {
+  box-shadow: none;
+  border: black solid 1px;
+  background-color: white;
+  color: red;
+  width: 100px;
+  padding: 5%;
+  font-weight: bold;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+#resource-pack-models-page .model .top .options-content button:hover {
+  background-color: red;
+  color: white;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
 header {
   display: flex;
   align-items: center;
@@ -24,6 +101,7 @@ header .page-options a:hover {
 header .user-options {
   flex-grow: 0;
   cursor: pointer;
+  z-index: 1;
 }
 header .user-options:hover .user-options-content {
   display: block;
@@ -72,64 +150,6 @@ header .user-options .user-options-content a {
 }
 header .user-options .user-options-content a:nth-child(n + 2):hover {
   background: #0087b0;
-}
-.model {
-  list-style-type: none;
-  padding: 0;
-}
-.model li {
-  background-color: #343437;
-  padding: 0 1.5%;
-  border: white solid 1px;
-  border-radius: 20px;
-  float: left;
-  width: 25%;
-  height: 400px;
-  margin: 2.5%;
-}
-.model p {
-  color: white;
-}
-.model .top {
-  display: flex;
-}
-.model .top h1 {
-  flex: 1;
-  color: #c64fbd;
-  word-wrap: anywhere;
-}
-.model .top i:hover {
-  cursor: pointer;
-}
-.model .top .options {
-  display: inline-block;
-  position: relative;
-  margin-top: 7.5%;
-}
-.model .top .options:hover .options-content {
-  display: block;
-}
-.model .top .options-content {
-  display: none;
-  position: absolute;
-  z-index: 1;
-}
-.model .top .options-content button {
-  box-shadow: none;
-  border: black solid 1px;
-  background-color: white;
-  color: red;
-  width: 100px;
-  padding: 5%;
-  font-weight: bold;
-  border-radius: 5px;
-  transition-duration: 0.3s;
-}
-.model .top .options-content button:hover {
-  background-color: red;
-  color: white;
-  transition-duration: 0.3s;
-  cursor: pointer;
 }
 html {
   overflow: hidden;
