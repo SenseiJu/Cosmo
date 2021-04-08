@@ -1,9 +1,11 @@
 package me.senseiju.cosmo_web_app.data_storage
 
 import kotlinx.coroutines.launch
-import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelDataType
+import me.senseiju.cosmo_commons.ModelType
+import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.data_storage.wrappers.Replacement
 import me.senseiju.cosmo_web_app.defaultScope
+import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
 import java.util.*
 import javax.sql.rowset.CachedRowSet
 
@@ -13,13 +15,13 @@ private val db = Database()
  * Adds a new model to the resource pack
  *
  * @param packId the pack id
- * @param modelDataType the model data and type
+ * @param modelWrapper the model data and type
  */
-fun insertModelToPack(packId: UUID, modelDataType: ModelDataType) {
+fun insertModelToPack(packId: UUID, modelWrapper: ModelWrapper) {
     defaultScope.launch {
         val query = "INSERT INTO `${Table.RESOURCE_PACK_MODELS}`(`pack_id`, `model_data`, `model_type`) VALUES(?,?,?);"
 
-        db.asyncUpdateQuery(query, packId.toString(), modelDataType.modelData, modelDataType.modelType.toString())
+        db.asyncUpdateQuery(query, packId.toString(), modelWrapper.modelData, modelWrapper.modelType.toString())
     }
 }
 
@@ -27,12 +29,12 @@ fun insertModelToPack(packId: UUID, modelDataType: ModelDataType) {
  * Remove models from the resource pack
  *
  * @param packId the pack id
- * @param modelDataTypes the model data and type
+ * @param modelWrappers the model data and type
  */
-fun deleteModelsFromPack(packId: UUID, vararg modelDataTypes: ModelDataType) {
+fun deleteModelsFromPack(packId: UUID, vararg modelWrappers: ModelWrapper) {
     defaultScope.launch {
         val query = "DELETE FROM `${Table.RESOURCE_PACK_MODELS}` WHERE `pack_id`=? AND `model_data`=? AND `model_type`=?;"
-        val replacements = modelDataTypes.map {
+        val replacements = modelWrappers.map {
             Replacement(packId.toString(), it.modelData, it.modelType.toString())
         }.toTypedArray()
 
@@ -56,15 +58,15 @@ fun deletePack(packId: UUID) {
 /**
  * Create a new model
  *
- * @param modelDataType the model data and type
+ * @param modelWrapper the model data and type
  * @param name the model name
  * @param userId the user id
  */
-fun insertModel(modelDataType: ModelDataType, name: String, userId: String) {
+fun insertModel(modelWrapper: ModelWrapper, name: String, userId: String) {
     defaultScope.launch {
         val query = "INSERT INTO `${Table.MODELS}`(`model_data`, `model_type`, `name`, `user_id`) VALUES(?,?,?,?);"
 
-        db.asyncUpdateQuery(query, modelDataType.modelData, modelDataType.modelType.toString(), name, userId)
+        db.asyncUpdateQuery(query, modelWrapper.modelData, modelWrapper.modelType.toString(), name, userId)
     }
 }
 
@@ -141,4 +143,33 @@ fun insertPack(name: String, userId: String): UUID {
     }
 
     return packId
+}
+
+
+suspend fun selectModels(vararg modelWrapper: ModelWrapper): Collection<ModelWrapper> {
+    val predicate = List(modelWrapper.size) {
+        "(`model_data`=? AND `model_type`=?)"
+    }.joinToString(" OR ")
+
+    val query = "SELECT * FROM `${Table.MODELS}` WHERE $predicate;"
+    val results = db.asyncQuery(
+        query,
+        *(modelWrapper.flatMap {
+            listOf(it.modelData, it.modelType.toString())
+        }.toTypedArray())
+    )
+
+    val models = arrayListOf<ModelWrapper>()
+    while (results.next()) {
+        models.add(
+            ModelWrapper(
+                modelData = results.getInt("model_data"),
+                modelType = ModelType.parse(results.getString("model_type")) ?: continue,
+                name = results.getString("name"),
+                author = getDiscordUserById(results.getString("user_id")).username
+            )
+        )
+    }
+
+    return models
 }

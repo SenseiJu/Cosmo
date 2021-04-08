@@ -125,14 +125,14 @@ class ModelManager(private val plugin: Cosmo) {
      */
     fun requestModelsJson(): Boolean {
         try {
-            Json.decodeFromString<List<Model>>(URL("http://cosmo.senseiju.me:8080/$packId?type=json").readText())
+            Json.decodeFromString<List<Model>>(URL("http://cosmo.senseiju.me:8080/api/packs/$packId?type=json").readText())
                 .forEach {
                     models.computeIfAbsent(it.modelType) {
                         hashMapOf()
                     }[it.modelData] = it
                 }
 
-            packSha1 = URL("http://cosmo.senseiju.me:8080/$packId?type=sha1").readText()
+            packSha1 = URL("http://cosmo.senseiju.me:8080/api/packs/$packId?type=sha1").readText()
         } catch (e: Exception) {
             logger.error("Failed to find a valid resource pack with UUID: $packId")
             return false

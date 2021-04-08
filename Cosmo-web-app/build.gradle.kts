@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val ktorVersion = "1.5.2"
 
@@ -9,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
@@ -20,9 +22,10 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient:4.5.13")
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("mysql:mysql-connector-java:8.0.23")
+    implementation("net.lingala.zip4j:zip4j:2.7.0")
+    implementation("commons-codec:commons-codec:1.9")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks {
@@ -40,10 +43,9 @@ tasks {
         }
     }
 
-    withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java) {
+    withType(KotlinCompile::class) {
         kotlinOptions {
             jvmTarget = "1.8"
         }
-
     }
 }

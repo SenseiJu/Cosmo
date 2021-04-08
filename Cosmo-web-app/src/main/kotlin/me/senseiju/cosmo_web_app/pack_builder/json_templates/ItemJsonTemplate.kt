@@ -1,4 +1,4 @@
-package me.senseiju.cosmo_pack_builder.json_templates
+package me.senseiju.cosmo_web_app.pack_builder.json_templates
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
