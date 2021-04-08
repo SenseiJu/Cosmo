@@ -3,6 +3,7 @@ package me.senseiju.cosmo_plugin
 import me.mattstudios.mf.base.CommandManager
 import me.mattstudios.mfgui.gui.guis.BaseGui
 import me.senseiju.cosmo_plugin.utils.datastorage.DataFile
+import org.bstats.bukkit.Metrics
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -22,6 +23,8 @@ class Cosmo : JavaPlugin() {
             server.pluginManager.disablePlugin(this)
             return
         }
+
+        Metrics(this, 10975)
     }
 
     override fun onDisable() {

@@ -15,6 +15,7 @@ dependencies {
     implementation("me.mattstudios.utils:matt-framework-gui:2.0.2")
     implementation("me.mattstudios.utils:matt-framework:1.4.6")
     implementation("de.tr7zw:item-nbt-api:2.7.1")
+    implementation("org.bstats:bstats-bukkit:2.2.1")
     implementation(kotlin("stdlib-jdk8"))
 }
 
@@ -25,6 +26,7 @@ tasks {
         relocate("me.mattstudios.mfgui", "me.senseiju.shaded.mfgui")
         relocate("me.mattstudios.mf", "me.senseiju.shaded.mf")
         relocate("de.tr7zw.changeme.nbtapi", "me.senseiju.shaded.nbtapi")
+        relocate("org.bstats", "me.senseiju.shaded.bstats")
 
         minimize()
     }
