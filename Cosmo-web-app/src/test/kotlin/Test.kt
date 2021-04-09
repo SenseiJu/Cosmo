@@ -7,11 +7,20 @@ import java.util.*
 class Test {
 
     @Test
-    fun buildPack() {
+    fun buildNewPack() {
         PackBuilder().build(
             UUID.randomUUID(),
             ModelWrapper(1, ModelType.HAT, "Viking", "SenseiJu"),
             ModelWrapper(2, ModelType.HAT, "Scuba", "Rito"),
+        )
+    }
+
+    @Test
+    fun buildPack() {
+        PackBuilder().build(
+            UUID.fromString("ac7b5923-86c5-4db7-887f-417a6c0120e5"),
+            ModelWrapper(1, ModelType.HAT, "snowny", "SenseiJu"),
+            ModelWrapper(2, ModelType.HAT, "Viking", "SenseiJu")
         )
     }
 }

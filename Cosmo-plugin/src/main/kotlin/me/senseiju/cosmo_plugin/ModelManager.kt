@@ -8,7 +8,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.commands.CosmoCommand
 import me.senseiju.cosmo_plugin.listeners.PlayerListeners
@@ -19,7 +18,6 @@ import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
-import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.net.URL
 import java.util.*
@@ -29,7 +27,7 @@ const val CUSTOM_MODEL_DATA_TAG = "CustomModelData"
 class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
     val playersWithPack = hashSetOf<Player>()
-    val packId = plugin.configFile.config.getString("resource-pack-uuid", null)
+    val packId = plugin.configFile.config.getString("pack-id", null)
     var packSha1 = ""
         private set
 
@@ -53,6 +51,19 @@ class ModelManager(private val plugin: Cosmo) {
      * Load all players active models
      */
     private fun loadActiveModels() {
+        val previousPackSHA = plugin.configFile.config.get("previous-pack-hash")
+        if (previousPackSHA?.equals(packSha1) == false) {
+            plugin.configFile.config.set("previous-pack-hash", packSha1)
+            plugin.configFile.save()
+
+            playersActiveModels = HashMap()
+
+            activeModelsFile.write("")
+
+            logger.info("SHA hash for new pack is different to last known hash, clearing previous active player models")
+            return
+        }
+
         playersActiveModels = try {
             Json.decodeFromString<ActivePlayerModels>(activeModelsFile.read()).toTypedMap()
         } catch (ex: Exception) {
@@ -134,6 +145,7 @@ class ModelManager(private val plugin: Cosmo) {
 
             packSha1 = URL("http://cosmo.senseiju.me:8080/api/packs/$packId?type=sha1").readText()
         } catch (e: Exception) {
+            e.printStackTrace()
             logger.error("Failed to find a valid resource pack with UUID: $packId")
             return false
         }
