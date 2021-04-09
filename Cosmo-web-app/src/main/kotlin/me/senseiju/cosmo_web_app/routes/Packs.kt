@@ -58,9 +58,9 @@ fun Route.packs() {
                 return@get
             }
 
-            val modelResults = selectModelsFromPackJoinedWithModels(packId)
+            val models = selectModelsFromPackJoinedWithModels(packId)
 
-            call.respondHtmlTemplate(PackModelsPage(user, selectPackName(packId), packId, modelResults)) {}
+            call.respondHtmlTemplate(PackModelsPage(user, selectPackName(packId), packId, models)) {}
         }
     }
 }

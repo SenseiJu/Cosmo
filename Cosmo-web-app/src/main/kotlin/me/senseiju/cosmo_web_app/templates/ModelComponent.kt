@@ -2,27 +2,26 @@ package me.senseiju.cosmo_web_app.templates
 
 import io.ktor.html.*
 import kotlinx.html.*
-import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
+import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import java.util.*
-import javax.sql.rowset.CachedRowSet
 
-class ModelComponent(private val packId: UUID, private val modelResults: CachedRowSet): Template<FlowContent> {
+class ModelComponent(private val packId: UUID, private val models: Collection<ModelWrapper>): Template<FlowContent> {
     override fun FlowContent.apply() {
         ul(classes = "model") {
-            while (modelResults.next()) {
+            models.forEach { model ->
                 li {
                     div(classes = "top") {
                         h1 {
-                            + modelResults.getString("name")
+                            + "${model.name}"
                         }
 
-                        options(packId, modelResults)
+                        options(packId, model)
                     }
 
                     img(src = "https://www.arblease.co.uk/wp-content/uploads/2015/04/placeholder-200x200.png", alt = "temp")
 
                     p {
-                        + "Author: ${getDiscordUserById(modelResults.getString("user_id")).username}"
+                        + "Author: ${model.author}"
                     }
                 }
             }
@@ -30,19 +29,19 @@ class ModelComponent(private val packId: UUID, private val modelResults: CachedR
     }
 }
 
-private fun FlowContent.options(packId: UUID, modelResults: CachedRowSet) {
+private fun FlowContent.options(packId: UUID, model: ModelWrapper) {
     div(classes = "options") {
         i(classes = "gg-more-vertical-r")
 
         div(classes = "options-content") {
-            removeButton(packId, modelResults)
+            removeButton(packId, model)
         }
     }
 }
 
-private fun FlowContent.removeButton(packId: UUID, modelResults: CachedRowSet) {
-    val modelData = modelResults.getString("model_data")
-    val modelType = modelResults.getString("model_type")
+private fun FlowContent.removeButton(packId: UUID, model: ModelWrapper) {
+    val modelData = model.modelData
+    val modelType = model.modelType
 
     button {
         onClick = """

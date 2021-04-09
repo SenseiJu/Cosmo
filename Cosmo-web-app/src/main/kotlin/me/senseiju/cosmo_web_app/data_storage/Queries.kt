@@ -6,6 +6,7 @@ import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.data_storage.wrappers.Replacement
 import me.senseiju.cosmo_web_app.defaultScope
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
+import me.senseiju.cosmo_web_app.packBuilder
 import java.util.*
 import javax.sql.rowset.CachedRowSet
 
@@ -75,15 +76,17 @@ fun insertModel(modelWrapper: ModelWrapper, name: String, userId: String) {
  *
  * @param packId the pack id
  *
- * @return the models results set [`model_data` `model_type` `name` `user_id`]
+ * @return the models in the pack
  */
-suspend fun selectModelsFromPackJoinedWithModels(packId: UUID): CachedRowSet {
+suspend fun selectModelsFromPackJoinedWithModels(packId: UUID): Collection<ModelWrapper> {
     val query = "SELECT `${Table.RESOURCE_PACK_MODELS}`.`model_data`, `${Table.RESOURCE_PACK_MODELS}`.`model_type`, `${Table.MODELS}`.`name`, `${Table.MODELS}`.`user_id` " +
             "FROM `${Table.RESOURCE_PACK_MODELS}` " +
             "LEFT JOIN `${Table.MODELS}` ON `${Table.MODELS}`.`model_data` = `${Table.RESOURCE_PACK_MODELS}`.`model_data` " +
             "AND `${Table.MODELS}`.`model_type` = `${Table.RESOURCE_PACK_MODELS}`.`model_type` " +
             "WHERE `${Table.RESOURCE_PACK_MODELS}`.`pack_id`=?;"
-    return db.asyncQuery(query, packId.toString())
+    val results = db.asyncQuery(query, packId.toString())
+
+    return wrapModelsFromResults(results)
 }
 
 /**
@@ -159,6 +162,10 @@ suspend fun selectModels(vararg modelWrapper: ModelWrapper): Collection<ModelWra
         }.toTypedArray())
     )
 
+    return wrapModelsFromResults(results)
+}
+
+private fun wrapModelsFromResults(results: CachedRowSet): Collection<ModelWrapper> {
     val models = arrayListOf<ModelWrapper>()
     while (results.next()) {
         models.add(

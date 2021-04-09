@@ -1,5 +1,3 @@
-const api = "/api"
-
 window.addEventListener('load', function () {
     setTimeout(function () {
         document.body.classList.remove("no-transition-on-load")
@@ -15,7 +13,7 @@ function sendDeleteModelFromPackRequest(packId, modelData, modelType) {
     }
     request.open(
         "DELETE",
-        api + "/packs/model" + "?pack_id=" + packId + "&model_data=" + modelData + "&model_type=" + modelType
+        "/api/packs/models" + "?pack_id=" + packId + "&model_data=" + modelData + "&model_type=" + modelType
     )
     request.send()
 }
@@ -29,7 +27,7 @@ function sendDeletePackRequest(packId) {
     }
     request.open(
         "DELETE",
-        api + "/packs" + "?pack_id=" + packId
+        "/api/packs" + "?pack_id=" + packId
     )
     request.send()
 }
