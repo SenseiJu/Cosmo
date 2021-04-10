@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
+import me.senseiju.cosmo_plugin.utils.ColorScheme
+import me.senseiju.cosmo_plugin.utils.extensions.color
 import org.bukkit.inventory.ItemStack
 
 @Serializable
@@ -12,9 +14,14 @@ data class Model(val modelData: Int, val name: String, val author: String, val m
 
     @Transient
     val item: ItemStack = run {
-        val nbtItem = NBTItem(ItemBuilder.from(modelType.material).build())
-        nbtItem.setInteger("CustomModelData", modelData)
-
+        val nbtItem = NBTItem(
+            ItemBuilder
+                .from(modelType.material)
+                .setName("${ColorScheme.SECONDARY}$name".color())
+                .setLore("", "&7Author: $author".color())
+                .build()
+        )
+        nbtItem.setInteger(CUSTOM_MODEL_DATA_TAG, modelData)
         nbtItem.item
     }
 
@@ -23,20 +30,8 @@ data class Model(val modelData: Int, val name: String, val author: String, val m
         new.type = modelType.material
 
         val nbtItem = NBTItem(new)
-        nbtItem.setInteger("CustomModelData", modelData)
+        nbtItem.setInteger(CUSTOM_MODEL_DATA_TAG, modelData)
 
         return nbtItem.item
-
-        /**
-        val originalMeta = original.itemMeta
-
-        val item = ItemStack(modelType.material)
-        item.itemMeta = originalMeta
-
-        val nbtItem = NBTItem(item)
-        nbtItem.setInteger("CustomModelData", modelData)
-
-        return nbtItem.item
-        */
     }
 }

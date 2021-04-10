@@ -3,7 +3,6 @@ package me.senseiju.cosmo_plugin.utils.extensions
 import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.mattstudios.mfgui.gui.guis.Gui
 import me.mattstudios.mfgui.gui.guis.PaginatedGui
-import me.senseiju.sennetmc.utils.extensions.color
 import org.bukkit.Material
 
 fun defaultPaginatedGuiTemplate(row: Int, pageSize: Int, name: String): PaginatedGui {

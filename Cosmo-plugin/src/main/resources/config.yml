@@ -1,1 +1,10 @@
-resource-pack-uuid: 444b4f1b-df59-4926-8397-bf1eb8a277fb
+# Replace with your own pack id
+#
+# Pack id can be found under "Your packs" @ https://cosmo.senseiju.me
+pack-id: "444b4f1b-df59-4926-8397-bf1eb8a277fb"
+
+# DO NOT EDIT
+#
+# Editing the hash value will not break the plugin but any currently saved models for players
+# will be cleared
+previous-pack-hash: ""

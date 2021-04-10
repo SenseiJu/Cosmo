@@ -2,6 +2,7 @@ package me.senseiju.sennetmc.utils.extensions
 
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.utils.PlaceholderSet
+import me.senseiju.cosmo_plugin.utils.extensions.color
 import org.bukkit.command.CommandSender
 import org.bukkit.plugin.java.JavaPlugin
 

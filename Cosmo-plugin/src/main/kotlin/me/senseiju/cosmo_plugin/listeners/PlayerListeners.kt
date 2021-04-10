@@ -7,15 +7,18 @@ import me.senseiju.cosmo_plugin.utils.defaultScope
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.player.*
+import org.bukkit.event.player.PlayerChangedWorldEvent
+import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.event.player.PlayerResourcePackStatusEvent
 
 class PlayerListeners(private val modelManager: ModelManager) : Listener {
 
     @EventHandler
     private fun onPlayerJoin(e: PlayerJoinEvent) {
         e.player.setResourcePack(
-            "http://86.172.51.14:8080/${modelManager.resourcePackUUID}?dl=1",
-            modelManager.resourcePackSHA1Digest)
+            "http://cosmo.senseiju.me:8080/api/packs/${modelManager.packId}?type=zip",
+            modelManager.packSha1)
     }
 
     @EventHandler
@@ -33,7 +36,7 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
     }
 
     @EventHandler
-    private fun onPlayerMove(e: PlayerChangedWorldEvent) {
+    private fun onWorldChange(e: PlayerChangedWorldEvent) {
         modelManager.updateModelsToActivePlayers(e.player)
     }
 
@@ -45,6 +48,7 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
             }
 
             if (e.newItem?.type == Material.AIR) {
+                e.player.updateInventory()
                 return@launch
             }
 
