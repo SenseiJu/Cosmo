@@ -4,6 +4,7 @@ import kotlinx.coroutines.launch
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.data_storage.wrappers.Replacement
+import me.senseiju.cosmo_web_app.data_storage.wrappers.wrapModelsFromResults
 import me.senseiju.cosmo_web_app.defaultScope
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
 import me.senseiju.cosmo_web_app.packBuilder
@@ -148,7 +149,13 @@ fun insertPack(name: String, userId: String): UUID {
     return packId
 }
 
-
+/**
+ * Used if supplied [ModelWrapper] only contains the `model_data` and `model_type`
+ *
+ * @param modelWrapper the model
+ *
+ * @return a new [ModelWrapper] with model's name and author
+ */
 suspend fun selectModels(vararg modelWrapper: ModelWrapper): Collection<ModelWrapper> {
     val predicate = List(modelWrapper.size) {
         "(`model_data`=? AND `model_type`=?)"
@@ -165,18 +172,16 @@ suspend fun selectModels(vararg modelWrapper: ModelWrapper): Collection<ModelWra
     return wrapModelsFromResults(results)
 }
 
-private fun wrapModelsFromResults(results: CachedRowSet): Collection<ModelWrapper> {
-    val models = arrayListOf<ModelWrapper>()
-    while (results.next()) {
-        models.add(
-            ModelWrapper(
-                modelData = results.getInt("model_data"),
-                modelType = ModelType.parse(results.getString("model_type")) ?: continue,
-                name = results.getString("name"),
-                author = getDiscordUserById(results.getString("user_id")).username
-            )
-        )
-    }
+/**
+ * Select last models sorted by `model_data`
+ *
+ * @param n the number of rows
+ *
+ * @return a collection of [ModelWrapper]
+ */
+suspend fun selectLastModels(n: Int = 20): Collection<ModelWrapper> {
+    val query = "SELECT * FROM `${Table.MODELS}` ORDER BY `model_data` DESC LIMIT ?;"
+    val results = db.asyncQuery(query, n)
 
-    return models
+    return wrapModelsFromResults(results)
 }

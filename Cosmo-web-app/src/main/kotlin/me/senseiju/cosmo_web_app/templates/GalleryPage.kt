@@ -1,21 +1,17 @@
 package me.senseiju.cosmo_web_app.templates
 
 import io.ktor.html.*
-import kotlinx.html.*
+import kotlinx.html.HTML
+import kotlinx.html.body
+import kotlinx.html.id
+import kotlinx.html.main
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.discord_api.responses.DiscordUserResponse
 import me.senseiju.cosmo_web_app.templates.common_components.HTMLHeadComponent
 import me.senseiju.cosmo_web_app.templates.common_components.HeaderComponent
 import java.util.*
 
-class PackModelsPage(
-    private val user: DiscordUserResponse,
-    private val packName: String,
-    private val packId: UUID,
-    private val models: Collection<ModelWrapper>,
-    )
-    : Template<HTML>
-{
+class GalleryPage(private val user: DiscordUserResponse, private val models: Collection<ModelWrapper>) : Template<HTML> {
     override fun HTML.apply() {
         insert(HTMLHeadComponent(), TemplatePlaceholder())
 
@@ -25,15 +21,7 @@ class PackModelsPage(
             main {
                 id = "resource-pack-models-page"
 
-                h1 {
-                    + packName
-                }
-
-                p {
-                    + "Pack ID: $packId"
-                }
-
-                insert(PackModelComponent(packId, models), TemplatePlaceholder())
+                insert(PackModelComponent(UUID.randomUUID(), models), TemplatePlaceholder())
             }
         }
     }

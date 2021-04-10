@@ -4,12 +4,13 @@ import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import kotlinx.coroutines.launch
 import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.utils.defaultScope
-import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.block.BlockPlaceEvent
-import org.bukkit.event.player.*
+import org.bukkit.event.player.PlayerChangedWorldEvent
+import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.event.player.PlayerResourcePackStatusEvent
 
 class PlayerListeners(private val modelManager: ModelManager) : Listener {
 

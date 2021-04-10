@@ -2,6 +2,8 @@ package me.senseiju.cosmo_web_app.data_storage.wrappers
 
 import kotlinx.serialization.Serializable
 import me.senseiju.cosmo_commons.ModelType
+import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
+import javax.sql.rowset.CachedRowSet
 
 @Serializable
 data class ModelWrapper(
@@ -10,3 +12,26 @@ data class ModelWrapper(
     val name: String? = null,
     val author: String? = null
 )
+
+/**
+ * Turn query results into [ModelWrapper]
+ *
+ * @param results the result set
+ *
+ * @return a collection of [ModelWrapper]
+ */
+fun wrapModelsFromResults(results: CachedRowSet): Collection<ModelWrapper> {
+    val models = arrayListOf<ModelWrapper>()
+    while (results.next()) {
+        models.add(
+            ModelWrapper(
+                modelData = results.getInt("model_data"),
+                modelType = ModelType.parse(results.getString("model_type")) ?: continue,
+                name = results.getString("name"),
+                author = getDiscordUserById(results.getString("user_id")).username
+            )
+        )
+    }
+
+    return models
+}

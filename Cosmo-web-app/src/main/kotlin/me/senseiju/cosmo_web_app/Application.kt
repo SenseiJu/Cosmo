@@ -37,6 +37,7 @@ fun Application.cosmo(testing: Boolean = false) {
         assets()
         index()
         packs()
+        gallery()
 
         // API
         api()

@@ -5,7 +5,7 @@ import kotlinx.html.*
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import java.util.*
 
-class ModelComponent(private val packId: UUID, private val models: Collection<ModelWrapper>): Template<FlowContent> {
+class PackModelComponent(private val packId: UUID, private val models: Collection<ModelWrapper>): Template<FlowContent> {
     override fun FlowContent.apply() {
         ul(classes = "model") {
             models.forEach { model ->
