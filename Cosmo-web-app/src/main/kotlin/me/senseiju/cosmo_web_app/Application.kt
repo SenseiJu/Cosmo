@@ -5,17 +5,15 @@ import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.sessions.*
-import me.senseiju.cosmo_web_app.pack_builder.PackBuilder
 import me.senseiju.cosmo_web_app.routes.*
 import me.senseiju.cosmo_web_app.routes.api.api
 import me.senseiju.cosmo_web_app.sessions.LoginSession
+import java.lang.Exception
 
 const val DISCORD_CLIENT_ID = "827167286104293407"
 const val DISCORD_CLIENT_SECRET = "GuMXi4sH1uV_ilnDgW17r2eIrSl-xRG6"
 
 const val PACK_PATH = "/cosmo/packs"
-
-val packBuilder = PackBuilder(packsPath = PACK_PATH)
 
 @kotlin.jvm.JvmOverloads
 fun Application.cosmo(testing: Boolean = false) {
@@ -37,7 +35,7 @@ fun Application.cosmo(testing: Boolean = false) {
         assets()
         index()
         packs()
-        gallery()
+        modelGallery()
 
         // API
         api()

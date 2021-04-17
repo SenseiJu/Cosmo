@@ -31,3 +31,12 @@ function sendDeletePackRequest(packId) {
     )
     request.send()
 }
+
+function sendSubscribeModelToPackRequest(packId, modelData, modelType) {
+    const request = new XMLHttpRequest()
+    request.open(
+        "POST",
+        "/api/packs/models" + "?pack_id=" + packId + "&model_data=" + modelData + "&model_type=" + modelType
+    )
+    request.send()
+}

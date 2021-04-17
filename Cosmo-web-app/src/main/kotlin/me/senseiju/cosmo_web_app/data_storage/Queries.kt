@@ -1,15 +1,10 @@
 package me.senseiju.cosmo_web_app.data_storage
 
 import kotlinx.coroutines.launch
-import me.senseiju.cosmo_commons.ModelType
-import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
-import me.senseiju.cosmo_web_app.data_storage.wrappers.Replacement
-import me.senseiju.cosmo_web_app.data_storage.wrappers.wrapModelsFromResults
+import me.senseiju.cosmo_web_app.data_storage.wrappers.*
 import me.senseiju.cosmo_web_app.defaultScope
-import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
-import me.senseiju.cosmo_web_app.packBuilder
+import me.senseiju.cosmo_web_app.pack_builder.buildPack
 import java.util.*
-import javax.sql.rowset.CachedRowSet
 
 private val db = Database()
 
@@ -21,9 +16,11 @@ private val db = Database()
  */
 fun insertModelToPack(packId: UUID, modelWrapper: ModelWrapper) {
     defaultScope.launch {
-        val query = "INSERT INTO `${Table.RESOURCE_PACK_MODELS}`(`pack_id`, `model_data`, `model_type`) VALUES(?,?,?);"
+        val query = "INSERT IGNORE INTO `${Table.RESOURCE_PACK_MODELS}`(`pack_id`, `model_data`, `model_type`) VALUES(?,?,?);"
 
         db.asyncUpdateQuery(query, packId.toString(), modelWrapper.modelData, modelWrapper.modelType.toString())
+
+        buildPack(packId)
     }
 }
 
@@ -41,6 +38,8 @@ fun deleteModelsFromPack(packId: UUID, vararg modelWrappers: ModelWrapper) {
         }.toTypedArray()
 
         db.updateBatchQuery(query, *replacements)
+
+        buildPack(packId)
     }
 }
 
@@ -184,4 +183,18 @@ suspend fun selectLastModels(n: Int = 20): Collection<ModelWrapper> {
     val results = db.asyncQuery(query, n)
 
     return wrapModelsFromResults(results)
+}
+
+/**
+ * Select all pack ids for a user
+ *
+ * @param userId the user id
+ *
+ * @return a collection of pack ids
+ */
+suspend fun selectPacks(userId: String): Collection<PackWrapper> {
+    val query = "SELECT * FROM `${Table.RESOURCE_PACKS}` WHERE `user_id`=?;"
+    val results = db.asyncQuery(query, userId)
+
+    return wrapPacksFromResults(results)
 }

@@ -34,7 +34,7 @@ fun getDiscordUser(accessToken: String): DiscordUserResponse {
 /**
  * Gets a user by user id
  *
- * Note that this take approximately 300-500ms to complete
+ * Note that this take approximately 300-500ms to complete if the user is not already cached
  *
  * @param userId the user id
  * @return the user response

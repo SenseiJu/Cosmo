@@ -3,9 +3,15 @@ package me.senseiju.cosmo_web_app.templates
 import io.ktor.html.*
 import kotlinx.html.*
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
+import me.senseiju.cosmo_web_app.data_storage.wrappers.PackWrapper
 import java.util.*
+import javax.imageio.ImageIO
 
-class PackModelComponent(private val packId: UUID, private val models: Collection<ModelWrapper>): Template<FlowContent> {
+class GalleryModelComponent(
+    private val packs: Collection<PackWrapper>,
+    private val models: Collection<ModelWrapper>
+    ) : Template<FlowContent>
+{
     override fun FlowContent.apply() {
         ul(classes = "model") {
             models.forEach { model ->
@@ -15,7 +21,7 @@ class PackModelComponent(private val packId: UUID, private val models: Collectio
                             + "${model.name}"
                         }
 
-                        options(packId, model)
+                        options(packs, model)
                     }
 
                     img(src = "https://www.arblease.co.uk/wp-content/uploads/2015/04/placeholder-200x200.png", alt = "temp")
@@ -29,25 +35,27 @@ class PackModelComponent(private val packId: UUID, private val models: Collectio
     }
 }
 
-private fun FlowContent.options(packId: UUID, model: ModelWrapper) {
+private fun FlowContent.options(packs: Collection<PackWrapper>, model: ModelWrapper) {
     div(classes = "options") {
         i(classes = "gg-more-vertical-r")
 
         div(classes = "options-content") {
-            removeButton(packId, model)
+            packs.forEach {
+                subscribeButton(it, model)
+            }
         }
     }
 }
 
-private fun FlowContent.removeButton(packId: UUID, model: ModelWrapper) {
+private fun FlowContent.subscribeButton(pack: PackWrapper, model: ModelWrapper) {
     button {
         onClick = """
-            sendDeleteModelFromPackRequest(
-            "$packId",
+            sendSubscribeModelToPackRequest(
+            "${pack.packId}",
             "${model.modelData}", 
             "${model.modelType}")
             """.trimIndent()
 
-        + "Remove"
+        + pack.name
     }
 }

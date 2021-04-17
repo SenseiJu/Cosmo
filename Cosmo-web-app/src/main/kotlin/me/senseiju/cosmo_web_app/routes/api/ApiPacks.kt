@@ -10,6 +10,7 @@ import me.senseiju.cosmo_web_app.PACK_PATH
 import me.senseiju.cosmo_web_app.data_storage.*
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
+import me.senseiju.cosmo_web_app.pack_builder.buildPack
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import java.io.File
 import java.util.*
