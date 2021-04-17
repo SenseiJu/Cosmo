@@ -2,7 +2,7 @@ package me.senseiju.cosmo_web_app.data_storage
 
 import kotlinx.coroutines.launch
 import me.senseiju.cosmo_web_app.data_storage.wrappers.*
-import me.senseiju.cosmo_web_app.defaultScope
+import me.senseiju.cosmo_web_app.utils.defaultScope
 import me.senseiju.cosmo_web_app.pack_builder.buildPack
 import java.util.*
 

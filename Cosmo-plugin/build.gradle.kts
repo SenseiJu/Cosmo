@@ -38,7 +38,7 @@ tasks {
     }
 
     register("copyJarToServer", Copy::class) {
-       from(shadowJar)
-       into("D:/Servers/Minecraft/Cosmo/plugins/update")
+        from(shadowJar)
+        into("D:/Servers/Minecraft/Cosmo/plugins/update")
     }
 }

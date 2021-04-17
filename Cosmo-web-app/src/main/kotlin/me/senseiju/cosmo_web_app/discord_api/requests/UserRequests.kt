@@ -2,7 +2,7 @@ package me.senseiju.cosmo_web_app.discord_api.requests
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import me.senseiju.cosmo_web_app.CachedHashMap
+import me.senseiju.cosmo_web_app.utils.CachedHashMap
 import me.senseiju.cosmo_web_app.discord_api.DiscordEndpoint
 import me.senseiju.cosmo_web_app.discord_api.responses.DiscordUserResponse
 import org.apache.http.client.methods.HttpGet

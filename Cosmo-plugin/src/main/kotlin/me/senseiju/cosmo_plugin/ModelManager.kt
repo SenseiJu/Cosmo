@@ -165,7 +165,7 @@ class ModelManager(private val plugin: Cosmo) {
         val packet = createHelmetModelPacket(player) ?: return
 
         if (targets.isEmpty()) {
-            broadcastPacket(playersWithPack ,packet)
+            broadcastPacket(playersWithPack, packet)
         } else {
             targets.forEach {
                 sendPacket(it, packet)

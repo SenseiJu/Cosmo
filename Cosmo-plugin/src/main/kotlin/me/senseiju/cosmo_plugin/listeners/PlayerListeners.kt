@@ -18,7 +18,8 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
     private fun onPlayerJoin(e: PlayerJoinEvent) {
         e.player.setResourcePack(
             "http://cosmo.senseiju.me:8080/api/packs/${modelManager.packId}?type=zip",
-            modelManager.packSha1)
+            modelManager.packSha1
+        )
     }
 
     @EventHandler

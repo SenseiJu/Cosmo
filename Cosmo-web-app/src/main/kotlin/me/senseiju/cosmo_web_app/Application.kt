@@ -8,7 +8,6 @@ import io.ktor.sessions.*
 import me.senseiju.cosmo_web_app.routes.*
 import me.senseiju.cosmo_web_app.routes.api.api
 import me.senseiju.cosmo_web_app.sessions.LoginSession
-import java.lang.Exception
 
 const val DISCORD_CLIENT_ID = "827167286104293407"
 const val DISCORD_CLIENT_SECRET = "GuMXi4sH1uV_ilnDgW17r2eIrSl-xRG6"
