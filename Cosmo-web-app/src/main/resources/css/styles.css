@@ -75,6 +75,74 @@
   transition-duration: 0.3s;
   cursor: pointer;
 }
+#pack-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+.pack-component {
+  display: block;
+  margin: 2.5%;
+  text-decoration: none;
+}
+.pack-component:hover .content-wrapper {
+  background-color: #48484b;
+}
+.pack-component .content-wrapper {
+  background-color: #343437;
+  padding: 0 1.5%;
+  border: white solid 1px;
+  border-radius: 20px;
+}
+.pack-component .content-wrapper p {
+  color: white;
+}
+.pack-component .content-header {
+  display: flex;
+  align-items: center;
+}
+.pack-component .content-header h1 {
+  flex: 1;
+  color: #55FFFF;
+}
+.pack-component .options:hover .options-content {
+  display: block;
+}
+.pack-component .options-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+.pack-component .options-content button {
+  box-shadow: none;
+  border: black solid 1px;
+  background-color: white;
+  color: red;
+  width: 100px;
+  padding: 5%;
+  font-weight: bold;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+.pack-component .options-content button:hover {
+  background-color: red;
+  color: white;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+.new-pack {
+  border: none;
+  background: none;
+  color: black;
+  font-size: 10vw;
+  padding: 0 1%;
+  outline: none;
+}
+.new-pack:hover {
+  color: #c64fbd;
+  cursor: pointer;
+}
 header {
   display: flex;
   align-items: center;
@@ -151,8 +219,9 @@ header .user-options .user-options-content a {
 header .user-options .user-options-content a:nth-child(n + 2):hover {
   background: #0087b0;
 }
-html {
+#index {
   overflow: hidden;
+  margin: 0;
 }
 #stars1 {
   width: 1px;
@@ -283,12 +352,9 @@ html {
 html {
   font-family: "Courier New", monospace;
   font-weight: bold;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%) fixed;
   height: 100%;
   margin: 0 10%;
-}
-#index {
-  margin: 0;
 }
 .title {
   margin: 0;

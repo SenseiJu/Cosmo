@@ -78,7 +78,7 @@ private fun Route.postPack() {
             return@post
         }
 
-        val name = call.parameters["name"] ?: return@post
+        val name = call.parameters["name"] ?: "${user.username}'s new pack"
 
         insertPack(name, user.id)
     }

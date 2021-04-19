@@ -9,6 +9,7 @@ import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.data_storage.isUserPackOwner
 import me.senseiju.cosmo_web_app.data_storage.selectModelsFromPackJoinedWithModels
 import me.senseiju.cosmo_web_app.data_storage.selectPackName
+import me.senseiju.cosmo_web_app.data_storage.selectPacks
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import me.senseiju.cosmo_web_app.templates.PackModelsPage
@@ -30,7 +31,7 @@ fun Route.packs() {
                 return@handle
             }
 
-            call.respondHtmlTemplate(PacksPage(user)) {}
+            call.respondHtmlTemplate(PacksPage(user, selectPacks(user.id))) {}
         }
 
         get("{packId}") {

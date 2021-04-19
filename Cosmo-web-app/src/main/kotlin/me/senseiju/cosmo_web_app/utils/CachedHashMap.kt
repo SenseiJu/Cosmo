@@ -40,6 +40,10 @@ class CachedHashMap<K, V>(
                 cleanUp()
             }
         }
+
+        Thread {
+
+        }
     }
 
     private fun cleanUp() {

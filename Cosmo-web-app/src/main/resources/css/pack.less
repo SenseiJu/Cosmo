@@ -1,0 +1,80 @@
+#pack-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.pack-component {
+  display: block;
+  margin: 2.5%;
+  text-decoration: none;
+
+  &:hover .content-wrapper {
+    background-color: #48484b;
+  }
+
+  .content-wrapper {
+    background-color: #343437;
+    padding: 0 1.5%;
+    border: white solid 1px;
+    border-radius: 20px;
+
+    p {
+      color: white;
+    }
+  }
+
+  .content-header {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      flex: 1;
+      color: @secondary-color;
+    }
+  }
+
+  .options:hover .options-content {
+    display: block;
+  }
+
+  .options-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+
+    button {
+      box-shadow: none;
+      border: black solid 1px;
+      background-color: white;
+      color: red;
+      width: 100px;
+      padding: 5%;
+      font-weight: bold;
+      border-radius: 5px;
+      transition-duration: 0.3s;
+    }
+
+    button:hover {
+      background-color: red;
+      color: white;
+      transition-duration: 0.3s;
+      cursor: pointer;
+    }
+  }
+}
+
+.new-pack {
+  border: none;
+  background: none;
+  color: black;
+  font-size: 10vw;
+  padding: 0 1%;
+  outline: none;
+
+  &:hover {
+    color: #c64fbd;
+    cursor: pointer;
+  }
+}

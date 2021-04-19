@@ -41,7 +41,8 @@ private fun FlowContent.options(packId: UUID, model: ModelWrapper) {
 
 private fun FlowContent.removeButton(packId: UUID, model: ModelWrapper) {
     button {
-        onClick = """
+        onClick =
+            """
             sendDeleteModelFromPackRequest(
             "$packId",
             "${model.modelData}", 

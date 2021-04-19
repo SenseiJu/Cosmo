@@ -40,3 +40,17 @@ function sendSubscribeModelToPackRequest(packId, modelData, modelType) {
     )
     request.send()
 }
+
+function sendCreateNewPackRequest() {
+    const request = new XMLHttpRequest()
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            window.location.href = "/packs"
+        }
+    }
+    request.open(
+        "POST",
+        "/api/packs"
+    )
+    request.send()
+}

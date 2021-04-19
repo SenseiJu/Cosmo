@@ -63,7 +63,8 @@ data class ItemDisplaysJsonElement(
     @SerialName("thirdperson_righthand") var thirdPersonRightHand: ItemDisplayJsonElement? = null,
     var ground: ItemDisplayJsonElement? = null,
     var gui: ItemDisplayJsonElement? = null,
-    var head: ItemDisplayJsonElement? = null
+    var head: ItemDisplayJsonElement? = null,
+    var fixed: ItemDisplayJsonElement? = null
     )
 
 @Serializable
