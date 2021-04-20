@@ -3,6 +3,7 @@ package me.senseiju.cosmo_web_app.templates
 import io.ktor.html.*
 import kotlinx.html.*
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
+import me.senseiju.cosmo_web_app.data_storage.wrappers.getImageURLForModel
 import java.util.*
 
 class PackModelComponent(private val packId: UUID, private val models: Collection<ModelWrapper>): Template<FlowContent> {
@@ -18,7 +19,7 @@ class PackModelComponent(private val packId: UUID, private val models: Collectio
                         options(packId, model)
                     }
 
-                    img(src = "https://www.arblease.co.uk/wp-content/uploads/2015/04/placeholder-200x200.png", alt = "temp")
+                    img(src = getImageURLForModel(model), alt = "temp")
 
                     p {
                         + "Author: ${model.author}"

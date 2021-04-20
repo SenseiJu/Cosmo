@@ -4,6 +4,7 @@ import kotlinx.coroutines.launch
 import me.senseiju.cosmo_web_app.data_storage.wrappers.*
 import me.senseiju.cosmo_web_app.utils.defaultScope
 import me.senseiju.cosmo_web_app.pack_builder.buildPack
+import me.senseiju.cosmo_web_app.pack_builder.deletePackFiles
 import java.util.*
 
 private val db = Database()
@@ -51,8 +52,12 @@ fun deleteModelsFromPack(packId: UUID, vararg modelWrappers: ModelWrapper) {
 fun deletePack(packId: UUID) {
     defaultScope.launch {
         val query = "DELETE FROM `${Table.RESOURCE_PACKS}` WHERE `pack_id`=?;"
+        val query2 = "DELETE FROM `${Table.RESOURCE_PACK_MODELS}` WHERE `pack_id`=?;"
 
         db.asyncUpdateQuery(query, packId.toString())
+        db.asyncUpdateQuery(query2, packId.toString())
+
+        deletePackFiles(packId)
     }
 }
 

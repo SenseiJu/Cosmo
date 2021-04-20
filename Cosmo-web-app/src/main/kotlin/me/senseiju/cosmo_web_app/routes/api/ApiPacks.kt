@@ -2,6 +2,7 @@ package me.senseiju.cosmo_web_app.routes.api
 
 import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
@@ -78,9 +79,9 @@ private fun Route.postPack() {
             return@post
         }
 
-        val name = call.parameters["name"] ?: "${user.username}'s new pack"
+        val packName = call.receiveParameters()["pack_name"] ?: return@post
 
-        insertPack(name, user.id)
+        insertPack(packName, user.id)
     }
 }
 
@@ -116,15 +117,16 @@ private fun Route.postPackModel() {
             return@post
         }
 
+        val paramters = call.receiveParameters()
+
         val packId = try {
-            UUID.fromString(call.parameters["pack_id"])
+            UUID.fromString(paramters["pack_id"])
         } catch (e: Exception) {
             return@post
         }
 
-        val modelData = call.parameters["model_data"]?.toIntOrNull() ?: return@post
-
-        val modelType = ModelType.parse(call.parameters["model_type"] ?: "") ?: return@post
+        val modelData = paramters["model_data"]?.toIntOrNull() ?: return@post
+        val modelType = ModelType.parse(paramters["model_type"] ?: "") ?: return@post
 
         insertModelToPack(packId, ModelWrapper(modelData, modelType))
     }

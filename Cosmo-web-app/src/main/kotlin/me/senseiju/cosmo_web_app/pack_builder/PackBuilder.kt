@@ -170,8 +170,12 @@ private val packBuilder = PackBuilder(packsPath = PACK_PATH)
 suspend fun buildPack(packId: UUID) {
     val models = selectModelsFromPackJoinedWithModels(packId).toTypedArray()
     if (models.isEmpty()) {
-        packBuilder.deleteAllPackFiles(packId)
+        deletePackFiles(packId)
         return
     }
     packBuilder.build(packId, *models)
+}
+
+fun deletePackFiles(packId: UUID) {
+    packBuilder.deleteAllPackFiles(packId)
 }

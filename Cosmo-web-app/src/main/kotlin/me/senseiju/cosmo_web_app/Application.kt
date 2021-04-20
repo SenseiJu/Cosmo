@@ -13,6 +13,7 @@ const val DISCORD_CLIENT_ID = "827167286104293407"
 const val DISCORD_CLIENT_SECRET = "GuMXi4sH1uV_ilnDgW17r2eIrSl-xRG6"
 
 const val PACK_PATH = "/cosmo/packs"
+const val MODELS_PATH = "/cosmo/models"
 
 @kotlin.jvm.JvmOverloads
 fun Application.cosmo(testing: Boolean = false) {

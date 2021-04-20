@@ -65,7 +65,7 @@
   }
 }
 
-.new-pack {
+.new-pack-modal-button {
   border: none;
   background: none;
   color: black;
@@ -74,7 +74,46 @@
   outline: none;
 
   &:hover {
-    color: #c64fbd;
+    color: @primary-color;
     cursor: pointer;
+  }
+}
+
+.new-pack-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+  form {
+    background-color: #343437;
+    margin: 15% auto;
+    padding: 20px;
+    width: 60%;
+    display: flex;
+
+    input {
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+      flex: 1 1 auto;
+      border: none;
+      font-size: 2.5vw;
+      padding: 1%;
+      outline: none;
+
+      &#submit {
+        background-color: #343437;
+        color: @primary-color;
+
+        &:hover {
+          background-color: #48484b;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

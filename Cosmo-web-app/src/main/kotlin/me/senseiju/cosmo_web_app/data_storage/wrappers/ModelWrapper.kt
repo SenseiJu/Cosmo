@@ -2,7 +2,9 @@ package me.senseiju.cosmo_web_app.data_storage.wrappers
 
 import kotlinx.serialization.Serializable
 import me.senseiju.cosmo_commons.ModelType
+import me.senseiju.cosmo_web_app.MODELS_PATH
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUserById
+import java.io.File
 import javax.sql.rowset.CachedRowSet
 
 @Serializable
@@ -34,4 +36,14 @@ fun wrapModelsFromResults(results: CachedRowSet): Collection<ModelWrapper> {
     }
 
     return models
+}
+
+fun getImageURLForModel(model: ModelWrapper): String {
+    val imgPath = "${model.modelType.toString().toLowerCase()}/${model.modelData}/${model.modelData}.png"
+    val imgFile = File(MODELS_PATH, imgPath)
+    if (imgFile.exists()) {
+        return "/models/$imgPath"
+    }
+
+    return "/img/no-image-available.png"
 }

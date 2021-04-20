@@ -31,6 +31,15 @@ class PackModelsPage(
 
                 p {
                     + "Pack ID: $packId"
+
+                    button {
+                        onClick =
+                            """
+                            copyPackId("$packId");
+                            """.trimIndent()
+
+                        i(classes = "fas fa-copy")
+                    }
                 }
 
                 insert(PackModelComponent(packId, models), TemplatePlaceholder())

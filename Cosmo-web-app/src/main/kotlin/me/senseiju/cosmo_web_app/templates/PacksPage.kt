@@ -24,6 +24,8 @@ class PacksPage(private val user: DiscordUserResponse, private val packs: Collec
                 }
 
                 newPackButton()
+
+                newPackModal()
             }
         }
     }
@@ -69,12 +71,34 @@ private fun FlowContent.removeButton(packId: UUID) {
 }
 
 private fun FlowContent.newPackButton() {
-    button(classes = "new-pack") {
-        onClick =
-            """
-            sendCreateNewPackRequest()
-            """.trimIndent()
+    button(classes = "new-pack-modal-button") {
+        id = "new-pack-modal-button"
 
         + "+"
+    }
+}
+
+private fun FlowContent.newPackModal() {
+    div(classes = "new-pack-modal") {
+        id = "new-pack-modal"
+
+        form {
+            onSubmit =
+                """
+                sendCreateNewPackRequest()
+                """.trimIndent()
+
+            input(type = InputType.text, name = "packName") {
+                placeholder = "Pack name"
+                id = "packName"
+            }
+
+            input(type = InputType.submit) {
+                id = "submit"
+                value = "Create"
+            }
+        }
+
+        script(src = "/js/packs-modal.js") {}
     }
 }
