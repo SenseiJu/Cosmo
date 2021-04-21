@@ -398,6 +398,23 @@ header .user-options .user-options-content a:nth-child(n + 2):hover {
   left: 6px;
   box-shadow: 0 -5px 0, 0 5px 0;
 }
+#plugin-page {
+  color: white;
+}
+#plugin-page h1 {
+  color: #55FFFF;
+}
+#plugin-page code {
+  display: inline-block;
+  background-color: black;
+  padding: 0.2em 0.5em;
+}
+#plugin-page a {
+  color: lawngreen;
+}
+#plugin-page a:hover {
+  color: greenyellow;
+}
 html {
   font-family: "Courier New", monospace;
   font-weight: bold;

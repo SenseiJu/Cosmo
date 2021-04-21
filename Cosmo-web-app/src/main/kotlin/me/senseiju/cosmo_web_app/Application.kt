@@ -36,7 +36,8 @@ fun Application.cosmo(testing: Boolean = false) {
         index()
         packs()
         modelGallery()
-
+        download()
+        
         // API
         api()
     }

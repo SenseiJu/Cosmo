@@ -1,5 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+val version = "0.0.1"
+
 repositories {
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://repo.dmulloy2.net/nexus/repository/public/")
@@ -31,9 +33,9 @@ tasks {
         minimize()
     }
 
-    withType(ProcessResources::class) {
+    processResources {
         filesMatching("plugin.yml") {
-            expand(Pair("version", project.version))
+            expand("version" to version)
         }
     }
 
