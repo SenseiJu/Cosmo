@@ -7,15 +7,12 @@ import io.ktor.sessions.*
 import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.discord_api.requests.revokeAccessToken
 import me.senseiju.cosmo_web_app.sessions.LoginSession
+import me.senseiju.cosmo_web_app.utils.getLoginSession
 
-fun Route.logout() {
+fun Route.logoutRoute() {
     route("/logout") {
         handle {
-            val loginSession = call.sessions.get<LoginSession>()
-            if (loginSession == null) {
-                call.respondRedirect("${AppPath.INDEX}")
-                return@handle
-            }
+            val loginSession = getLoginSession(call, AppPath.AUTH) ?: return@handle
 
             revokeAccessToken(loginSession.accessToken)
 

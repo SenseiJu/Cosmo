@@ -9,15 +9,12 @@ import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import me.senseiju.cosmo_web_app.templates.PluginPage
+import me.senseiju.cosmo_web_app.utils.getLoginSession
 
-fun Route.download() {
+fun Route.downloadRoute() {
     route("/download") {
         handle {
-            val loginSession = call.sessions.get<LoginSession>()
-            if (loginSession == null) {
-                call.respondRedirect("${AppPath.AUTH}")
-                return@handle
-            }
+            val loginSession = getLoginSession(call, AppPath.AUTH) ?: return@handle
 
             val user = getDiscordUser(loginSession.accessToken)
             if (user.id == null) {

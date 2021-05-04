@@ -4,7 +4,9 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import me.senseiju.cosmo_commons.ModelType
+import me.senseiju.cosmo_web_app.MODELS_PATH
 import me.senseiju.cosmo_web_app.PACK_PATH
+import me.senseiju.cosmo_web_app.TEMP_PATH
 import me.senseiju.cosmo_web_app.data_storage.selectModelsFromPackJoinedWithModels
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.pack_builder.json_templates.ItemJsonTemplate
@@ -23,9 +25,9 @@ import java.util.*
  * @param packsPath the path to output the final files
  */
 private class PackBuilder(
-    modelsPath: String = "/cosmo/models",
-    tempPath: String = "/cosmo/temp",
-    packsPath: String = "/cosmo/packs"
+    modelsPath: String = MODELS_PATH,
+    tempPath: String = TEMP_PATH,
+    packsPath: String = PACK_PATH
 ) {
     private val modelsDir = File(modelsPath)
     private val tempDir = File(tempPath)
@@ -165,7 +167,7 @@ private class PackBuilder(
     }
 }
 
-private val packBuilder = PackBuilder(packsPath = PACK_PATH)
+private val packBuilder = PackBuilder()
 
 suspend fun buildPack(packId: UUID) {
     val models = selectModelsFromPackJoinedWithModels(packId).toTypedArray()

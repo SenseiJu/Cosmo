@@ -14,6 +14,7 @@ const val DISCORD_CLIENT_SECRET = "GuMXi4sH1uV_ilnDgW17r2eIrSl-xRG6"
 
 const val PACK_PATH = "/cosmo/packs"
 const val MODELS_PATH = "/cosmo/models"
+const val TEMP_PATH = "/cosmo/temp"
 
 @kotlin.jvm.JvmOverloads
 fun Application.cosmo(testing: Boolean = false) {
@@ -29,14 +30,15 @@ fun Application.cosmo(testing: Boolean = false) {
     routing {
         // BACKEND
         authenticate()
-        logout()
+        logoutRoute()
 
         // PAGES
         assets()
         index()
-        packs()
+        packsRoute()
+        userModels()
         modelGallery()
-        download()
+        downloadRoute()
         
         // API
         api()

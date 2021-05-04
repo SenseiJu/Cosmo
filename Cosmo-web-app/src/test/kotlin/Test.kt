@@ -24,7 +24,7 @@ class Test {
     fun testing() {
         val file = File("/cosmo/models/hat/1/textures/test.jpg")
 
-        println(isFileOfType(file, FileType.PNG))
+        println(file.isFileOfType(FileType.PNG))
     }
 
     @Test

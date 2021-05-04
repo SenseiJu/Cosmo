@@ -11,15 +11,12 @@ import me.senseiju.cosmo_web_app.data_storage.selectPacks
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import me.senseiju.cosmo_web_app.templates.GalleryPage
+import me.senseiju.cosmo_web_app.utils.getLoginSession
 
 fun Route.modelGallery() {
     route("/gallery") {
         handle {
-            val loginSession = call.sessions.get<LoginSession>()
-            if (loginSession == null) {
-                call.respondRedirect("${AppPath.AUTH}")
-                return@handle
-            }
+            val loginSession = getLoginSession(call, AppPath.AUTH) ?: return@handle
 
             val user = getDiscordUser(loginSession.accessToken)
             if (user.id == null) {

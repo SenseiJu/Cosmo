@@ -90,6 +90,12 @@
   justify-content: center;
   width: 100%;
 }
+#pack-page h1 {
+  color: #55FFFF;
+}
+#pack-page p {
+  color: white;
+}
 .pack-component {
   display: block;
   margin: 2.5%;
@@ -104,16 +110,12 @@
   border: white solid 1px;
   border-radius: 20px;
 }
-.pack-component .content-wrapper p {
-  color: white;
-}
 .pack-component .content-header {
   display: flex;
   align-items: center;
 }
 .pack-component .content-header h1 {
   flex: 1;
-  color: #55FFFF;
 }
 .pack-component .options:hover .options-content {
   display: block;

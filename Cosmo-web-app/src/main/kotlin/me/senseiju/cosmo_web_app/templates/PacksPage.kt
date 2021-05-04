@@ -19,12 +19,19 @@ class PacksPage(private val user: DiscordUserResponse, private val packs: Collec
             main {
                 id = "pack-page"
 
+                h1 {
+                    + "Your packs"
+                }
+
+                p {
+                    + "Here you can find your packs. Click them to view the models or create a new one."
+                }
+
                 packs.forEach {
                     packComponent(it.name, it.packId)
                 }
 
                 newPackButton()
-
                 newPackModal()
             }
         }

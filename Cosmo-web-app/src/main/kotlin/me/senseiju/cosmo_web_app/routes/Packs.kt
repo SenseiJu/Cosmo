@@ -14,16 +14,13 @@ import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import me.senseiju.cosmo_web_app.templates.PackModelsPage
 import me.senseiju.cosmo_web_app.templates.PacksPage
+import me.senseiju.cosmo_web_app.utils.getLoginSession
 import java.util.*
 
-fun Route.packs() {
+fun Route.packsRoute() {
     route("/packs") {
         handle {
-            val loginSession = call.sessions.get<LoginSession>()
-            if (loginSession == null) {
-                call.respondRedirect("${AppPath.AUTH}")
-                return@handle
-            }
+            val loginSession = getLoginSession(call, AppPath.AUTH) ?: return@handle
 
             val user = getDiscordUser(loginSession.accessToken)
             if (user.id == null) {
@@ -35,11 +32,7 @@ fun Route.packs() {
         }
 
         get("{packId}") {
-            val loginSession = call.sessions.get<LoginSession>()
-            if (loginSession == null) {
-                call.respondRedirect("${AppPath.AUTH}")
-                return@get
-            }
+            val loginSession = getLoginSession(call, AppPath.AUTH) ?: return@get
 
             val user = getDiscordUser(loginSession.accessToken)
             if (user.id == null) {

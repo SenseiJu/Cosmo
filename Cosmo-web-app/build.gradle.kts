@@ -42,10 +42,4 @@ tasks {
             attributes["Main-Class"] = "me.senseiju.cosmo_web_app.MainKt"
         }
     }
-
-    withType(KotlinCompile::class) {
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-    }
 }

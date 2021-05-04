@@ -162,7 +162,11 @@ class ModelManager(private val plugin: Cosmo) {
      * @param targets the target players, none to send to all
      */
     private fun sendHelmetModelPacket(player: Player, vararg targets: Player) {
-        val packet = createHelmetModelPacket(player) ?: return
+        val packet = createHelmetModelPacket(player) ?:
+        createPlayServerEntityEquipmentPacket(
+                player.entityId,
+                Pair(EnumWrappers.ItemSlot.HEAD, player.inventory.helmet)
+            )
 
         if (targets.isEmpty()) {
             broadcastPacket(playersWithPack, packet)
