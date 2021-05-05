@@ -44,7 +44,7 @@ class ModelManager(private val plugin: Cosmo) {
     }
 
     fun arePlayersActiveModelsInitialised(): Boolean {
-        return this::playersActiveModels.isInitialized
+        return ::playersActiveModels.isInitialized
     }
 
     /**
@@ -212,7 +212,7 @@ class ModelManager(private val plugin: Cosmo) {
     }
 
     /**
-     * If server/plugin is reloaded with aan external manager, this will re-add all players online back
+     * If server/plugin is reloaded with an external manager, this will re-add all players online back
      * to the [playersWithPack] list so the plugin still recognises them
      */
     private fun handleOnlinePlayers() {

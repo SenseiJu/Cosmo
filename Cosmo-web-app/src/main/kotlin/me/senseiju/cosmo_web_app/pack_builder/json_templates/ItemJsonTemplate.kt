@@ -33,12 +33,12 @@ data class ItemRotationJsonElement(
 
 @Serializable
 data class ItemFacesJsonElement(
-    var north: ItemFaceJsonElement,
-    var south: ItemFaceJsonElement,
-    var east: ItemFaceJsonElement,
-    var west: ItemFaceJsonElement,
-    var up: ItemFaceJsonElement,
-    var down: ItemFaceJsonElement
+    var north: ItemFaceJsonElement? =null,
+    var south: ItemFaceJsonElement? = null,
+    var east: ItemFaceJsonElement? = null,
+    var west: ItemFaceJsonElement? = null,
+    var up: ItemFaceJsonElement? = null,
+    var down: ItemFaceJsonElement? = null
     )
 
 @Serializable

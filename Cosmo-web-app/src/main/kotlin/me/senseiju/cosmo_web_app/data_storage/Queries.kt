@@ -1,11 +1,15 @@
 package me.senseiju.cosmo_web_app.data_storage
 
 import kotlinx.coroutines.launch
+import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_web_app.data_storage.wrappers.*
 import me.senseiju.cosmo_web_app.utils.defaultScope
 import me.senseiju.cosmo_web_app.pack_builder.buildPack
 import me.senseiju.cosmo_web_app.pack_builder.deletePackFiles
+import java.lang.Exception
+import java.sql.SQLException
 import java.util.*
+import javax.sql.rowset.RowSetProvider
 
 private val db = Database()
 
@@ -62,17 +66,31 @@ fun deletePack(packId: UUID) {
 }
 
 /**
- * Create a new model
+ * Create a new model and get the model data
  *
- * @param modelWrapper the model data and type
+ * @param modelType the model type
  * @param name the model name
  * @param userId the user id
+ *
+ * @return the model data
  */
-fun insertModel(modelWrapper: ModelWrapper, name: String, userId: String) {
-    defaultScope.launch {
-        val query = "INSERT INTO `${Table.MODELS}`(`model_data`, `model_type`, `name`, `user_id`) VALUES(?,?,?,?);"
+fun insertModel(modelType: ModelType, name: String, userId: String): Int {
+    val conn = db.getConnection()
+    conn.use {
+        val s = conn.prepareStatement(
+            "INSERT INTO `${Table.MODELS}`(`model_type`, `name`, `user_id`) VALUES(?,?,?);"
+        )
 
-        db.asyncUpdateQuery(query, modelWrapper.modelData, modelWrapper.modelType.toString(), name, userId)
+        db.replaceQueryParams(s, modelType.toString(), name, userId)
+
+        s.executeUpdate()
+
+        val s2 = conn.prepareStatement("SELECT LAST_INSERT_ID() AS `model_data`;")
+
+        val set = s2.executeQuery()
+        set.next()
+
+        return set.getInt("model_data")
     }
 }
 

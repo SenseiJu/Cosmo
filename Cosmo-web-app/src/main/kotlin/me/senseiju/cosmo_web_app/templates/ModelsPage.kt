@@ -16,14 +16,6 @@ class ModelsPage(
 
         body {
             insert(HeaderComponent(user), TemplatePlaceholder())
-
-            form("/models/new-model", method = FormMethod.post, encType = FormEncType.multipartFormData) {
-                input(type = InputType.file, name = "images") {
-                    multiple = true
-                }
-                input(type = InputType.text, name = "name")
-                input(type = InputType.submit)
-            }
         }
     }
 }

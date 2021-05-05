@@ -5,6 +5,8 @@ import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.senseiju.cosmo_web_app.data_storage.wrappers.Replacement
+import java.sql.Connection
+import java.sql.PreparedStatement
 import java.sql.SQLException
 import javax.sql.rowset.CachedRowSet
 import javax.sql.rowset.RowSetProvider
@@ -37,13 +39,11 @@ class Database {
         }
     }
 
-    fun query(q: String, vararg replacements: Any = emptyArray()): CachedRowSet {
+    private fun query(q: String, vararg replacements: Any = emptyArray()): CachedRowSet {
         source.connection.use { conn ->
             val s = conn.prepareStatement(q)
 
-            var i = 1
-
-            replacements.forEach { replacement -> s.setObject(i++, replacement) }
+            replaceQueryParams(s, *replacements)
 
             val set = s.executeQuery()
 
@@ -60,13 +60,11 @@ class Database {
         }
     }
 
-    fun updateQuery(q: String, vararg replacements: Any = emptyArray()) {
+    private fun updateQuery(q: String, vararg replacements: Any = emptyArray()) {
         source.connection.use { conn ->
             val s = conn.prepareStatement(q)
 
-            var i = 1
-
-            replacements.forEach { replacement -> s.setObject(i++, replacement) }
+            replaceQueryParams(s, *replacements)
 
             try {
                 s.executeUpdate()
@@ -104,4 +102,15 @@ class Database {
             conn.autoCommit = true
         }
     }
+
+    fun getConnection(): Connection {
+        return source.connection
+    }
+
+    fun replaceQueryParams(s: PreparedStatement, vararg replacements: Any = emptyArray()) {
+        var i = 1
+
+        replacements.forEach { replacement -> s.setObject(i++, replacement) }
+    }
 }
+

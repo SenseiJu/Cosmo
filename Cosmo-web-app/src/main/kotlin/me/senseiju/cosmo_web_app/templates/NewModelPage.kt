@@ -14,10 +14,18 @@ class NewModelPage(private val user: DiscordUserResponse) : Template<HTML> {
             insert(HeaderComponent(user), TemplatePlaceholder())
 
             form("/models/new-model", method = FormMethod.post, encType = FormEncType.multipartFormData) {
-                input(type = InputType.file, name = "images") {
+                input(type = InputType.file, name = "model_textures") {
                     multiple = true
                 }
+                input(type = InputType.file, name = "model_item_json")
+                input(type = InputType.file, name = "model_display_image")
                 input(type = InputType.text, name = "name")
+                input(type = InputType.radio, name = "model_type") {
+                    value = "Hat"
+                }
+                input(type = InputType.radio, name = "model_type") {
+                    value = "Backpack"
+                }
                 input(type = InputType.submit)
             }
         }

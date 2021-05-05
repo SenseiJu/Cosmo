@@ -1,19 +1,12 @@
 package me.senseiju.cosmo_plugin.listeners
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
-import kotlinx.coroutines.launch
 import me.senseiju.cosmo_plugin.ModelManager
-import me.senseiju.cosmo_plugin.utils.defaultScope
+import org.bukkit.GameMode
 import org.bukkit.Material
-import org.bukkit.entity.EntityType
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.player.PlayerChangedWorldEvent
-import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.event.player.PlayerResourcePackStatusEvent
+import org.bukkit.event.player.*
 
 class PlayerListeners(private val modelManager: ModelManager) : Listener {
 
@@ -28,9 +21,12 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
     @EventHandler
     private fun playerResourcePackStatus(e: PlayerResourcePackStatusEvent) {
         if (e.status == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
-            modelManager.playersWithPack.add(e.player)
-            modelManager.updateModelsToActivePlayers(e.player)
             modelManager.requestModelsFromActivePlayers(e.player)
+            modelManager.playersWithPack.add(e.player)
+
+            if (e.player.gameMode != GameMode.CREATIVE) {
+                modelManager.updateModelsToActivePlayers(e.player)
+            }
         }
     }
 
@@ -41,21 +37,34 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
 
     @EventHandler
     private fun onWorldChange(e: PlayerChangedWorldEvent) {
-        modelManager.updateModelsToActivePlayers(e.player)
+        if (e.player.gameMode != GameMode.CREATIVE) {
+            modelManager.updateModelsToActivePlayers(e.player)
+        }
     }
 
     @EventHandler
     private fun onHelmetChange(e: PlayerArmorChangeEvent) {
-        defaultScope.launch {
-            if (e.slotType != PlayerArmorChangeEvent.SlotType.HEAD) {
-                return@launch
-            }
+        if (e.player.gameMode == GameMode.CREATIVE) {
+            return
+        }
 
-            if (e.newItem?.type == Material.AIR) {
-                e.player.updateInventory()
-                return@launch
-            }
+        if (e.slotType != PlayerArmorChangeEvent.SlotType.HEAD) {
+            return
+        }
 
+        if (e.newItem?.type == Material.AIR) {
+            e.player.updateInventory()
+            return
+        }
+
+        modelManager.updateModelsToActivePlayers(e.player)
+    }
+
+    @EventHandler
+    private fun onGameModeChange(e: PlayerGameModeChangeEvent) {
+        if (e.newGameMode == GameMode.CREATIVE) {
+            e.player.updateInventory()
+        } else {
             modelManager.updateModelsToActivePlayers(e.player)
         }
     }
