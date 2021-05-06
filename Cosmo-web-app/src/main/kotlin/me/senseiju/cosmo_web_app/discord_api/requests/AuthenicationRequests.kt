@@ -12,6 +12,12 @@ import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.util.EntityUtils
 
+private val REDIRECT_URI: String = if (System.getenv("COSMO_DEVELOPMENT_MODE").toBoolean()) {
+    "http://dev.cosmo.senseiju.me:8080/auth"
+} else {
+    "https://cosmo.senseiju.me/auth"
+}
+
 /**
  * Exchanges an auth code for access token
  *
@@ -26,7 +32,7 @@ fun exchangeCodeForAccessToken(code: String): DiscordAccessTokenResponse {
         BasicNameValuePair("client_secret", DISCORD_CLIENT_SECRET),
         BasicNameValuePair("grant_type", "authorization_code"),
         BasicNameValuePair("code", code),
-        BasicNameValuePair("redirect_uri", "https://cosmo.senseiju.me/auth"),
+        BasicNameValuePair("redirect_uri", REDIRECT_URI),
         BasicNameValuePair("scope", "identify email")
     )
     request.entity = UrlEncodedFormEntity(data)

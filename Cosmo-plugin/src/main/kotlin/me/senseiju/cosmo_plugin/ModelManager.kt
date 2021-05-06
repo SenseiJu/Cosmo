@@ -29,9 +29,9 @@ class ModelManager(private val plugin: Cosmo) {
     val playersWithPack = hashSetOf<Player>()
     val packId = plugin.configFile.config.getString("pack-id", null)
     val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
-        "https://cosmo.senseiju.me"
-    } else {
         "http://dev.cosmo.senseiju.me:8080"
+    } else {
+        "https://cosmo.senseiju.me"
     }
     var packSha1 = ""
         private set

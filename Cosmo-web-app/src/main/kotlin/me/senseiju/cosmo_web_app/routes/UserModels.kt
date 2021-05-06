@@ -170,7 +170,7 @@ private class NewModelFileCheckList(private val userId: String) {
     fun submitModel() {
         val modelData = insertModel(modelType, name, userId)
 
-        val modelsDir = File(MODELS_PATH, "$modelType/$modelData")
+        val modelsDir = File(MODELS_PATH, "${modelType.toString().toLowerCase()}/$modelData")
         modelsDir.mkdirs()
 
         itemJsonFile.copyTo(File(modelsDir, "$modelData.json"))
