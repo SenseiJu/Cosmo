@@ -26,7 +26,7 @@ fun exchangeCodeForAccessToken(code: String): DiscordAccessTokenResponse {
         BasicNameValuePair("client_secret", DISCORD_CLIENT_SECRET),
         BasicNameValuePair("grant_type", "authorization_code"),
         BasicNameValuePair("code", code),
-        BasicNameValuePair("redirect_uri", "http://cosmo.senseiju.me:8080/auth"),
+        BasicNameValuePair("redirect_uri", "https://cosmo.senseiju.me/auth"),
         BasicNameValuePair("scope", "identify email")
     )
     request.entity = UrlEncodedFormEntity(data)
@@ -38,7 +38,11 @@ fun exchangeCodeForAccessToken(code: String): DiscordAccessTokenResponse {
 fun revokeAccessToken(accessToken: String) {
     val client = HttpClients.createDefault()
     val request = HttpPost("${DiscordEndpoint.TOKEN}/revoke")
-    val data = listOf(BasicNameValuePair("client_id", DISCORD_CLIENT_ID))
+    val data = listOf(
+        BasicNameValuePair("client_id", DISCORD_CLIENT_ID),
+        BasicNameValuePair("client_secret", DISCORD_CLIENT_SECRET),
+        BasicNameValuePair("token", accessToken)
+    )
     request.entity = UrlEncodedFormEntity(data)
     request.setHeader("Content-Type", "application/x-www-form-urlencoded")
 

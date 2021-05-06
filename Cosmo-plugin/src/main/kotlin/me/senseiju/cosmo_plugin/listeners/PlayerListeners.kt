@@ -7,13 +7,23 @@ import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.*
+import us.myles.ViaVersion.api.Via
 
 class PlayerListeners(private val modelManager: ModelManager) : Listener {
+    private val viaApi = try {
+        Via.getAPI()
+    } catch (e: NoClassDefFoundError) {
+        null
+    }
 
     @EventHandler
     private fun onPlayerJoin(e: PlayerJoinEvent) {
+        if (viaApi != null && viaApi.getPlayerVersion(e.player) != 754) {
+            return
+        }
+
         e.player.setResourcePack(
-            "http://cosmo.senseiju.me:8080/api/packs/${modelManager.packId}?type=zip",
+            "${modelManager.url}/api/packs/${modelManager.packId}?type=zip",
             modelManager.packSha1
         )
     }

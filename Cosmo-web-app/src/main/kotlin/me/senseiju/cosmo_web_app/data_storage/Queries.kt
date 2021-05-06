@@ -3,13 +3,10 @@ package me.senseiju.cosmo_web_app.data_storage
 import kotlinx.coroutines.launch
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_web_app.data_storage.wrappers.*
-import me.senseiju.cosmo_web_app.utils.defaultScope
 import me.senseiju.cosmo_web_app.pack_builder.buildPack
 import me.senseiju.cosmo_web_app.pack_builder.deletePackFiles
-import java.lang.Exception
-import java.sql.SQLException
+import me.senseiju.cosmo_web_app.utils.defaultScope
 import java.util.*
-import javax.sql.rowset.RowSetProvider
 
 private val db = Database()
 
@@ -21,7 +18,8 @@ private val db = Database()
  */
 fun insertModelToPack(packId: UUID, modelWrapper: ModelWrapper) {
     defaultScope.launch {
-        val query = "INSERT IGNORE INTO `${Table.RESOURCE_PACK_MODELS}`(`pack_id`, `model_data`, `model_type`) VALUES(?,?,?);"
+        val query =
+            "INSERT IGNORE INTO `${Table.RESOURCE_PACK_MODELS}`(`pack_id`, `model_data`, `model_type`) VALUES(?,?,?);"
 
         db.asyncUpdateQuery(query, packId.toString(), modelWrapper.modelData, modelWrapper.modelType.toString())
 
@@ -37,7 +35,8 @@ fun insertModelToPack(packId: UUID, modelWrapper: ModelWrapper) {
  */
 fun deleteModelsFromPack(packId: UUID, vararg modelWrappers: ModelWrapper) {
     defaultScope.launch {
-        val query = "DELETE FROM `${Table.RESOURCE_PACK_MODELS}` WHERE `pack_id`=? AND `model_data`=? AND `model_type`=?;"
+        val query =
+            "DELETE FROM `${Table.RESOURCE_PACK_MODELS}` WHERE `pack_id`=? AND `model_data`=? AND `model_type`=?;"
         val replacements = modelWrappers.map {
             Replacement(packId.toString(), it.modelData, it.modelType.toString())
         }.toTypedArray()
@@ -102,11 +101,12 @@ fun insertModel(modelType: ModelType, name: String, userId: String): Int {
  * @return the models in the pack
  */
 suspend fun selectModelsFromPackJoinedWithModels(packId: UUID): Collection<ModelWrapper> {
-    val query = "SELECT `${Table.RESOURCE_PACK_MODELS}`.`model_data`, `${Table.RESOURCE_PACK_MODELS}`.`model_type`, `${Table.MODELS}`.`name`, `${Table.MODELS}`.`user_id` " +
-            "FROM `${Table.RESOURCE_PACK_MODELS}` " +
-            "LEFT JOIN `${Table.MODELS}` ON `${Table.MODELS}`.`model_data` = `${Table.RESOURCE_PACK_MODELS}`.`model_data` " +
-            "AND `${Table.MODELS}`.`model_type` = `${Table.RESOURCE_PACK_MODELS}`.`model_type` " +
-            "WHERE `${Table.RESOURCE_PACK_MODELS}`.`pack_id`=?;"
+    val query =
+        "SELECT `${Table.RESOURCE_PACK_MODELS}`.`model_data`, `${Table.RESOURCE_PACK_MODELS}`.`model_type`, `${Table.MODELS}`.`name`, `${Table.MODELS}`.`user_id` " +
+                "FROM `${Table.RESOURCE_PACK_MODELS}` " +
+                "LEFT JOIN `${Table.MODELS}` ON `${Table.MODELS}`.`model_data` = `${Table.RESOURCE_PACK_MODELS}`.`model_data` " +
+                "AND `${Table.MODELS}`.`model_type` = `${Table.RESOURCE_PACK_MODELS}`.`model_type` " +
+                "WHERE `${Table.RESOURCE_PACK_MODELS}`.`pack_id`=?;"
     val results = db.asyncQuery(query, packId.toString())
 
     return wrapModelsFromResults(results)

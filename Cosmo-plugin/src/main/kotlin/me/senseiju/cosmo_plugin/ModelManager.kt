@@ -28,6 +28,11 @@ class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
     val playersWithPack = hashSetOf<Player>()
     val packId = plugin.configFile.config.getString("pack-id", null)
+    val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
+        "https://cosmo.senseiju.me"
+    } else {
+        "http://dev.cosmo.senseiju.me:8080"
+    }
     var packSha1 = ""
         private set
 
@@ -136,14 +141,14 @@ class ModelManager(private val plugin: Cosmo) {
      */
     fun requestModelsJson(): Boolean {
         try {
-            Json.decodeFromString<List<Model>>(URL("http://cosmo.senseiju.me:8080/api/packs/$packId?type=json").readText())
+            Json.decodeFromString<List<Model>>(URL("$url/api/packs/$packId?type=json").readText())
                 .forEach {
                     models.computeIfAbsent(it.modelType) {
                         hashMapOf()
                     }[it.modelData] = it
                 }
 
-            packSha1 = URL("http://cosmo.senseiju.me:8080/api/packs/$packId?type=sha1").readText()
+            packSha1 = URL("$url/api/packs/$packId?type=sha1").readText()
         } catch (e: Exception) {
             e.printStackTrace()
             logger.error("Failed to find a valid resource pack with UUID: $packId")

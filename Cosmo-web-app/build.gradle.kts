@@ -1,7 +1,14 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val ktorVersion = "1.5.2"
+
+plugins {
+    id("application")
+}
+
+application {
+    mainClassName = "me.senseiju.cosmo_web_app.MainKt"
+}
 
 repositories {
     maven("https://kotlin.bintray.com/ktor")
