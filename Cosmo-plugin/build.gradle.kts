@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val version = "0.0.1"
+val version = "0.1.0"
 
 repositories {
     maven("https://papermc.io/repo/repository/maven-public/")

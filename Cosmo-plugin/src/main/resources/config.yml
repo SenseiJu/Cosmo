@@ -1,7 +1,7 @@
 # Replace with your own pack id
 #
 # Pack id can be found under "Your packs" @ https://cosmo.senseiju.me
-pack-id: "444b4f1b-df59-4926-8397-bf1eb8a277fb"
+pack-id: "fad44f24-4abf-491a-ab65-97ff21c583c4"
 
 # DO NOT EDIT
 #
@@ -12,8 +12,8 @@ previous-pack-hash: ""
 # Internal http server port to deliver the pack
 #
 # You may need to change this port if it interferes with any other applications installed on the machine
-# It should also not be public visible as it is not required to be so
-internal-http-port: 8080
+# Make sure to also port forward
+internal-http-port: 12345
 
 # Set to true to deliver content from the development server
 development-server: false

@@ -9,11 +9,11 @@ class RequestHandler(plugin: Cosmo) : HttpHandler {
     private val file = File(plugin.dataFolder, "pack.zip")
 
     override fun handle(exchange: HttpExchange) {
-        exchange.setAttribute("Content-Type", "application/zip");
         exchange.responseHeaders.add("Content-Disposition", "attachment; filename=pack.zip")
         exchange.sendResponseHeaders(200, file.length())
         exchange.responseBody.use {
             it.write(file.readBytes())
+            it.flush()
         }
     }
 }

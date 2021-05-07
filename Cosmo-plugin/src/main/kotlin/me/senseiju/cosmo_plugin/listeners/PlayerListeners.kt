@@ -28,7 +28,7 @@ class PlayerListeners(
         }
 
         e.player.setResourcePack(
-            "http://localhost:${internalHttpServer.port}/cosmo",
+            "http://${internalHttpServer.ip.trimIndent()}:${internalHttpServer.port}/cosmo",
             modelManager.packSha1
         )
     }

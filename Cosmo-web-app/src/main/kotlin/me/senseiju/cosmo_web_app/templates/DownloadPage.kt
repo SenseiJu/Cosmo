@@ -35,10 +35,13 @@ private fun FlowContent.howToUse() {
             code {
                 + ".jar"
             }
-            + " file above"
+            + " file above as well as "
+            a(href = "https://www.spigotmc.org/resources/protocollib.1997/") {
+                + "ProtocolLib"
+            }
         }
         li {
-            + "Place the plugin in your servers "
+            + "Place the plugins in your servers "
             code {
                 + "/plugins"
             }
