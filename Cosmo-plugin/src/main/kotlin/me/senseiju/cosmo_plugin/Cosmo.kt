@@ -2,6 +2,7 @@ package me.senseiju.cosmo_plugin
 
 import me.mattstudios.mf.base.CommandManager
 import me.mattstudios.mfgui.gui.guis.BaseGui
+import me.senseiju.cosmo_plugin.http.InternalHttpServer
 import me.senseiju.cosmo_plugin.utils.datastorage.DataFile
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
@@ -14,9 +15,12 @@ class Cosmo : JavaPlugin() {
     lateinit var commandManager: CommandManager
     lateinit var modelManager: ModelManager
 
+    private lateinit var httpServer: InternalHttpServer
+
     override fun onEnable() {
         commandManager = CommandManager(this)
         modelManager = ModelManager(this)
+        httpServer = InternalHttpServer(this)
 
         if (!modelManager.requestModelsJson()) {
             server.pluginManager.disablePlugin(this)
@@ -27,6 +31,8 @@ class Cosmo : JavaPlugin() {
     }
 
     override fun onDisable() {
+        httpServer.stop()
+
         if (modelManager.arePlayersActiveModelsInitialised()) {
             modelManager.saveActiveModels()
         }

@@ -19,6 +19,7 @@ import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import org.bukkit.entity.Player
+import java.io.File
 import java.net.URL
 import java.util.*
 
@@ -156,8 +157,13 @@ class ModelManager(private val plugin: Cosmo) {
         }
 
         requestModelsSuccess()
+        downloadPackZip()
 
         return true
+    }
+
+    fun downloadPackZip() {
+        File(plugin.dataFolder, "pack.zip").writeBytes(URL("$url/api/packs/$packId?type=zip").readBytes())
     }
 
     /**

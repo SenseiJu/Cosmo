@@ -22,8 +22,16 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
             return
         }
 
+        /*
         e.player.setResourcePack(
             "${modelManager.url}/api/packs/${modelManager.packId}?type=zip",
+            modelManager.packSha1
+        )
+
+         */
+
+        e.player.setResourcePack(
+            "http://localhost:8080/cosmo",
             modelManager.packSha1
         )
     }
