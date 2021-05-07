@@ -1,5 +1,6 @@
 name: Cosmo
 author: SenseiJu
+website: https://cosmo.senseiju.me
 
 version: ${version}
 api-version: 1.16

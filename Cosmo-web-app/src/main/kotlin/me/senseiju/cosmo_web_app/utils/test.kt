@@ -25,7 +25,7 @@ suspend fun getAuthenticatedDiscordUser(
     call: ApplicationCall,
     loginSession: LoginSession,
     redirect: AppPath? = null
-) : DiscordUserResponse? {
+): DiscordUserResponse? {
     val user = getDiscordUser(loginSession.accessToken)
 
     if (user.id == null) {

@@ -14,13 +14,12 @@ class Cosmo : JavaPlugin() {
 
     lateinit var commandManager: CommandManager
     lateinit var modelManager: ModelManager
-
-    private lateinit var httpServer: InternalHttpServer
+    lateinit var httpServer: InternalHttpServer
 
     override fun onEnable() {
+        httpServer = InternalHttpServer(this)
         commandManager = CommandManager(this)
         modelManager = ModelManager(this)
-        httpServer = InternalHttpServer(this)
 
         if (!modelManager.requestModelsJson()) {
             server.pluginManager.disablePlugin(this)

@@ -9,5 +9,11 @@ pack-id: "444b4f1b-df59-4926-8397-bf1eb8a277fb"
 # will be cleared
 previous-pack-hash: ""
 
+# Internal http server port to deliver the pack
+#
+# You may need to change this port if it interferes with any other applications installed on the machine
+# It should also not be public visible as it is not required to be so
+internal-http-port: 8080
+
 # Set to true to deliver content from the development server
 development-server: false

@@ -7,11 +7,10 @@ import com.comphenix.protocol.wrappers.Pair
 import org.bukkit.inventory.ItemStack
 
 
-
 fun createPlayServerEntityEquipmentPacket(
     entityId: Int,
     vararg slotItemPairs: Pair<EnumWrappers.ItemSlot, ItemStack>
-) : PacketContainer {
+): PacketContainer {
     val packet = PacketContainer(PacketType.Play.Server.ENTITY_EQUIPMENT)
     packet.integers.write(0, entityId)
     packet.slotStackPairLists.write(0, listOf(*slotItemPairs))

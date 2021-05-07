@@ -81,17 +81,21 @@ private class PackBuilder(
             val modelJson = createModelJson(modelType, modelDataList)
             val modelTypeLower = modelType.toString().toLowerCase()
 
-            modelDataList.forEach {
-                File(modelsDir, "$modelTypeLower/$it/textures").copyRecursively(
-                    File(pack, "/textures/$modelTypeLower/$it")
-                )
+            modelDataList.forEach { modelData ->
+                val textureFileDir = File(pack, "/textures/$modelTypeLower/$modelData")
+                File(modelsDir, "$modelTypeLower/$modelData/textures").copyRecursively(textureFileDir)
+                textureFileDir.listFiles()?.forEach {
+                    if (it.isFile) {
+                        it.renameTo(File(it.parent, it.name.toLowerCase()))
+                    }
+                }
 
-                val itemFile = File(modelsDir, "/$modelTypeLower/$it/$it.json")
+                val itemFile = File(modelsDir, "/$modelTypeLower/$modelData/$modelData.json")
                 val itemJson = Json.decodeFromString<ItemJsonTemplate>(itemFile.readText())
-                itemJson.textures = reformatModelTextures(itemJson.textures ?: emptyMap(), modelType, it)
+                itemJson.textures = reformatModelTextures(itemJson.textures ?: emptyMap(), modelType, modelData)
 
                 File(pack, "/models/item/$modelTypeLower").mkdirs()
-                File(pack, "/models/item/$modelTypeLower/$it.json").writeText(Json.encodeToString(itemJson))
+                File(pack, "/models/item/$modelTypeLower/$modelData.json").writeText(Json.encodeToString(itemJson))
             }
 
             File(pack, "/models/item/${modelType.material.toString().toLowerCase()}.json")
@@ -162,7 +166,7 @@ private class PackBuilder(
         modelData: Int
     ): Map<String, String> {
         return textures.map { (id, path) ->
-            id to "${modelType.toString().toLowerCase()}/$modelData/${path.split("/").last()}"
+            id to "${modelType.toString().toLowerCase()}/$modelData/${path.split("/").last().toLowerCase()}"
         }.toMap()
     }
 }

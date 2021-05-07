@@ -2,6 +2,7 @@ package me.senseiju.cosmo_plugin.listeners
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import me.senseiju.cosmo_plugin.ModelManager
+import me.senseiju.cosmo_plugin.http.InternalHttpServer
 import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
@@ -9,7 +10,11 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.*
 import us.myles.ViaVersion.api.Via
 
-class PlayerListeners(private val modelManager: ModelManager) : Listener {
+class PlayerListeners(
+    private val modelManager: ModelManager,
+    private val internalHttpServer: InternalHttpServer
+) : Listener {
+
     private val viaApi = try {
         Via.getAPI()
     } catch (e: NoClassDefFoundError) {
@@ -22,16 +27,8 @@ class PlayerListeners(private val modelManager: ModelManager) : Listener {
             return
         }
 
-        /*
         e.player.setResourcePack(
-            "${modelManager.url}/api/packs/${modelManager.packId}?type=zip",
-            modelManager.packSha1
-        )
-
-         */
-
-        e.player.setResourcePack(
-            "http://localhost:8080/cosmo",
+            "http://localhost:${internalHttpServer.port}/cosmo",
             modelManager.packSha1
         )
     }

@@ -28,8 +28,8 @@ const val CUSTOM_MODEL_DATA_TAG = "CustomModelData"
 class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
     val playersWithPack = hashSetOf<Player>()
-    val packId = plugin.configFile.config.getString("pack-id", null)
-    val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
+    private val packId = plugin.configFile.config.getString("pack-id", null)
+    private val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
         "http://dev.cosmo.senseiju.me:8080"
     } else {
         "https://cosmo.senseiju.me"
@@ -157,12 +157,14 @@ class ModelManager(private val plugin: Cosmo) {
         }
 
         requestModelsSuccess()
-        downloadPackZip()
 
         return true
     }
 
-    fun downloadPackZip() {
+    /**
+     * Downloads the resource pack from the Cosmo CDN
+     */
+    private fun downloadPackZip() {
         File(plugin.dataFolder, "pack.zip").writeBytes(URL("$url/api/packs/$packId?type=zip").readBytes())
     }
 
@@ -173,11 +175,10 @@ class ModelManager(private val plugin: Cosmo) {
      * @param targets the target players, none to send to all
      */
     private fun sendHelmetModelPacket(player: Player, vararg targets: Player) {
-        val packet = createHelmetModelPacket(player) ?:
-        createPlayServerEntityEquipmentPacket(
-                player.entityId,
-                Pair(EnumWrappers.ItemSlot.HEAD, player.inventory.helmet)
-            )
+        val packet = createHelmetModelPacket(player) ?: createPlayServerEntityEquipmentPacket(
+            player.entityId,
+            Pair(EnumWrappers.ItemSlot.HEAD, player.inventory.helmet)
+        )
 
         if (targets.isEmpty()) {
             broadcastPacket(playersWithPack, packet)
@@ -216,6 +217,7 @@ class ModelManager(private val plugin: Cosmo) {
      * Called if initial requests for models succeeds
      */
     private fun requestModelsSuccess() {
+        downloadPackZip()
         loadActiveModels()
         registerEvents()
         registerCommands()
@@ -238,7 +240,7 @@ class ModelManager(private val plugin: Cosmo) {
      * Register plugin events
      */
     private fun registerEvents() {
-        plugin.registerEvents(PlayerListeners(this))
+        plugin.registerEvents(PlayerListeners(this, plugin.httpServer))
     }
 
     /**
