@@ -4,11 +4,9 @@ import io.ktor.application.*
 import io.ktor.html.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import io.ktor.sessions.*
 import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
-import me.senseiju.cosmo_web_app.sessions.LoginSession
-import me.senseiju.cosmo_web_app.templates.PluginPage
+import me.senseiju.cosmo_web_app.templates.DownloadPage
 import me.senseiju.cosmo_web_app.utils.getLoginSession
 
 fun Route.downloadRoute() {
@@ -22,7 +20,7 @@ fun Route.downloadRoute() {
                 return@handle
             }
 
-            call.respondHtmlTemplate(PluginPage(user)) {}
+            call.respondHtmlTemplate(DownloadPage(user)) {}
         }
     }
 }

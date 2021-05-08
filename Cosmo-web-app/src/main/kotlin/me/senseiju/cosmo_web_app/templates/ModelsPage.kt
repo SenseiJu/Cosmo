@@ -16,6 +16,10 @@ class ModelsPage(
 
         body {
             insert(HeaderComponent(user), TemplatePlaceholder())
+
+            main {
+
+            }
         }
     }
 }

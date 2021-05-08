@@ -18,13 +18,13 @@ import java.util.*
 
 fun Route.apiPacks() {
     route("/packs") {
-        deletePack()
-        postPack()
+        apiDeletePack()
+        apiPostPack()
         getPack()
 
         route("/models") {
             deletePackModel()
-            postPackModel()
+            apiPostPackModel()
         }
     }
 }
@@ -70,7 +70,7 @@ private suspend fun sendPackZip(call: ApplicationCall, packZip: File) {
     call.respondFile(packZip)
 }
 
-private fun Route.postPack() {
+private fun Route.apiPostPack() {
     post {
         val loginSession = call.sessions.get<LoginSession>() ?: return@post
 
@@ -85,7 +85,7 @@ private fun Route.postPack() {
     }
 }
 
-private fun Route.deletePack() {
+private fun Route.apiDeletePack() {
     delete {
         val loginSession = call.sessions.get<LoginSession>() ?: return@delete
 
@@ -108,7 +108,7 @@ private fun Route.deletePack() {
     }
 }
 
-private fun Route.postPackModel() {
+private fun Route.apiPostPackModel() {
     post {
         val loginSession = call.sessions.get<LoginSession>() ?: return@post
 

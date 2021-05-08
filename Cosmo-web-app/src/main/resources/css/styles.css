@@ -20,19 +20,19 @@
 #resource-pack-models-page .model li {
   position: relative;
   background-color: #343437;
-  padding: 0 1.4%;
+  padding: 0 1.5%;
   border: white solid 1px;
   border-radius: 20px;
   float: left;
-  width: 20%;
-  height: 300px;
-  margin: 1%;
+  width: 15%;
+  height: 250px;
+  margin: 0.9%;
 }
 #resource-pack-models-page .model img {
   display: block;
   max-width: 100%;
   max-height: 150px;
-  margin: 0 auto;
+  margin: auto;
 }
 #resource-pack-models-page .model p {
   position: absolute;
@@ -50,6 +50,7 @@
   white-space: nowrap;
   width: calc(80%);
   overflow: hidden;
+  font-size: 1.5em;
 }
 #resource-pack-models-page .model .top i:hover {
   cursor: pointer;
@@ -440,4 +441,18 @@ a {
 }
 .no-transition-on-load * {
   transition: none !important;
+}
+@media all and (min-width: 960px) {
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #292929;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
 }

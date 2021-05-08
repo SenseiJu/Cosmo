@@ -15,6 +15,7 @@ import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.MODELS_PATH
 import me.senseiju.cosmo_web_app.TEMP_PATH
 import me.senseiju.cosmo_web_app.data_storage.insertModel
+import me.senseiju.cosmo_web_app.data_storage.selectUsersModels
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.pack_builder.json_templates.ItemJsonTemplate
 import me.senseiju.cosmo_web_app.templates.ModelsPage
@@ -37,7 +38,7 @@ fun Route.userModels() {
                 return@handle
             }
 
-            call.respondHtmlTemplate(ModelsPage(user, emptyList())) {}
+            call.respondHtmlTemplate(ModelsPage(user, selectUsersModels(user.id))) {}
         }
 
         route("/new-model") {

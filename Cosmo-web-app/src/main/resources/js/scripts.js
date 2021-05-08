@@ -38,7 +38,6 @@ function sendSubscribeModelToPackRequest(packId, modelData, modelType) {
         "POST",
         "/api/packs/models"
     )
-    console.log("pack_id=" + packId + "&model_data=" + modelData + "&model_type=" + modelType)
 
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send("pack_id=" + packId + "&model_data=" + modelData + "&model_type=" + modelType)

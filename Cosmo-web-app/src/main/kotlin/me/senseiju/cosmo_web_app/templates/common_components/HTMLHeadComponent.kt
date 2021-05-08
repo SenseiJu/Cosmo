@@ -15,6 +15,7 @@ class HTMLHeadComponent: Template<HTML> {
             script(src = "https://kit.fontawesome.com/7ef4e3c4f0.js") {}
 
             link(rel = "stylesheet", href = "/css/styles.css?v=${Random.nextInt()}", type = "text/css")
+            link(rel = "icon", href = "/img/logo.jpg")
         }
     }
 }
