@@ -1,7 +1,7 @@
 # Replace with your own pack id
 #
 # Pack id can be found under "Your packs" @ https://cosmo.senseiju.me
-pack-id: "fad44f24-4abf-491a-ab65-97ff21c583c4"
+pack-id: "a939f783-3711-48ee-b2f5-69f66efcd1c2"
 
 # DO NOT EDIT
 #
@@ -9,10 +9,15 @@ pack-id: "fad44f24-4abf-491a-ab65-97ff21c583c4"
 # will be cleared
 previous-pack-hash: ""
 
-# Internal http server port to deliver the pack
+# Internal http server to deliver the pack
 #
-# You may need to change this port if it interferes with any other applications installed on the machine
-# Make sure to also port forward
+# By default, the internal server will not be used and your pack will be provided by the Cosmo servers.
+# By doing so, if the pack is updated whilst the server is live, it will cause the next players to login to receive
+# a more up to date pack and previously logged in players must re-log. Using the internal server is ideal as it will
+# prevent the de-sync.
+use-internal-http-server: false
+# You may need to change this port if it interferes with any other applications installed on the machine.
+# Make sure to also port forward.
 internal-http-port: 12345
 
 # Set to true to deliver content from the development server

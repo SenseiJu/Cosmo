@@ -8,16 +8,23 @@ import java.net.URL
 class InternalHttpServer(plugin: Cosmo) {
     val port = plugin.configFile.config.getInt("internal-http-port", 8080)
     var ip: String = URL("https://checkip.amazonaws.com").readText()
+    var isEnabled = plugin.configFile.config.getBoolean("use-internal-http-server", false)
+        private set
 
-    private val server = HttpServer.create(InetSocketAddress("0.0.0.0", port), 0)
+    private lateinit var server: HttpServer
 
     init {
-        server.createContext("/cosmo", RequestHandler(plugin))
-        server.executor = null
-        server.start()
+        if (isEnabled) {
+            server = HttpServer.create(InetSocketAddress("0.0.0.0", port), 0)
+            server.createContext("/cosmo", RequestHandler(plugin))
+            server.executor = null
+            server.start()
+        }
     }
 
     fun stop() {
-        server.stop(0)
+        if (isEnabled) {
+            server.stop(0)
+        }
     }
 }

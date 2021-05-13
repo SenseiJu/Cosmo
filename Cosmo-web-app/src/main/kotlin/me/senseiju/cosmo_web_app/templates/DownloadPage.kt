@@ -51,12 +51,14 @@ private fun FlowContent.howToInstall() {
             a(href = "/packs") { + "Your packs" }
             + " page on the website. You may also want to change the "
             code { + "internal-http-port" }
-            + "if it is already used by another application"
+            + " if it is already used by another application"
         }
         li {
             + "Port forward the "
             code { + "internal-http-port" }
             + " that is set inside the "
+            code { + "config.yml" }
+            + " or the pack will not be accessible by players"
         }
         li {
             + "Restart your server and connecting should now ask the player to accept the server resource pack"

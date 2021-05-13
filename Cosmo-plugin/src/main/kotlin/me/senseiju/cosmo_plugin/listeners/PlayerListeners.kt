@@ -1,20 +1,22 @@
 package me.senseiju.cosmo_plugin.listeners
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
+import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.ModelManager
-import me.senseiju.cosmo_plugin.http.InternalHttpServer
 import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.*
 import us.myles.ViaVersion.api.Via
 
 class PlayerListeners(
-    private val modelManager: ModelManager,
-    private val internalHttpServer: InternalHttpServer
+    private val plugin: Cosmo,
+    private val modelManager: ModelManager
 ) : Listener {
-
+    private val httpServer = plugin.httpServer
     private val viaApi = try {
         Via.getAPI()
     } catch (e: NoClassDefFoundError) {
@@ -27,10 +29,17 @@ class PlayerListeners(
             return
         }
 
-        e.player.setResourcePack(
-            "http://${internalHttpServer.ip.trimIndent()}:${internalHttpServer.port}/cosmo",
-            modelManager.packSha1
-        )
+        if (httpServer.isEnabled) {
+            e.player.setResourcePack(
+                "http://${httpServer.ip.trimIndent()}:${httpServer.port}/cosmo",
+                modelManager.packSha1
+            )
+        } else {
+            e.player.setResourcePack(
+                "http://cosmo.senseiju.me:8080/api/packs/${modelManager.packId}?type=zip",
+                modelManager.packSha1
+            )
+        }
     }
 
     @EventHandler
@@ -82,5 +91,20 @@ class PlayerListeners(
         } else {
             modelManager.updateModelsToActivePlayers(e.player)
         }
+    }
+
+    @EventHandler
+    private fun onPlayerDamage(e: EntityDamageByEntityEvent) {
+        val player = if (e.entity is Player) {
+            e.entity as Player
+        } else return
+
+        modelManager.updateModelsToActivePlayers(player)
+
+        plugin.server.scheduler.runTaskLater(
+            plugin,
+            Runnable { modelManager.updateModelsToActivePlayers(player) },
+            1L
+        )
     }
 }

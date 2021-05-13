@@ -39,7 +39,7 @@ class GalleryModelComponent(
 private fun FlowContent.options(packs: Collection<PackWrapper>, model: ModelWrapper) {
     div(classes = "options") {
         i(classes = "fas fa-plus") {
-            style = "font-size: 1.7em;"
+            style = "font-size: 1.3em;"
         }
 
         div(classes = "options-content") {

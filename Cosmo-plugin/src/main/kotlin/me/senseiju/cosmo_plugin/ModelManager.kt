@@ -151,8 +151,8 @@ class ModelManager(private val plugin: Cosmo) {
 
             packSha1 = URL("$url/api/packs/$packId?type=sha1").readText()
         } catch (e: Exception) {
-            e.printStackTrace()
             logger.error("Failed to find a valid resource pack with UUID: $packId")
+            logger.error("Check your pack-id and make sure it is correct")
             return false
         }
 
@@ -240,7 +240,7 @@ class ModelManager(private val plugin: Cosmo) {
      * Register plugin events
      */
     private fun registerEvents() {
-        plugin.registerEvents(PlayerListeners(this, plugin.httpServer))
+        plugin.registerEvents(PlayerListeners(plugin, this))
     }
 
     /**
