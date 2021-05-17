@@ -1,13 +1,13 @@
 # Replace with your own pack id
 #
 # Pack id can be found under "Your packs" @ https://cosmo.senseiju.me
-pack-id: "a939f783-3711-48ee-b2f5-69f66efcd1c2"
+pack-id: a939f783-3711-48ee-b2f5-69f66efcd1c2
 
 # DO NOT EDIT
 #
 # Editing the hash value will not break the plugin but any currently saved models for players
 # will be cleared
-previous-pack-hash: ""
+previous-pack-hash: fb8e6f06153c3519e9ee09b731a249ecd9be8042
 
 # Internal http server to deliver the pack
 #

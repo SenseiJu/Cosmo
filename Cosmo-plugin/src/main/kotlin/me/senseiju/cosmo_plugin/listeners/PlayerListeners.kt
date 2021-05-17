@@ -9,6 +9,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.*
 import us.myles.ViaVersion.api.Via
 
@@ -99,12 +100,15 @@ class PlayerListeners(
             e.entity as Player
         } else return
 
-        modelManager.updateModelsToActivePlayers(player)
-
         plugin.server.scheduler.runTaskLater(
             plugin,
             Runnable { modelManager.updateModelsToActivePlayers(player) },
-            1L
+            2
         )
+    }
+
+    @EventHandler
+    private fun onPlayerEat(e: PlayerItemConsumeEvent) {
+        modelManager.updateModelsToActivePlayers(e.player)
     }
 }
