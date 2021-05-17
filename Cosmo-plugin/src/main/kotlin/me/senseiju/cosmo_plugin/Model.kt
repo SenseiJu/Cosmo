@@ -36,9 +36,10 @@ data class Model(val modelData: Int, val name: String, val author: String, val m
         if (original.itemMeta is Damageable) {
             val damageable = original.itemMeta as Damageable
             val maxDurability = original.type.maxDurability
-            val durabilityComponent = Component.text("Durability: ${maxDurability - damageable.damage} / $maxDurability")
-                .color(TextColor.color(255, 255, 255))
-                .decoration(TextDecoration.ITALIC, false)
+            val durabilityComponent = Component.text(
+                "Durability: ${maxDurability - damageable.damage} / $maxDurability",
+                TextColor.color(255, 255, 255)
+            ).decoration(TextDecoration.ITALIC, false)
 
             with(listOf(Component.empty(), durabilityComponent)) {
                 new.lore()?.addAll(this) ?: new.lore(this)

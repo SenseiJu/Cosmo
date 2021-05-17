@@ -16,9 +16,11 @@ import me.senseiju.cosmo_plugin.packets.createPlayServerEntityEquipmentPacket
 import me.senseiju.cosmo_plugin.packets.sendPacket
 import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
+import me.senseiju.cosmo_plugin.utils.extensions.color
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
+import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 import java.io.File
 import java.net.URL
@@ -41,6 +43,7 @@ class ModelManager(private val plugin: Cosmo) {
     private lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
 
     private val activeModelsFile = RawDataFile(plugin, "active-models.json")
+    private val kickOnReload = plugin.configFile.config.getBoolean("kick-players-on-reload", true)
     private val logger = plugin.slF4JLogger
 
     /**
@@ -234,12 +237,24 @@ class ModelManager(private val plugin: Cosmo) {
      */
     private fun handleOnlinePlayers(newPack: Boolean = false) {
         plugin.server.onlinePlayers.forEach {
-            if (it.hasResourcePack()) {
-                if (newPack) {
-                    it.sendConfigMessage("PACK-OUTDATED")
-                } else {
-                    playersWithPack.add(it)
-                }
+            if (!it.hasResourcePack()) {
+                return@forEach
+            }
+
+            if (!newPack) {
+                playersWithPack.add(it)
+                return@forEach
+            }
+
+            if (kickOnReload) {
+                it.kick(
+                    Component.text(("""&d&lCosmo &8&l» &cYou are using an outdated version of the resource pack, 
+                            |reconnect to get the latest
+                        """.trimMargin().color())
+                    )
+                )
+            } else {
+                it.sendConfigMessage("PACK-OUTDATED")
             }
         }
     }

@@ -1,5 +1,4 @@
 PREFIX: "&d&lCosmo &8&l»"
 
 COMMAND-COSMO-PACK-REQUIRED: "&cYou must have the server resource pack active and be on the latest version to use this command"
-
 PACK-OUTDATED: "&cYour current server resource pack is outdated, re-log to get the latest pack"
