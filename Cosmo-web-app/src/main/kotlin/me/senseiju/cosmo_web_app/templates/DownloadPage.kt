@@ -40,6 +40,19 @@ private fun FlowContent.howToInstall() {
             code { + "/plugins" }
             + " folder"
         }
+
+        li {
+            + """
+                Start your server and you should be good to go with a default pack. If you would like to use your own 
+                pack, copy the
+                """
+            code { + "pack-id" }
+            + " from the "
+            a(href = "/packs") { + "Your packs" }
+            + " page into the config"
+        }
+
+        /*
         li {
             + "Start your server and wait for the configuration files to be generated. Once generated, edit the "
             code { + "config.yml" }
@@ -63,6 +76,8 @@ private fun FlowContent.howToInstall() {
         li {
             + "Restart your server and connecting should now ask the player to accept the server resource pack"
         }
+
+         */
     }
 }
 
