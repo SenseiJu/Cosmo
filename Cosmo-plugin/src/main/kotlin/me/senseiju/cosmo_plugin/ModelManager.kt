@@ -18,6 +18,7 @@ import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
+import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import org.bukkit.entity.Player
 import java.io.File
 import java.net.URL
@@ -67,6 +68,8 @@ class ModelManager(private val plugin: Cosmo) {
             activeModelsFile.write("")
 
             logger.info("SHA hash for new pack is different to last known hash, clearing previous active player models")
+
+            handleOnlinePlayers(true)
             return
         }
 
@@ -75,6 +78,8 @@ class ModelManager(private val plugin: Cosmo) {
         } catch (ex: Exception) {
             HashMap()
         }
+
+        handleOnlinePlayers()
     }
 
     /**
@@ -221,17 +226,20 @@ class ModelManager(private val plugin: Cosmo) {
         loadActiveModels()
         registerEvents()
         registerCommands()
-        handleOnlinePlayers()
     }
 
     /**
      * If server/plugin is reloaded with an external manager, this will re-add all players online back
      * to the [playersWithPack] list so the plugin still recognises them
      */
-    private fun handleOnlinePlayers() {
+    private fun handleOnlinePlayers(newPack: Boolean = false) {
         plugin.server.onlinePlayers.forEach {
             if (it.hasResourcePack()) {
-                playersWithPack.add(it)
+                if (newPack) {
+                    it.sendConfigMessage("PACK-OUTDATED")
+                } else {
+                    playersWithPack.add(it)
+                }
             }
         }
     }
