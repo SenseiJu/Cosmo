@@ -18,6 +18,7 @@ import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.color
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
+import me.senseiju.cosmo_plugin.utils.extensions.setUserAgent
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import net.kyori.adventure.text.Component
@@ -152,7 +153,7 @@ class ModelManager(private val plugin: Cosmo) {
     fun requestModelsJson(): Boolean {
         try {
             with(URL("$url/api/packs/$packId?type=json").openConnection() as HttpURLConnection) {
-                this.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
+                this.setUserAgent()
                 this.connect()
 
                 Json.decodeFromString<List<Model>>(this.inputStream.bufferedReader().readText())
@@ -164,7 +165,7 @@ class ModelManager(private val plugin: Cosmo) {
             }
 
             with(URL("$url/api/packs/$packId?type=sha1").openConnection() as HttpURLConnection) {
-                this.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
+                this.setUserAgent()
                 this.connect()
 
                 packSha1 = this.inputStream.bufferedReader().readText()
@@ -191,7 +192,7 @@ class ModelManager(private val plugin: Cosmo) {
         }
 
         with(URL("$url/api/packs/$packId?type=zip").openConnection() as HttpURLConnection) {
-            this.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
+            this.setUserAgent()
             this.connect()
 
             File(plugin.dataFolder, "pack.zip").writeBytes(this.inputStream.buffered().readBytes())
