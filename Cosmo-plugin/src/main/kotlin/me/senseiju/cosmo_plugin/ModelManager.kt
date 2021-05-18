@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.commands.CosmoCommand
 import me.senseiju.cosmo_plugin.listeners.PlayerListeners
@@ -22,7 +23,9 @@ import me.senseiju.cosmo_plugin.utils.extensions.setUserAgent
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -34,7 +37,7 @@ class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
     val playersWithPack = hashSetOf<Player>()
     val packId = plugin.configFile.config.getString("pack-id", null)
-    val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
+    private val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
         "http://dev.cosmo.senseiju.me:8080"
     } else {
         "https://cosmo.senseiju.me"
@@ -230,7 +233,7 @@ class ModelManager(private val plugin: Cosmo) {
     private fun createHelmetModelPacket(player: Player): PacketContainer? {
         val modelData = playersActiveModels[player.uniqueId]?.get(ModelType.HAT) ?: return null
         val modelItem = models[ModelType.HAT]
-            ?.get(modelData)?.applyItemToModel(player.inventory.helmet ?: return null) ?: return null
+            ?.get(modelData)?.applyItemToModel(player.inventory.helmet ?: ItemStack(Material.AIR)) ?: return null
 
         val slotItemPair = Pair(EnumWrappers.ItemSlot.HEAD, modelItem)
 

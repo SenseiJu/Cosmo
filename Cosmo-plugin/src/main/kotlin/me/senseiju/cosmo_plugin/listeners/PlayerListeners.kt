@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.*
 import us.myles.ViaVersion.api.Via
 
@@ -77,11 +79,6 @@ class PlayerListeners(
             return
         }
 
-        if (e.newItem?.type == Material.AIR) {
-            e.player.updateInventory()
-            return
-        }
-
         modelManager.updateModelsToActivePlayers(e.player)
     }
 
@@ -110,5 +107,18 @@ class PlayerListeners(
     @EventHandler
     private fun onPlayerEat(e: PlayerItemConsumeEvent) {
         modelManager.updateModelsToActivePlayers(e.player)
+    }
+
+    @EventHandler
+    private fun onHelmetClick(e: InventoryClickEvent) {
+        if (e.slotType != InventoryType.SlotType.ARMOR) {
+            return
+        }
+
+        if (e.slot != 39) {
+            return
+        }
+
+        modelManager.updateModelsToActivePlayers(e.whoClicked as Player)
     }
 }
