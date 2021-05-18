@@ -23,6 +23,7 @@ import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 import java.io.File
+import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 
@@ -150,17 +151,29 @@ class ModelManager(private val plugin: Cosmo) {
      */
     fun requestModelsJson(): Boolean {
         try {
-            Json.decodeFromString<List<Model>>(URL("$url/api/packs/$packId?type=json").readText())
-                .forEach {
-                    models.computeIfAbsent(it.modelType) {
-                        hashMapOf()
-                    }[it.modelData] = it
-                }
+            with(URL("$url/api/packs/$packId?type=json").openConnection() as HttpURLConnection) {
+                this.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
+                this.connect()
 
-            packSha1 = URL("$url/api/packs/$packId?type=sha1").readText()
+                Json.decodeFromString<List<Model>>(this.inputStream.bufferedReader().readText())
+                    .forEach {
+                        models.computeIfAbsent(it.modelType) {
+                            hashMapOf()
+                        }[it.modelData] = it
+                    }
+            }
+
+            with(URL("$url/api/packs/$packId?type=sha1").openConnection() as HttpURLConnection) {
+                this.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
+                this.connect()
+
+                packSha1 = this.inputStream.bufferedReader().readText()
+            }
         } catch (e: Exception) {
             logger.error("Failed to find a valid resource pack with UUID: $packId")
             logger.error("Check your pack-id and make sure it is correct")
+
+            e.printStackTrace()
             return false
         }
 
@@ -173,7 +186,16 @@ class ModelManager(private val plugin: Cosmo) {
      * Downloads the resource pack from the Cosmo CDN
      */
     private fun downloadPackZip() {
-        File(plugin.dataFolder, "pack.zip").writeBytes(URL("$url/api/packs/$packId?type=zip").readBytes())
+        if (!plugin.httpServer.isEnabled) {
+            return
+        }
+
+        with(URL("$url/api/packs/$packId?type=zip").openConnection() as HttpURLConnection) {
+            this.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36")
+            this.connect()
+
+            File(plugin.dataFolder, "pack.zip").writeBytes(this.inputStream.buffered().readBytes())
+        }
     }
 
     /**
