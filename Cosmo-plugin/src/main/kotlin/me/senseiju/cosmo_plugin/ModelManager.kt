@@ -49,6 +49,7 @@ class ModelManager(private val plugin: Cosmo) {
 
     private val activeModelsFile = RawDataFile(plugin, "active-models.json")
     private val kickOnReload = plugin.configFile.config.getBoolean("kick-players-on-reload", true)
+    private val requireHelmets = plugin.configFile.config.getBoolean("require-helmets", false)
     private val logger = plugin.slF4JLogger
 
     /**
@@ -231,6 +232,10 @@ class ModelManager(private val plugin: Cosmo) {
      * @return a packet or null if a packet cannot be created
      */
     private fun createHelmetModelPacket(player: Player): PacketContainer? {
+        if (requireHelmets && player.inventory.helmet == null) {
+            return null
+        }
+
         val modelData = playersActiveModels[player.uniqueId]?.get(ModelType.HAT) ?: return null
         val modelItem = models[ModelType.HAT]
             ?.get(modelData)?.applyItemToModel(player.inventory.helmet ?: ItemStack(Material.AIR)) ?: return null

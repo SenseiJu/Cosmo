@@ -13,6 +13,10 @@ previous-pack-hash: fb8e6f06153c3519e9ee09b731a249ecd9be8042
 # when the server is reloaded (It is highly recommended that you do not reload your server but restart instead)
 kick-players-on-reload: true
 
+# Setting this to true will mean that models will not show UNLESS the player is wearing a helmet
+# This could be useful if you want players to distinguish between
+require-helmets: false
+
 # Internal http server to deliver the pack
 #
 # By default, the internal server will not be used and your pack will be provided by the Cosmo servers.
