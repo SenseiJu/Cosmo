@@ -7,19 +7,16 @@ import io.ktor.routing.*
 import io.ktor.sessions.*
 import me.senseiju.cosmo_web_app.AppPath
 import me.senseiju.cosmo_web_app.data_storage.selectLastModels
+import me.senseiju.cosmo_web_app.data_storage.selectPacks
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import me.senseiju.cosmo_web_app.templates.GalleryPage
-import me.senseiju.cosmo_web_app.templates.IndexPage
+import me.senseiju.cosmo_web_app.utils.getLoginSession
 
-fun Route.gallery() {
+fun Route.modelGallery() {
     route("/gallery") {
         handle {
-            val loginSession = call.sessions.get<LoginSession>()
-            if (loginSession == null) {
-                call.respondRedirect("${AppPath.AUTH}")
-                return@handle
-            }
+            val loginSession = getLoginSession(call, AppPath.AUTH) ?: return@handle
 
             val user = getDiscordUser(loginSession.accessToken)
             if (user.id == null) {
@@ -27,7 +24,7 @@ fun Route.gallery() {
                 return@handle
             }
 
-            call.respondHtmlTemplate(GalleryPage(user, selectLastModels())) {}
+            call.respondHtmlTemplate(GalleryPage(user, selectPacks(user.id), selectLastModels())) {}
         }
     }
 }

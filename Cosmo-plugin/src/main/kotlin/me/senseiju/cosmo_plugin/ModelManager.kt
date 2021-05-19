@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.commands.CosmoCommand
 import me.senseiju.cosmo_plugin.listeners.PlayerListeners
@@ -16,9 +17,17 @@ import me.senseiju.cosmo_plugin.packets.createPlayServerEntityEquipmentPacket
 import me.senseiju.cosmo_plugin.packets.sendPacket
 import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
+import me.senseiju.cosmo_plugin.utils.extensions.color
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
+import me.senseiju.cosmo_plugin.utils.extensions.setUserAgent
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
+import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
+import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
+import java.io.File
+import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 
@@ -28,12 +37,19 @@ class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
     val playersWithPack = hashSetOf<Player>()
     val packId = plugin.configFile.config.getString("pack-id", null)
+    private val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
+        "http://dev.cosmo.senseiju.me:8080"
+    } else {
+        "https://cosmo.senseiju.me"
+    }
     var packSha1 = ""
         private set
 
     private lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
 
     private val activeModelsFile = RawDataFile(plugin, "active-models.json")
+    private val kickOnReload = plugin.configFile.config.getBoolean("kick-players-on-reload", true)
+    private val requireHelmets = plugin.configFile.config.getBoolean("require-helmets", false)
     private val logger = plugin.slF4JLogger
 
     /**
@@ -44,7 +60,7 @@ class ModelManager(private val plugin: Cosmo) {
     }
 
     fun arePlayersActiveModelsInitialised(): Boolean {
-        return this::playersActiveModels.isInitialized
+        return ::playersActiveModels.isInitialized
     }
 
     /**
@@ -61,6 +77,8 @@ class ModelManager(private val plugin: Cosmo) {
             activeModelsFile.write("")
 
             logger.info("SHA hash for new pack is different to last known hash, clearing previous active player models")
+
+            handleOnlinePlayers(true)
             return
         }
 
@@ -69,6 +87,8 @@ class ModelManager(private val plugin: Cosmo) {
         } catch (ex: Exception) {
             HashMap()
         }
+
+        handleOnlinePlayers()
     }
 
     /**
@@ -136,17 +156,29 @@ class ModelManager(private val plugin: Cosmo) {
      */
     fun requestModelsJson(): Boolean {
         try {
-            Json.decodeFromString<List<Model>>(URL("http://cosmo.senseiju.me:8080/api/packs/$packId?type=json").readText())
-                .forEach {
-                    models.computeIfAbsent(it.modelType) {
-                        hashMapOf()
-                    }[it.modelData] = it
-                }
+            with(URL("$url/api/packs/$packId?type=json").openConnection() as HttpURLConnection) {
+                this.setUserAgent()
+                this.connect()
 
-            packSha1 = URL("http://cosmo.senseiju.me:8080/api/packs/$packId?type=sha1").readText()
+                Json.decodeFromString<List<Model>>(this.inputStream.bufferedReader().readText())
+                    .forEach {
+                        models.computeIfAbsent(it.modelType) {
+                            hashMapOf()
+                        }[it.modelData] = it
+                    }
+            }
+
+            with(URL("$url/api/packs/$packId?type=sha1").openConnection() as HttpURLConnection) {
+                this.setUserAgent()
+                this.connect()
+
+                packSha1 = this.inputStream.bufferedReader().readText()
+            }
         } catch (e: Exception) {
-            e.printStackTrace()
             logger.error("Failed to find a valid resource pack with UUID: $packId")
+            logger.error("Check your pack-id and make sure it is correct")
+
+            e.printStackTrace()
             return false
         }
 
@@ -156,16 +188,35 @@ class ModelManager(private val plugin: Cosmo) {
     }
 
     /**
+     * Downloads the resource pack from the Cosmo CDN
+     */
+    private fun downloadPackZip() {
+        if (!plugin.httpServer.isEnabled) {
+            return
+        }
+
+        with(URL("$url/api/packs/$packId?type=zip").openConnection() as HttpURLConnection) {
+            this.setUserAgent()
+            this.connect()
+
+            File(plugin.dataFolder, "pack.zip").writeBytes(this.inputStream.buffered().readBytes())
+        }
+    }
+
+    /**
      * Send helmet model packet
      *
      * @param player the player
      * @param targets the target players, none to send to all
      */
     private fun sendHelmetModelPacket(player: Player, vararg targets: Player) {
-        val packet = createHelmetModelPacket(player) ?: return
+        val packet = createHelmetModelPacket(player) ?: createPlayServerEntityEquipmentPacket(
+            player.entityId,
+            Pair(EnumWrappers.ItemSlot.HEAD, player.inventory.helmet)
+        )
 
         if (targets.isEmpty()) {
-            broadcastPacket(playersWithPack ,packet)
+            broadcastPacket(playersWithPack, packet)
         } else {
             targets.forEach {
                 sendPacket(it, packet)
@@ -181,9 +232,13 @@ class ModelManager(private val plugin: Cosmo) {
      * @return a packet or null if a packet cannot be created
      */
     private fun createHelmetModelPacket(player: Player): PacketContainer? {
+        if (requireHelmets && player.inventory.helmet == null) {
+            return null
+        }
+
         val modelData = playersActiveModels[player.uniqueId]?.get(ModelType.HAT) ?: return null
         val modelItem = models[ModelType.HAT]
-            ?.get(modelData)?.applyItemToModel(player.inventory.helmet ?: return null) ?: return null
+            ?.get(modelData)?.applyItemToModel(player.inventory.helmet ?: ItemStack(Material.AIR)) ?: return null
 
         val slotItemPair = Pair(EnumWrappers.ItemSlot.HEAD, modelItem)
 
@@ -201,20 +256,36 @@ class ModelManager(private val plugin: Cosmo) {
      * Called if initial requests for models succeeds
      */
     private fun requestModelsSuccess() {
+        downloadPackZip()
         loadActiveModels()
         registerEvents()
         registerCommands()
-        handleOnlinePlayers()
     }
 
     /**
-     * If server/plugin is reloaded with aan external manager, this will re-add all players online back
+     * If server/plugin is reloaded with an external manager, this will re-add all players online back
      * to the [playersWithPack] list so the plugin still recognises them
      */
-    private fun handleOnlinePlayers() {
+    private fun handleOnlinePlayers(newPack: Boolean = false) {
         plugin.server.onlinePlayers.forEach {
-            if (it.hasResourcePack()) {
+            if (!it.hasResourcePack()) {
+                return@forEach
+            }
+
+            if (!newPack) {
                 playersWithPack.add(it)
+                return@forEach
+            }
+
+            if (kickOnReload) {
+                it.kick(
+                    Component.text(("""&d&lCosmo &8&l» &cYou are using an outdated version of the resource pack, 
+                            |reconnect to get the latest
+                        """.trimMargin().color())
+                    )
+                )
+            } else {
+                it.sendConfigMessage("PACK-OUTDATED")
             }
         }
     }
@@ -223,7 +294,7 @@ class ModelManager(private val plugin: Cosmo) {
      * Register plugin events
      */
     private fun registerEvents() {
-        plugin.registerEvents(PlayerListeners(this))
+        plugin.registerEvents(PlayerListeners(plugin, this))
     }
 
     /**

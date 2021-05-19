@@ -5,15 +5,17 @@ import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.senseiju.cosmo_web_app.data_storage.wrappers.Replacement
+import java.sql.Connection
+import java.sql.PreparedStatement
 import java.sql.SQLException
 import javax.sql.rowset.CachedRowSet
 import javax.sql.rowset.RowSetProvider
 
-const val HOST = "cosmo.senseiju.me"
-const val PORT = 3306
-const val DATABASE = "cosmo"
-const val USERNAME = "senseiju"
-const val PASSWORD = "senseiju"
+private val HOST = System.getenv("COSMO_DATABASE_HOST") ?: null
+private val PORT = System.getenv("COSMO_DATABASE_PORT").toIntOrNull()
+private val SCHEMA = System.getenv("COSMO_DATABASE_SCHEMA") ?: null
+private val USERNAME = System.getenv("COSMO_DATABASE_USERNAME") ?: null
+private val PASSWORD = System.getenv("COSMO_DATABASE_PASSWORD") ?: null
 
 class Database {
     private var source: HikariDataSource
@@ -21,7 +23,7 @@ class Database {
     init {
         val hikariConfig = HikariConfig()
         hikariConfig.jdbcUrl =
-                "jdbc:mysql://$HOST:$PORT/$DATABASE" +
+                "jdbc:mysql://$HOST:$PORT/$SCHEMA" +
                         "?autoReconnect=true&allowMultiQueries=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false"
         hikariConfig.username = USERNAME
         hikariConfig.password = PASSWORD
@@ -37,13 +39,11 @@ class Database {
         }
     }
 
-    fun query(q: String, vararg replacements: Any = emptyArray()): CachedRowSet {
+    private fun query(q: String, vararg replacements: Any = emptyArray()): CachedRowSet {
         source.connection.use { conn ->
             val s = conn.prepareStatement(q)
 
-            var i = 1
-
-            replacements.forEach { replacement -> s.setObject(i++, replacement) }
+            replaceQueryParams(s, *replacements)
 
             val set = s.executeQuery()
 
@@ -60,13 +60,11 @@ class Database {
         }
     }
 
-    fun updateQuery(q: String, vararg replacements: Any = emptyArray()) {
+    private fun updateQuery(q: String, vararg replacements: Any = emptyArray()) {
         source.connection.use { conn ->
             val s = conn.prepareStatement(q)
 
-            var i = 1
-
-            replacements.forEach { replacement -> s.setObject(i++, replacement) }
+            replaceQueryParams(s, *replacements)
 
             try {
                 s.executeUpdate()
@@ -104,4 +102,15 @@ class Database {
             conn.autoCommit = true
         }
     }
+
+    fun getConnection(): Connection {
+        return source.connection
+    }
+
+    fun replaceQueryParams(s: PreparedStatement, vararg replacements: Any = emptyArray()) {
+        var i = 1
+
+        replacements.forEach { replacement -> s.setObject(i++, replacement) }
+    }
 }
+

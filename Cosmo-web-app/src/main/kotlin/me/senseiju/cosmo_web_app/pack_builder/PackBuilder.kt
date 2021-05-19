@@ -1,10 +1,13 @@
 package me.senseiju.cosmo_web_app.pack_builder
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import me.senseiju.cosmo_commons.ModelType
+import me.senseiju.cosmo_web_app.MODELS_PATH
+import me.senseiju.cosmo_web_app.PACK_PATH
+import me.senseiju.cosmo_web_app.TEMP_PATH
+import me.senseiju.cosmo_web_app.data_storage.selectModelsFromPackJoinedWithModels
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.pack_builder.json_templates.ItemJsonTemplate
 import me.senseiju.cosmo_web_app.pack_builder.json_templates.createModelJson
@@ -13,7 +16,6 @@ import net.lingala.zip4j.ZipFile
 import org.apache.commons.codec.digest.DigestUtils
 import java.io.File
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Pack builder is used to create the zip, json and sha files for delivering packs
@@ -22,10 +24,10 @@ import kotlin.collections.ArrayList
  * @param tempPath the path to build the resource pack
  * @param packsPath the path to output the final files
  */
-class PackBuilder(
-    modelsPath: String = "/cosmo/models",
-    tempPath: String = "/cosmo/temp",
-    packsPath: String = "/cosmo/packs"
+private class PackBuilder(
+    modelsPath: String = MODELS_PATH,
+    tempPath: String = TEMP_PATH,
+    packsPath: String = PACK_PATH
 ) {
     private val modelsDir = File(modelsPath)
     private val tempDir = File(tempPath)
@@ -37,8 +39,34 @@ class PackBuilder(
             modelsMap.computeIfAbsent(it.modelType) { arrayListOf() }.add(it.modelData)
         }
 
+        deleteAllPackFiles(packId)
+
         buildPackZipAndSHA(packId, modelsMap)
         buildJson(packId, *models)
+
+        deleteTempPackFiles(packId)
+    }
+
+    /**
+     * Deletes all files related to the pack id
+     *
+     * @param packId the pack id
+     */
+    fun deleteAllPackFiles(packId: UUID) {
+        deleteTempPackFiles(packId)
+
+        File(packsDir, "$packId.zip").delete()
+        File(packsDir, "$packId.sha1").delete()
+        File(packsDir, "$packId.json").delete()
+    }
+
+    /**
+     * Delete temp files related to the pack id
+     *
+     * @param packId the pack id
+     */
+    private fun deleteTempPackFiles(packId: UUID) {
+        File(tempDir, "$packId").deleteRecursively()
     }
 
     /**
@@ -53,17 +81,21 @@ class PackBuilder(
             val modelJson = createModelJson(modelType, modelDataList)
             val modelTypeLower = modelType.toString().toLowerCase()
 
-            modelDataList.forEach {
-                File(modelsDir, "$modelTypeLower/$it/textures").copyRecursively(
-                    File(pack, "/textures/$modelTypeLower/$it")
-                )
+            modelDataList.forEach { modelData ->
+                val textureFileDir = File(pack, "/textures/$modelTypeLower/$modelData")
+                File(modelsDir, "$modelTypeLower/$modelData/textures").copyRecursively(textureFileDir)
+                textureFileDir.listFiles()?.forEach {
+                    if (it.isFile) {
+                        it.renameTo(File(it.parent, it.name.toLowerCase()))
+                    }
+                }
 
-                val itemFile = File(modelsDir, "/$modelTypeLower/$it/$it.json")
+                val itemFile = File(modelsDir, "/$modelTypeLower/$modelData/$modelData.json")
                 val itemJson = Json.decodeFromString<ItemJsonTemplate>(itemFile.readText())
-                itemJson.textures = reformatModelTextures(itemJson.textures ?: emptyMap(), modelType, it)
+                itemJson.textures = reformatModelTextures(itemJson.textures ?: emptyMap(), modelType, modelData)
 
                 File(pack, "/models/item/$modelTypeLower").mkdirs()
-                File(pack, "/models/item/$modelTypeLower/$it.json").writeText(Json.encodeToString(itemJson))
+                File(pack, "/models/item/$modelTypeLower/$modelData.json").writeText(Json.encodeToString(itemJson))
             }
 
             File(pack, "/models/item/${modelType.material.toString().toLowerCase()}.json")
@@ -74,8 +106,6 @@ class PackBuilder(
 
         createZip(packId)
         createZipSHA1(packId)
-
-        deleteDir(packId)
     }
 
     /**
@@ -95,15 +125,6 @@ class PackBuilder(
      */
     private fun createMcmeta(packId: UUID) {
         File(tempDir, "$packId/pack.mcmeta").writeText(Json.encodeToString(createPackMcmetaJson()))
-    }
-
-    /**
-     * Delete the temporary pack directory
-     *
-     * @param packId the pack id
-     */
-    private fun deleteDir(packId: UUID) {
-        File(tempDir, "$packId").deleteRecursively()
     }
 
     /**
@@ -134,7 +155,9 @@ class PackBuilder(
      * @return the hash as a hex string
      */
     private fun digestFileToSHA1(packId: UUID): String {
-        return DigestUtils.sha1Hex(File(packsDir, "$packId.zip").inputStream())
+        return File(packsDir, "$packId.zip").inputStream().use {
+            DigestUtils.sha1Hex(it)
+        }
     }
 
     private fun reformatModelTextures(
@@ -143,7 +166,22 @@ class PackBuilder(
         modelData: Int
     ): Map<String, String> {
         return textures.map { (id, path) ->
-            id to "${modelType.toString().toLowerCase()}/$modelData/${path.split("/").last()}"
+            id to "${modelType.toString().toLowerCase()}/$modelData/${path.split("/").last().toLowerCase()}"
         }.toMap()
     }
+}
+
+private val packBuilder = PackBuilder()
+
+suspend fun buildPack(packId: UUID) {
+    val models = selectModelsFromPackJoinedWithModels(packId).toTypedArray()
+    if (models.isEmpty()) {
+        deletePackFiles(packId)
+        return
+    }
+    packBuilder.build(packId, *models)
+}
+
+fun deletePackFiles(packId: UUID) {
+    packBuilder.deleteAllPackFiles(packId)
 }

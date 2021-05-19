@@ -2,6 +2,7 @@ package me.senseiju.cosmo_web_app.routes.api
 
 import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
@@ -10,19 +11,20 @@ import me.senseiju.cosmo_web_app.PACK_PATH
 import me.senseiju.cosmo_web_app.data_storage.*
 import me.senseiju.cosmo_web_app.data_storage.wrappers.ModelWrapper
 import me.senseiju.cosmo_web_app.discord_api.requests.getDiscordUser
+import me.senseiju.cosmo_web_app.pack_builder.buildPack
 import me.senseiju.cosmo_web_app.sessions.LoginSession
 import java.io.File
 import java.util.*
 
 fun Route.apiPacks() {
     route("/packs") {
-        deletePack()
-        postPack()
+        apiDeletePack()
+        apiPostPack()
         getPack()
 
         route("/models") {
             deletePackModel()
-            postPackModel()
+            apiPostPackModel()
         }
     }
 }
@@ -68,7 +70,7 @@ private suspend fun sendPackZip(call: ApplicationCall, packZip: File) {
     call.respondFile(packZip)
 }
 
-private fun Route.postPack() {
+private fun Route.apiPostPack() {
     post {
         val loginSession = call.sessions.get<LoginSession>() ?: return@post
 
@@ -77,13 +79,13 @@ private fun Route.postPack() {
             return@post
         }
 
-        val name = call.parameters["name"] ?: return@post
+        val packName = call.receiveParameters()["pack_name"] ?: return@post
 
-        insertPack(name, user.id)
+        insertPack(packName, user.id)
     }
 }
 
-private fun Route.deletePack() {
+private fun Route.apiDeletePack() {
     delete {
         val loginSession = call.sessions.get<LoginSession>() ?: return@delete
 
@@ -106,7 +108,7 @@ private fun Route.deletePack() {
     }
 }
 
-private fun Route.postPackModel() {
+private fun Route.apiPostPackModel() {
     post {
         val loginSession = call.sessions.get<LoginSession>() ?: return@post
 
@@ -115,15 +117,16 @@ private fun Route.postPackModel() {
             return@post
         }
 
+        val paramters = call.receiveParameters()
+
         val packId = try {
-            UUID.fromString(call.parameters["pack_id"])
+            UUID.fromString(paramters["pack_id"])
         } catch (e: Exception) {
             return@post
         }
 
-        val modelData = call.parameters["model_data"]?.toIntOrNull() ?: return@post
-
-        val modelType = ModelType.parse(call.parameters["model_type"] ?: "") ?: return@post
+        val modelData = paramters["model_data"]?.toIntOrNull() ?: return@post
+        val modelType = ModelType.parse(paramters["model_type"] ?: "") ?: return@post
 
         insertModelToPack(packId, ModelWrapper(modelData, modelType))
     }

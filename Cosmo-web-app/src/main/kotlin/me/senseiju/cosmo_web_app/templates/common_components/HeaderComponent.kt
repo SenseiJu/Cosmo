@@ -25,8 +25,8 @@ private fun FlowContent.pageOptions() {
             + "Gallery"
         }
 
-        a(href = "/plugin") {
-            + "Plugin"
+        a(href = "/download") {
+            + "Download"
         }
     }
 }

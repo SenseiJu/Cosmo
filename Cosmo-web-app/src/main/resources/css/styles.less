@@ -1,19 +1,17 @@
-@import "resource-pack-models";
+@import "pack-models";
+@import "pack";
 @import "header";
 @import "index";
 @import "verticle-alt";
 @import "colors";
+@import "download";
 
 html {
   font-family: "Courier New", monospace;
   font-weight: bold;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%) fixed;
   height: 100%;
   margin: 0 10%;
-}
-
-#index {
-  margin: 0;
 }
 
 .title {
@@ -35,4 +33,21 @@ a {
 
 .no-transition-on-load * {
   transition: none !important;
+}
+
+@media all and (min-width: 960px) {
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #292929;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+  }
 }

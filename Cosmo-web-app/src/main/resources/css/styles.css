@@ -1,8 +1,17 @@
 #resource-pack-models-page h1 {
-  color: white;
+  color: #55FFFF;
 }
 #resource-pack-models-page p {
-  color: ghostwhite;
+  color: white;
+}
+#resource-pack-models-page button {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: Transparent;
+}
+#resource-pack-models-page button:hover {
+  cursor: pointer;
 }
 #resource-pack-models-page .model {
   list-style-type: none;
@@ -11,19 +20,19 @@
 #resource-pack-models-page .model li {
   position: relative;
   background-color: #343437;
-  padding: 0 1.4%;
+  padding: 0 1.5%;
   border: white solid 1px;
   border-radius: 20px;
   float: left;
-  width: 20%;
-  height: 300px;
-  margin: 1%;
+  width: 15%;
+  height: 250px;
+  margin: 0.9%;
 }
 #resource-pack-models-page .model img {
   display: block;
   max-width: 100%;
-  max-height: 150px;
-  margin: 0 auto;
+  max-height: 145px;
+  margin: auto;
 }
 #resource-pack-models-page .model p {
   position: absolute;
@@ -41,6 +50,7 @@
   white-space: nowrap;
   width: calc(80%);
   overflow: hidden;
+  font-size: 1.5em;
 }
 #resource-pack-models-page .model .top i:hover {
   cursor: pointer;
@@ -73,6 +83,116 @@
   background-color: red;
   color: white;
   transition-duration: 0.3s;
+  cursor: pointer;
+}
+#pack-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+#pack-page h1 {
+  color: #55FFFF;
+}
+#pack-page p {
+  color: white;
+}
+.pack-component {
+  display: block;
+  margin: 2.5%;
+  text-decoration: none;
+}
+.pack-component:hover .content-wrapper {
+  background-color: #48484b;
+}
+.pack-component .content-wrapper {
+  background-color: #343437;
+  padding: 0 1.5%;
+  border: white solid 1px;
+  border-radius: 20px;
+}
+.pack-component .content-header {
+  display: flex;
+  align-items: center;
+}
+.pack-component .content-header h1 {
+  flex: 1;
+}
+.pack-component .options:hover .options-content {
+  display: block;
+}
+.pack-component .options-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+.pack-component .options-content button {
+  box-shadow: none;
+  border: black solid 1px;
+  background-color: white;
+  color: red;
+  width: 100px;
+  padding: 5%;
+  font-weight: bold;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+.pack-component .options-content button:hover {
+  background-color: red;
+  color: white;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+.new-pack-modal-button {
+  border: none;
+  background: none;
+  color: black;
+  font-size: 10vw;
+  padding: 0 1%;
+  outline: none;
+}
+.new-pack-modal-button:hover {
+  color: #c64fbd;
+  cursor: pointer;
+}
+.new-pack-modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+.new-pack-modal form {
+  background-color: #343437;
+  margin: 15% auto;
+  padding: 20px;
+  width: 60%;
+  display: flex;
+}
+.new-pack-modal form input {
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  flex: 1 1 auto;
+  border: none;
+  font-size: 2.5vw;
+  padding: 1%;
+  outline: none;
+}
+.new-pack-modal form input#submit {
+  background-color: #343437;
+  color: #c64fbd;
+}
+.new-pack-modal form input#submit:hover {
+  background-color: #48484b;
   cursor: pointer;
 }
 header {
@@ -151,8 +271,9 @@ header .user-options .user-options-content a {
 header .user-options .user-options-content a:nth-child(n + 2):hover {
   background: #0087b0;
 }
-html {
+#index {
   overflow: hidden;
+  margin: 0;
 }
 #stars1 {
   width: 1px;
@@ -280,15 +401,29 @@ html {
   left: 6px;
   box-shadow: 0 -5px 0, 0 5px 0;
 }
+#plugin-page {
+  color: white;
+}
+#plugin-page h1 {
+  color: #55FFFF;
+}
+#plugin-page code {
+  display: inline-block;
+  background-color: black;
+  padding: 0.2em 0.5em;
+}
+#plugin-page a {
+  color: lawngreen;
+}
+#plugin-page a:hover {
+  color: greenyellow;
+}
 html {
   font-family: "Courier New", monospace;
   font-weight: bold;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%) fixed;
   height: 100%;
   margin: 0 10%;
-}
-#index {
-  margin: 0;
 }
 .title {
   margin: 0;
@@ -306,4 +441,18 @@ a {
 }
 .no-transition-on-load * {
   transition: none !important;
+}
+@media all and (min-width: 960px) {
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #292929;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
 }

@@ -2,7 +2,7 @@ package me.senseiju.cosmo_web_app.discord_api.requests
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import me.senseiju.cosmo_web_app.CachedHashMap
+import me.senseiju.cosmo_web_app.utils.CachedHashMap
 import me.senseiju.cosmo_web_app.discord_api.DiscordEndpoint
 import me.senseiju.cosmo_web_app.discord_api.responses.DiscordUserResponse
 import org.apache.http.client.methods.HttpGet
@@ -34,7 +34,7 @@ fun getDiscordUser(accessToken: String): DiscordUserResponse {
 /**
  * Gets a user by user id
  *
- * Note that this take approximately 300-500ms to complete
+ * Note that this take approximately 300-500ms to complete if the user is not already cached
  *
  * @param userId the user id
  * @return the user response

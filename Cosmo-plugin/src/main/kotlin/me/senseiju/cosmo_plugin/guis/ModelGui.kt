@@ -36,6 +36,8 @@ fun openCosmoGui(player: Player) {
             .asGuiItem {
                 if (it.isRightClick) {
                     modelManager.setActiveModel(player.uniqueId, ModelType.HAT, null)
+                    modelManager.updateModelsToActivePlayers(player)
+
                     openCosmoGui(player)
                     return@asGuiItem
                 }
@@ -63,6 +65,7 @@ private fun openSelectActiveModelGui(player: Player, modelType: ModelType) {
     modelManager.models[modelType]?.forEach { (modelData, model) ->
         gui.addItem(ItemBuilder.from(model.item).asGuiItem {
             modelManager.setActiveModel(player.uniqueId, modelType, modelData)
+            modelManager.updateModelsToActivePlayers(player)
         })
     }
 

@@ -1,4 +1,4 @@
-package me.senseiju.cosmo_web_app
+package me.senseiju.cosmo_web_app.utils
 
 import kotlin.concurrent.thread
 
@@ -12,19 +12,23 @@ class CachedHashMap<K, V>(
         startCleanUpTask()
     }
 
-    @Synchronized fun set(key: K, value: V) {
+    @Synchronized
+    fun set(key: K, value: V) {
         map[key] = ValueWrapper(value, System.currentTimeMillis() + timeToLive)
     }
 
-    @Synchronized fun get(key: K): V? {
+    @Synchronized
+    fun get(key: K): V? {
         return map[key]?.value
     }
 
-    @Synchronized fun remove(key: K): V? {
+    @Synchronized
+    fun remove(key: K): V? {
         return map.remove(key)?.value
     }
 
-    @Synchronized fun contains(key: K): Boolean {
+    @Synchronized
+    fun contains(key: K): Boolean {
         return map.contains(key)
     }
 
@@ -35,6 +39,10 @@ class CachedHashMap<K, V>(
 
                 cleanUp()
             }
+        }
+
+        Thread {
+
         }
     }
 
