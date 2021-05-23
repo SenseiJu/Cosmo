@@ -1,11 +1,9 @@
 package me.senseiju.cosmo_web_app.data_storage
 
-import kotlinx.coroutines.launch
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_web_app.data_storage.wrappers.*
 import me.senseiju.cosmo_web_app.pack_builder.buildPack
 import me.senseiju.cosmo_web_app.pack_builder.deletePackFiles
-import me.senseiju.cosmo_web_app.utils.defaultScope
 import java.util.*
 
 private val db = Database()
@@ -212,6 +210,13 @@ suspend fun selectPacks(userId: String): Collection<PackWrapper> {
     return wrapPacksFromResults(results)
 }
 
+/**
+ * Select all models by a specific user
+ *
+ * @param userId the user id
+ *
+ * @return a collection of [ModelWrapper]
+ */
 suspend fun selectUsersModels(userId: String): Collection<ModelWrapper> {
     val query = "SELECT * FROM `${Table.MODELS}` WHERE `user_id`=?;"
     val results = db.asyncQuery(query, userId)

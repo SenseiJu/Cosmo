@@ -1,4 +1,4 @@
-package me.senseiju.sennetmc.utils.extensions
+package me.senseiju.cosmo_plugin.utils.extensions
 
 import org.bukkit.Location
 import org.bukkit.inventory.ItemStack

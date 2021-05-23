@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Satisfying git" />
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Updated gitignore">
+      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/extensions/ItemStack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Model.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Model.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListeners.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListeners.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/extensions/PlayerInventory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/extensions/PlayerInventory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-web-app/src/main/kotlin/me/senseiju/cosmo_web_app/data_storage/Queries.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-web-app/src/main/kotlin/me/senseiju/cosmo_web_app/data_storage/Queries.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/kotlin/Cosmo001jar-classes.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/Cosmo-0.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +84,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="development" />
+        <entry key="$PROJECT_DIR$" value="feature-backpacks" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -258,6 +269,8 @@
       <list>
         <item itemvalue="Gradle.Test.selectNModels" />
         <item itemvalue="Gradle.Test.buildPack" />
+        <item itemvalue="Gradle.Test.selectNModels" />
+        <item itemvalue="Gradle.Test.buildPack" />
       </list>
     </recent_temporary>
   </component>
@@ -306,6 +319,11 @@
       <workItem from="1617990747923" duration="698000" />
       <workItem from="1618059903622" duration="2720000" />
       <workItem from="1618087901300" duration="102000" />
+      <workItem from="1621454612082" duration="1555000" />
+      <workItem from="1621504464853" duration="261000" />
+      <workItem from="1621530567806" duration="5883000" />
+      <workItem from="1621720430773" duration="5000" />
+      <workItem from="1621803928530" duration="3356000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
