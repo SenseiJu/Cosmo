@@ -3,12 +3,6 @@
 # Pack id can be found under "Your packs" @ https://cosmo.senseiju.me
 pack-id: a939f783-3711-48ee-b2f5-69f66efcd1c2
 
-# DO NOT EDIT
-#
-# Editing the hash value will not break the plugin but any currently saved models for players
-# will be cleared
-previous-pack-hash: fb8e6f06153c3519e9ee09b731a249ecd9be8042
-
 # This will kick online players with the resource pack active if they have an outdated version of the pack
 # when the server is reloaded (It is highly recommended that you do not reload your server but restart instead)
 kick-players-on-reload: true
@@ -24,6 +18,7 @@ require-helmets: false
 # a more up to date pack and previously logged in players must re-log. Using the internal server is ideal as it will
 # prevent the de-sync.
 use-internal-http-server: false
+
 # You may need to change this port if it interferes with any other applications installed on the machine.
 # Make sure to also port forward.
 internal-http-port: 12345

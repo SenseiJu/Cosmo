@@ -69,10 +69,10 @@ class ModelManager(private val plugin: Cosmo) {
      * Load all players active models
      */
     private fun loadActiveModels() {
-        val previousPackSHA = plugin.configFile.config.get("previous-pack-hash")
-        if (previousPackSHA?.equals(packSha1) == false) {
-            plugin.configFile.config.set("previous-pack-hash", packSha1)
-            plugin.configFile.save()
+        val hashFile = RawDataFile(plugin, "pack.sha1")
+        val previousPackSHA = hashFile.read()
+        if (previousPackSHA != packSha1) {
+            hashFile.write(packSha1)
 
             playersActiveModels = HashMap()
 
