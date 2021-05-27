@@ -1,5 +1,6 @@
 package me.senseiju.cosmo_plugin
 
+import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.events.PacketContainer
 import com.comphenix.protocol.wrappers.EnumWrappers
 import com.comphenix.protocol.wrappers.Pair
@@ -10,19 +11,20 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.commands.CosmoCommand
-import me.senseiju.cosmo_plugin.listeners.PlayerListeners
-import me.senseiju.cosmo_plugin.packets.broadcastPacket
-import me.senseiju.cosmo_plugin.packets.createPlayServerEntityEquipmentPacket
-import me.senseiju.cosmo_plugin.packets.sendPacket
+import me.senseiju.cosmo_plugin.listeners.*
+import me.senseiju.cosmo_plugin.packets.*
 import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
+import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
 import me.senseiju.cosmo_plugin.utils.extensions.color
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.extensions.setUserAgent
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import net.kyori.adventure.text.Component
+import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.io.File
@@ -50,6 +52,7 @@ class ModelManager(private val plugin: Cosmo) {
     private val kickOnReload = plugin.configFile.config.getBoolean("kick-players-on-reload", true)
     private val requireHelmets = plugin.configFile.config.getBoolean("require-helmets", false)
     private val logger = plugin.slF4JLogger
+    private val protocolManager = ProtocolLibrary.getProtocolManager()
 
     /**
      * Save all players active models
@@ -126,13 +129,18 @@ class ModelManager(private val plugin: Cosmo) {
      * @param player the player
      */
     fun updateModelsToActivePlayers(player: Player) {
+        if (!playersWithPack.contains(player)) {
+            return
+        }
+
+        updateBackpackEntity(player)
+
         defaultScope.launch {
-            if (!playersWithPack.contains(player)) {
-                return@launch
+            if (player.gameMode != GameMode.CREATIVE) {
+                sendHelmetModelPacket(player)
             }
 
-            sendHelmetModelPacket(player)
-            //sendBackpackModelPacket()
+            sendBackpackModelPacket(player)
         }
     }
 
@@ -143,7 +151,8 @@ class ModelManager(private val plugin: Cosmo) {
      */
     fun requestModelsFromActivePlayers(player: Player) {
         playersWithPack.forEach {
-            sendHelmetModelPacket(it, player)
+            sendHelmetModelPacket(it, listOf(player))
+            sendBackpackModelPacket(it, listOf(player))
         }
     }
 
@@ -208,19 +217,15 @@ class ModelManager(private val plugin: Cosmo) {
      * @param player the player
      * @param targets the target players, none to send to all
      */
-    private fun sendHelmetModelPacket(player: Player, vararg targets: Player) {
-        val packet = createHelmetModelPacket(player) ?: createPlayServerEntityEquipmentPacket(
-            player.entityId,
-            Pair(EnumWrappers.ItemSlot.HEAD, player.inventory.helmet)
+    private fun sendHelmetModelPacket(player: Player, targets: Collection<Player> = playersWithPack) {
+        val packet = createHelmetModelPacket(player)
+            ?: createEntityEquipmentPacket(
+                player,
+                Pair(EnumWrappers.ItemSlot.HEAD, player.inventory.helmet
+                )
         )
 
-        if (targets.isEmpty()) {
-            broadcastPacket(playersWithPack, packet)
-        } else {
-            targets.forEach {
-                sendPacket(it, packet)
-            }
-        }
+        packet.broadcastPacket(targets)
     }
 
     /**
@@ -241,14 +246,37 @@ class ModelManager(private val plugin: Cosmo) {
 
         val slotItemPair = Pair(EnumWrappers.ItemSlot.HEAD, modelItem)
 
-        return createPlayServerEntityEquipmentPacket(player.entityId, slotItemPair)
+        return createEntityEquipmentPacket(player, slotItemPair)
     }
 
     /**
      * Send backpack model packet
+     *
+     * @param player the player
      */
-    private fun sendBackpackModelPacket() {
-        //todo: Add when backpacks are introduced
+    private fun sendBackpackModelPacket(player: Player, targets: Collection<Player> = playersWithPack) {
+        val armorStand = playerBackpackArmorStand[player.uniqueId] ?: return
+        val packet = createBackpackModelPacket(player, armorStand)
+            ?: createDestroyEntityPacket(armorStand)
+
+        packet.broadcastPacket(targets)
+    }
+
+    private fun createBackpackModelPacket(player: Player, armorStand: ArmorStand): PacketContainer? {
+        val modelData = playersActiveModels[player.uniqueId]?.get(ModelType.BACKPACK) ?: return null
+        val modelItem = models[ModelType.BACKPACK]?.get(modelData)?.item ?: return null
+
+        armorStand.equipment?.helmet = modelItem
+
+        return createMountEntityPacket(player, armorStand)
+    }
+
+    fun updateBackpackEntity(player: Player) {
+        val armorStand = playerBackpackArmorStand[player.uniqueId] ?: return
+
+        armorStand.teleport(player.location.add(0.0, 1.2, 0.0))
+
+        protocolManager.updateEntity(armorStand, player.server.onlinePlayers.toMutableList())
     }
 
     /**
@@ -271,21 +299,25 @@ class ModelManager(private val plugin: Cosmo) {
                 return@forEach
             }
 
-            if (!newPack) {
-                playersWithPack.add(it)
+            if (newPack) {
+                if (kickOnReload) {
+                    it.kick(
+                        Component.text(("""&d&lCosmo &8&l» &cYou are using an outdated version of the resource pack, 
+                            |reconnect to get the latest
+                        """.trimMargin().color())
+                        )
+                    )
+                } else {
+                    it.sendConfigMessage("PACK-OUTDATED")
+                }
+
                 return@forEach
             }
 
-            if (kickOnReload) {
-                it.kick(
-                    Component.text(("""&d&lCosmo &8&l» &cYou are using an outdated version of the resource pack, 
-                            |reconnect to get the latest
-                        """.trimMargin().color())
-                    )
-                )
-            } else {
-                it.sendConfigMessage("PACK-OUTDATED")
-            }
+            playersWithPack.add(it)
+            playerBackpackArmorStand[it.uniqueId] = createNewBackpackArmorStand(it)
+
+            updateModelsToActivePlayers(it)
         }
     }
 
@@ -293,7 +325,11 @@ class ModelManager(private val plugin: Cosmo) {
      * Register plugin events
      */
     private fun registerEvents() {
-        plugin.registerEvents(PlayerListeners(plugin, this))
+        plugin.registerEvents(
+            PlayerListener(plugin),
+            HatListener(plugin),
+            BackpackListener(plugin)
+            )
     }
 
     /**

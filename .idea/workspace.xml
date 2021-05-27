@@ -4,8 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Cleanup some imports">
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Cleanup some imports&#10;&#10;Config changes&#10;&#10;Updated to 0.5.1">
+      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/BackpackListener.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/BackpackWrappers.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/extensions/PacketContainer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListeners.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/HatListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/PacketFunctions.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/PacketWrappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/HatWrappers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +65,11 @@
                 <item name="Cosmo" type="f1a62948:ProjectNode" />
                 <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Cosmo" type="f1a62948:ProjectNode" />
+                <item name="Cosmo-commons" type="2d1252cf:ModuleNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -67,8 +84,8 @@
         <option value="Kotlin Data Class" />
         <option value="JavaScript File" />
         <option value="Less File" />
-        <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -138,17 +155,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.Cosmo-plugin [build]">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Cosmo-plugin [build]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -314,7 +320,14 @@
       <workItem from="1621504464853" duration="261000" />
       <workItem from="1621530567806" duration="5883000" />
       <workItem from="1621720430773" duration="5000" />
-      <workItem from="1621803928530" duration="3605000" />
+      <workItem from="1621803928530" duration="4306000" />
+      <workItem from="1621878908943" duration="2999000" />
+      <workItem from="1621968018040" duration="2746000" />
+      <workItem from="1622015720114" duration="3658000" />
+      <workItem from="1622044507092" duration="264000" />
+      <workItem from="1622045233549" duration="680000" />
+      <workItem from="1622060433568" duration="645000" />
+      <workItem from="1622098098314" duration="10271000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -526,7 +539,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621808216549</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Cleanup some imports&#10;&#10;Config changes&#10;&#10;Updated to 0.5.1">
+      <created>1621808271630</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1621808271630</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,7 +569,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Further fixes on the pack builder&#10;- Changed model types to lower case as Minecraft was not able to find capitalized directories :/&#10;&#10;Added pack.mcmeta" />
     <MESSAGE value="Added custom model data constant for easier maintenance if ever changed" />
     <MESSAGE value="Changes to pack builder to simplify and make it more readable" />
     <MESSAGE value="Further cleanups for pack builder&#10;Added argument for specifying the models directory" />
@@ -574,7 +593,8 @@
     <MESSAGE value="Added getting last models for gallery" />
     <MESSAGE value="Satisfying git" />
     <MESSAGE value="Cleanup some imports" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup some imports" />
+    <MESSAGE value="Cleanup some imports&#10;&#10;Config changes&#10;&#10;Updated to 0.5.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup some imports&#10;&#10;Config changes&#10;&#10;Updated to 0.5.1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

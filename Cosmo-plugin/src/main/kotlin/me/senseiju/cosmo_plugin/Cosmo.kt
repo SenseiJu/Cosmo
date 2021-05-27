@@ -3,6 +3,7 @@ package me.senseiju.cosmo_plugin
 import me.mattstudios.mf.base.CommandManager
 import me.mattstudios.mfgui.gui.guis.BaseGui
 import me.senseiju.cosmo_plugin.http.InternalHttpServer
+import me.senseiju.cosmo_plugin.listeners.playerBackpackArmorStand
 import me.senseiju.cosmo_plugin.utils.datastorage.DataFile
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
@@ -41,5 +42,7 @@ class Cosmo : JavaPlugin() {
                 it.closeInventory()
             }
         }
+
+        playerBackpackArmorStand.values.forEach { it.remove() }
     }
 }

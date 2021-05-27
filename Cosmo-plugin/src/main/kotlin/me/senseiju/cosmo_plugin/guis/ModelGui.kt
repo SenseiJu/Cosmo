@@ -45,7 +45,24 @@ fun openCosmoGui(player: Player) {
                 openSelectActiveModelGui(player, ModelType.HAT)
             }
 
-        gui.setItem(2, 5, helmetGuiItem)
+        val backpackGuiItem = ItemBuilder
+            .from(getPlayersActiveModelAsItem(player, ModelType.BACKPACK))
+            .setName("${ColorScheme.SECONDARY}Backpacks".color())
+            .setLore(modelLore.color())
+            .asGuiItem {
+                if (it.isRightClick) {
+                    modelManager.setActiveModel(player.uniqueId, ModelType.BACKPACK, null)
+                    modelManager.updateModelsToActivePlayers(player)
+
+                    openCosmoGui(player)
+                    return@asGuiItem
+                }
+
+                openSelectActiveModelGui(player, ModelType.BACKPACK)
+            }
+
+        gui.setItem(2, 4, helmetGuiItem)
+        gui.setItem(2, 6, backpackGuiItem)
 
         scheduler.runTask(plugin, Runnable { gui.open(player) })
     }
