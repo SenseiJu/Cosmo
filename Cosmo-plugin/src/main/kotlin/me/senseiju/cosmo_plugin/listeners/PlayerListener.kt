@@ -26,12 +26,10 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
         if (httpServer.isEnabled) {
             e.player.setResourcePack(
                 "http://${httpServer.ip.trimIndent()}:${httpServer.port}/cosmo",
-                modelManager.packSha1
             )
         } else {
             e.player.setResourcePack(
                 "http://cosmo.senseiju.me:8080/api/packs/${modelManager.packId}?type=zip",
-                modelManager.packSha1
             )
         }
     }

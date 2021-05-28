@@ -1,10 +1,10 @@
 package me.senseiju.cosmo_plugin.listeners
 
 import me.senseiju.cosmo_plugin.Cosmo
-import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
 import me.senseiju.cosmo_plugin.packets.createDestroyEntityPacket
 import me.senseiju.cosmo_plugin.packets.createMountEntityPacket
 import me.senseiju.cosmo_plugin.packets.createRotateEntityHeadPacket
+import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
@@ -16,7 +16,6 @@ import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerResourcePackStatusEvent
 import java.util.*
-import kotlin.collections.HashMap
 
 val playerBackpackArmorStand = HashMap<UUID, ArmorStand>()
 

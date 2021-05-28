@@ -11,17 +11,19 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.commands.CosmoCommand
-import me.senseiju.cosmo_plugin.listeners.*
-import me.senseiju.cosmo_plugin.packets.*
+import me.senseiju.cosmo_plugin.listeners.BackpackListener
+import me.senseiju.cosmo_plugin.listeners.HatListener
+import me.senseiju.cosmo_plugin.listeners.PlayerListener
+import me.senseiju.cosmo_plugin.listeners.playerBackpackArmorStand
+import me.senseiju.cosmo_plugin.packets.createDestroyEntityPacket
+import me.senseiju.cosmo_plugin.packets.createEntityEquipmentPacket
+import me.senseiju.cosmo_plugin.packets.createMountEntityPacket
 import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
-import me.senseiju.cosmo_plugin.utils.extensions.color
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.extensions.setUserAgent
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
-import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
-import net.kyori.adventure.text.Component
 import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.entity.ArmorStand
@@ -43,15 +45,13 @@ class ModelManager(private val plugin: Cosmo) {
     } else {
         "https://cosmo.senseiju.me"
     }
-    var packSha1 = ""
-        private set
+    private var packSha1 = ""
 
     private lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
 
     private val activeModelsFile = RawDataFile(plugin, "active-models.json")
-    private val kickOnReload = plugin.configFile.config.getBoolean("kick-players-on-reload", true)
     private val requireHelmets = plugin.configFile.config.getBoolean("require-helmets", false)
-    private val logger = plugin.slF4JLogger
+    private val logger = plugin.logger
     private val protocolManager = ProtocolLibrary.getProtocolManager()
 
     /**
@@ -80,7 +80,7 @@ class ModelManager(private val plugin: Cosmo) {
 
             logger.info("SHA hash for new pack is different to last known hash, clearing previous active player models")
 
-            handleOnlinePlayers(true)
+            handleOnlinePlayers()
             return
         }
 
@@ -183,8 +183,8 @@ class ModelManager(private val plugin: Cosmo) {
                 packSha1 = this.inputStream.bufferedReader().readText()
             }
         } catch (e: Exception) {
-            logger.error("Failed to find a valid resource pack with UUID: $packId")
-            logger.error("Check your pack-id and make sure it is correct")
+            logger.severe("Failed to find a valid resource pack with UUID: $packId")
+            logger.severe("Check your pack-id and make sure it is correct")
 
             e.printStackTrace()
             return false
@@ -271,7 +271,7 @@ class ModelManager(private val plugin: Cosmo) {
         return createMountEntityPacket(player, armorStand)
     }
 
-    fun updateBackpackEntity(player: Player) {
+    private fun updateBackpackEntity(player: Player) {
         val armorStand = playerBackpackArmorStand[player.uniqueId] ?: return
 
         armorStand.teleport(player.location.add(0.0, 1.2, 0.0))
@@ -293,31 +293,9 @@ class ModelManager(private val plugin: Cosmo) {
      * If server/plugin is reloaded with an external manager, this will re-add all players online back
      * to the [playersWithPack] list so the plugin still recognises them
      */
-    private fun handleOnlinePlayers(newPack: Boolean = false) {
+    private fun handleOnlinePlayers() {
         plugin.server.onlinePlayers.forEach {
-            if (!it.hasResourcePack()) {
-                return@forEach
-            }
-
-            if (newPack) {
-                if (kickOnReload) {
-                    it.kick(
-                        Component.text(("""&d&lCosmo &8&l» &cYou are using an outdated version of the resource pack, 
-                            |reconnect to get the latest
-                        """.trimMargin().color())
-                        )
-                    )
-                } else {
-                    it.sendConfigMessage("PACK-OUTDATED")
-                }
-
-                return@forEach
-            }
-
-            playersWithPack.add(it)
-            playerBackpackArmorStand[it.uniqueId] = createNewBackpackArmorStand(it)
-
-            updateModelsToActivePlayers(it)
+            it.setResourcePack("http://cosmo.senseiju.me:8080/api/packs/${packId}?type=zip")
         }
     }
 
@@ -336,7 +314,7 @@ class ModelManager(private val plugin: Cosmo) {
      * Register plugin commands
      */
     private fun registerCommands() {
-        plugin.commandManager.register(CosmoCommand(this))
+        plugin.commandManager.register(CosmoCommand(plugin, this))
     }
 
     @Serializable

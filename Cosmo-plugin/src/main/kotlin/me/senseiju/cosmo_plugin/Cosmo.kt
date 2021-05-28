@@ -13,6 +13,8 @@ class Cosmo : JavaPlugin() {
     val configFile = DataFile(this, "config.yml", true)
     val messagesFile = DataFile(this, "messages.yml", true)
 
+    var debugMode = false
+
     lateinit var commandManager: CommandManager
     lateinit var modelManager: ModelManager
     lateinit var httpServer: InternalHttpServer

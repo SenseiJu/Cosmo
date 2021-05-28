@@ -2,16 +2,13 @@ package me.senseiju.cosmo_plugin.listeners
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import me.senseiju.cosmo_plugin.Cosmo
-import me.senseiju.cosmo_plugin.ModelManager
-import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
-import org.bukkit.event.player.*
-import us.myles.ViaVersion.api.Via
+import org.bukkit.event.player.PlayerItemConsumeEvent
 
 class HatListener(private val plugin: Cosmo) : Listener {
     private val modelManager = plugin.modelManager

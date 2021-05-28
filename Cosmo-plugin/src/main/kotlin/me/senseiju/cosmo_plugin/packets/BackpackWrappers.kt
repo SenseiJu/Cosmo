@@ -1,7 +1,6 @@
 package me.senseiju.cosmo_plugin.packets
 
 import com.comphenix.protocol.PacketType
-import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.events.PacketContainer
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Player

@@ -16,10 +16,14 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 
 private val plugin = JavaPlugin.getPlugin(Cosmo::class.java)
+private val logger = plugin.logger
 private val scheduler = plugin.server.scheduler
 private val modelManager = plugin.modelManager
 
 fun openCosmoGui(player: Player) {
+    if (plugin.debugMode) {
+        logger.info("Debug: Creating gui for ${player.name}") }
+
     defaultScope.launch {
         val gui = defaultGuiTemplate(3, "${ColorScheme.PRIMARY}&lCosmo")
 
@@ -44,6 +48,7 @@ fun openCosmoGui(player: Player) {
 
                 openSelectActiveModelGui(player, ModelType.HAT)
             }
+        if (plugin.debugMode) logger.info("Debug: Created helmet gui item for ${player.name}")
 
         val backpackGuiItem = ItemBuilder
             .from(getPlayersActiveModelAsItem(player, ModelType.BACKPACK))
@@ -60,11 +65,16 @@ fun openCosmoGui(player: Player) {
 
                 openSelectActiveModelGui(player, ModelType.BACKPACK)
             }
+        if (plugin.debugMode) logger.info("Debug: Created backpack gui item for ${player.name}")
 
         gui.setItem(2, 4, helmetGuiItem)
         gui.setItem(2, 6, backpackGuiItem)
 
-        scheduler.runTask(plugin, Runnable { gui.open(player) })
+        scheduler.runTask(plugin, Runnable {
+            gui.open(player)
+
+            if (plugin.debugMode) logger.info("Debug: Opened gui for ${player.name}")
+        })
     }
 }
 
