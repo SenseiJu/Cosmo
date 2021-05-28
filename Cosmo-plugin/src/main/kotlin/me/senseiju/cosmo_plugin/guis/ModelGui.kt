@@ -22,7 +22,8 @@ private val modelManager = plugin.modelManager
 
 fun openCosmoGui(player: Player) {
     if (plugin.debugMode) {
-        logger.info("Debug: Creating gui for ${player.name}") }
+        logger.info("Debug: Creating gui for ${player.name}")
+    }
 
     defaultScope.launch {
         val gui = defaultGuiTemplate(3, "${ColorScheme.PRIMARY}&lCosmo")

@@ -221,9 +221,10 @@ class ModelManager(private val plugin: Cosmo) {
         val packet = createHelmetModelPacket(player)
             ?: createEntityEquipmentPacket(
                 player,
-                Pair(EnumWrappers.ItemSlot.HEAD, player.inventory.helmet
+                Pair(
+                    EnumWrappers.ItemSlot.HEAD, player.inventory.helmet
                 )
-        )
+            )
 
         packet.broadcastPacket(targets)
     }
@@ -307,7 +308,7 @@ class ModelManager(private val plugin: Cosmo) {
             PlayerListener(plugin),
             HatListener(plugin),
             BackpackListener(plugin)
-            )
+        )
     }
 
     /**

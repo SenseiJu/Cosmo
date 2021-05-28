@@ -49,7 +49,7 @@ class BackpackListener(plugin: Cosmo) : Listener {
         val stand = playerBackpackArmorStand[e.player.uniqueId] ?: return
         val yaw = e.player.eyeLocation.yaw * 256.0f / 360.0f
 
-        stand.teleport(e.player.location.add(0.0,  1.2, 0.0))
+        stand.teleport(e.player.location.add(0.0, 1.2, 0.0))
 
         createMountEntityPacket(e.player, stand)
         createRotateEntityHeadPacket(stand, yaw)

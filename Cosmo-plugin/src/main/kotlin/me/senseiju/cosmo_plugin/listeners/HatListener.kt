@@ -36,6 +36,10 @@ class HatListener(private val plugin: Cosmo) : Listener {
             return
         }
 
-        plugin.server.scheduler.runTaskLater(plugin, Runnable { modelManager.updateModelsToActivePlayers(e.player) }, 2L)
+        plugin.server.scheduler.runTaskLater(
+            plugin,
+            Runnable { modelManager.updateModelsToActivePlayers(e.player) },
+            2L
+        )
     }
 }

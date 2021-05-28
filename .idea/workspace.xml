@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Changed from using the Paper API to Spigot API because SpigotMC doesn't accept Paperspigot based plugins :( but its ok because it all works fine with Spigot :)&#10;&#10;Added a debug mode which is activated by command to give info about the plugin if its broken somewhere. Many messages are to be added as the bugs come.&#10;&#10;Removed the kick players on reload and replaced with just resending the updated pack to all players. This is reload safe (so far) and people dont have to reconnect :)&#10;&#10;Removed some kt files that were not being used, mainly extensions from other projects that I added for potential use.&#10;&#10;Updated to version 0.7.0">
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/java/com/codingforcookies/armorequip/ArmorEquip.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/java/com/codingforcookies/armorequip/ArmorEquipEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/java/com/codingforcookies/armorequip/ArmorListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/java/com/codingforcookies/armorequip/ArmorType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/java/com/codingforcookies/armorequip/DispenserArmorListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/armor-equip-blocked.yml" afterDir="false" />
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Added ArmorEquipEvent from https://github.com/Arnuh/ArmorEquipEvent as Spigot does not contain an event that fires when armor is changed :( They should add it, Paperspigot has it :/&#10;&#10;Fixed a bug where the helmet would not be applied in some cases&#10;Fixed null error when making the hat packet sometimes, nobody knows why. Maybe ask Ben Awad even though he doesn't do plugin development :)&#10;&#10;Changed the gradle build files to completely remove Paper API, so long, you will be missed....&#10;&#10;Updated to version 0.8.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-commons/src/main/kotlin/me/senseiju/cosmo_commons/ModelType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-commons/src/main/kotlin/me/senseiju/cosmo_commons/ModelType.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/HatListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/HatListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/HatWrappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/HatWrappers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,6 +146,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.Cosmo-plugin [build]">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Cosmo-plugin [build]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -332,7 +335,7 @@
       <workItem from="1622098098314" duration="10271000" />
       <workItem from="1622183339581" duration="3441000" />
       <workItem from="1622220196134" duration="9259000" />
-      <workItem from="1622240420758" duration="652000" />
+      <workItem from="1622240420758" duration="1450000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -565,7 +568,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622227149166</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Added ArmorEquipEvent from https://github.com/Arnuh/ArmorEquipEvent as Spigot does not contain an event that fires when armor is changed :( They should add it, Paperspigot has it :/&#10;&#10;Fixed a bug where the helmet would not be applied in some cases&#10;Fixed null error when making the hat packet sometimes, nobody knows why. Maybe ask Ben Awad even though he doesn't do plugin development :)&#10;&#10;Changed the gradle build files to completely remove Paper API, so long, you will be missed....&#10;&#10;Updated to version 0.8.0">
+      <created>1622241610727</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1622241610727</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -588,7 +598,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Further cleanups for pack builder&#10;Added argument for specifying the models directory" />
     <MESSAGE value="Changed endpoints for getting pack information in plugin" />
     <MESSAGE value="Changed how getting pack information is requested to simplify the system" />
     <MESSAGE value="Cleaned imports" />
@@ -613,7 +622,8 @@
     <MESSAGE value="Cleanup some imports&#10;&#10;Config changes&#10;&#10;Updated to 0.5.1" />
     <MESSAGE value="Extracted the sha1 pack hash from config.yml to now be stored in pack.sha1. This is done to preserve comments in the config.yml&#10;&#10;Updated to version 0.6.1" />
     <MESSAGE value="Changed from using the Paper API to Spigot API because SpigotMC doesn't accept Paperspigot based plugins :( but its ok because it all works fine with Spigot :)&#10;&#10;Added a debug mode which is activated by command to give info about the plugin if its broken somewhere. Many messages are to be added as the bugs come.&#10;&#10;Removed the kick players on reload and replaced with just resending the updated pack to all players. This is reload safe (so far) and people dont have to reconnect :)&#10;&#10;Removed some kt files that were not being used, mainly extensions from other projects that I added for potential use.&#10;&#10;Updated to version 0.7.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed from using the Paper API to Spigot API because SpigotMC doesn't accept Paperspigot based plugins :( but its ok because it all works fine with Spigot :)&#10;&#10;Added a debug mode which is activated by command to give info about the plugin if its broken somewhere. Many messages are to be added as the bugs come.&#10;&#10;Removed the kick players on reload and replaced with just resending the updated pack to all players. This is reload safe (so far) and people dont have to reconnect :)&#10;&#10;Removed some kt files that were not being used, mainly extensions from other projects that I added for potential use.&#10;&#10;Updated to version 0.7.0" />
+    <MESSAGE value="Added ArmorEquipEvent from https://github.com/Arnuh/ArmorEquipEvent as Spigot does not contain an event that fires when armor is changed :( They should add it, Paperspigot has it :/&#10;&#10;Fixed a bug where the helmet would not be applied in some cases&#10;Fixed null error when making the hat packet sometimes, nobody knows why. Maybe ask Ben Awad even though he doesn't do plugin development :)&#10;&#10;Changed the gradle build files to completely remove Paper API, so long, you will be missed....&#10;&#10;Updated to version 0.8.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ArmorEquipEvent from https://github.com/Arnuh/ArmorEquipEvent as Spigot does not contain an event that fires when armor is changed :( They should add it, Paperspigot has it :/&#10;&#10;Fixed a bug where the helmet would not be applied in some cases&#10;Fixed null error when making the hat packet sometimes, nobody knows why. Maybe ask Ben Awad even though he doesn't do plugin development :)&#10;&#10;Changed the gradle build files to completely remove Paper API, so long, you will be missed....&#10;&#10;Updated to version 0.8.0" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
