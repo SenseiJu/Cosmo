@@ -1,0 +1,31 @@
+Cosmo is a unique, one-of-a-kind cosmetics platform. The plugin aims to provide custom 3D models over skins to enhance gameplay.
+
+Check out the website at https://cosmo.senseiju.me
+
+[MEDIA=youtube]-gNPtJs77Ew[/MEDIA]
+
+If you have any bugs and features you may want, join the Discord server and contact me directly or use the channels
+
+Installation:
+Download the plugin and https://www.spigotmc.org/resources/protocollib.1997/
+Put them in the plugins folder and start the server
+Your done! A default server resource pack with pre-made custom models is already provided
+Features:
+Custom 3D cosmetics instead of boring skins
+Hats and backpacks (Possibly more to come) using **magic**
+Doesn't interfere with functionality. A diamond helmet still acts like a diamond helmet. Enchants are not affected either.
+Only people who accept the pack will see and use the models to stop visual bugs
+Create your own packs at the website to fit a style/theme
+Commands:
+/cosmo [Permission: 'cosmo.command.use'] - Opens the GUI to select models. Must have accepted the resource pack and on the latest version.
+/cosmo debug [Permission: 'cosmo.command.debug'] - Enables debug mode. Only really used if I need you to to fix a bug.
+Upcoming:
+Ability to add your own models (Models are created using https://blockbench.net/) If you have already made one that you would like to upload, DM me on discord @ SenseiJu#6692
+Potentially replacing tools with customized 3D models too such as swords, axes, fishing rods etc.
+Rework the entire website to be a lot more friendly and better looking.
+Make videos so people can learn to add their own models and guide custom pack creation
+Reload the plugin to update models without breaking, that would be cool wouldn't it
+Known issues that are not actual issues:
+When players are in creative, models are disabled for that player. This is due to not all creative actions being communicated with the server. This could change in future Minecraft releases but is not guaranteed.
+When getting damaged, the helmet is reequipped each time. I am working on a way around this but its a bit awkward :(
+Backpacks will disappear when swimming. This is due to difficulties with rotations when a player swims. It will reappear when they stop.
