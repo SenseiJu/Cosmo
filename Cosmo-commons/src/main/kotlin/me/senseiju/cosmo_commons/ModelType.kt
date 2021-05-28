@@ -8,8 +8,8 @@ enum class ModelType(val material: Material) {
 
     companion object {
         fun parse(string: String): ModelType? {
-            if (values().map { it.toString() }.contains(string.toUpperCase())) {
-                return valueOf(string.toUpperCase())
+            if (values().map { it.toString() }.contains(string.uppercase())) {
+                return valueOf(string.uppercase())
             }
 
             return null
@@ -17,6 +17,6 @@ enum class ModelType(val material: Material) {
     }
 
     fun getParentJsonElement(): String {
-        return "minecraft:block/${this.material.toString().toLowerCase()}"
+        return "minecraft:block/${this.material.toString().lowercase()}"
     }
 }

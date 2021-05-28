@@ -14,7 +14,7 @@ fun createEntityEquipmentPacket(
 ): PacketContainer {
     val packet = PacketContainer(PacketType.Play.Server.ENTITY_EQUIPMENT)
     packet.integers.write(0, player.entityId)
-    packet.slotStackPairLists.write(0, listOf(*slotItemPairs))
+    packet.slotStackPairLists.write(0, if (slotItemPairs.isEmpty()) emptyList() else listOf(*slotItemPairs))
 
     return packet
 }

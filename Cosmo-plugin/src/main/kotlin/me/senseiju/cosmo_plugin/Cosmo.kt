@@ -1,5 +1,6 @@
 package me.senseiju.cosmo_plugin
 
+import com.codingforcookies.armorequip.ArmorEquip
 import me.mattstudios.mf.base.CommandManager
 import me.mattstudios.mfgui.gui.guis.BaseGui
 import me.senseiju.cosmo_plugin.http.InternalHttpServer
@@ -20,6 +21,8 @@ class Cosmo : JavaPlugin() {
     lateinit var httpServer: InternalHttpServer
 
     override fun onEnable() {
+        ArmorEquip(this)
+
         httpServer = InternalHttpServer(this)
         commandManager = CommandManager(this)
         modelManager = ModelManager(this)

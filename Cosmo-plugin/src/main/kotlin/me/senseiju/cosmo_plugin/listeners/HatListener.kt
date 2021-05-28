@@ -1,26 +1,16 @@
 package me.senseiju.cosmo_plugin.listeners
 
-import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
+import com.codingforcookies.armorequip.ArmorEquipEvent
+import com.codingforcookies.armorequip.ArmorType
 import me.senseiju.cosmo_plugin.Cosmo
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.PlayerItemConsumeEvent
 
 class HatListener(private val plugin: Cosmo) : Listener {
     private val modelManager = plugin.modelManager
-
-    @EventHandler
-    private fun onHelmetChange(e: PlayerArmorChangeEvent) {
-        if (e.slotType != PlayerArmorChangeEvent.SlotType.HEAD) {
-            return
-        }
-
-        modelManager.updateModelsToActivePlayers(e.player)
-    }
 
     @EventHandler
     private fun onPlayerDamage(e: EntityDamageByEntityEvent) {
@@ -41,15 +31,11 @@ class HatListener(private val plugin: Cosmo) : Listener {
     }
 
     @EventHandler
-    private fun onHelmetClick(e: InventoryClickEvent) {
-        if (e.slotType != InventoryType.SlotType.ARMOR) {
+    private fun onArmorChange(e: ArmorEquipEvent) {
+        if (e.type != ArmorType.HELMET) {
             return
         }
 
-        if (e.slot != 39) {
-            return
-        }
-
-        modelManager.updateModelsToActivePlayers(e.whoClicked as Player)
+        plugin.server.scheduler.runTaskLater(plugin, Runnable { modelManager.updateModelsToActivePlayers(e.player) }, 2L)
     }
 }
