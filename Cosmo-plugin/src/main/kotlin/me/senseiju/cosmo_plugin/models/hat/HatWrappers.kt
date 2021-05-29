@@ -1,4 +1,4 @@
-package me.senseiju.cosmo_plugin.packets
+package me.senseiju.cosmo_plugin.models.hat
 
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.events.PacketContainer
@@ -14,7 +14,7 @@ fun createEntityEquipmentPacket(
 ): PacketContainer {
     val packet = PacketContainer(PacketType.Play.Server.ENTITY_EQUIPMENT)
     packet.integers.write(0, player.entityId)
-    packet.slotStackPairLists.write(0, if (slotItemPairs.isEmpty()) emptyList() else listOf(*slotItemPairs))
+    packet.slotStackPairLists.write(0, listOf(*slotItemPairs))
 
     return packet
 }

@@ -1,9 +1,5 @@
 package me.senseiju.cosmo_plugin
 
-import com.comphenix.protocol.ProtocolLibrary
-import com.comphenix.protocol.events.PacketContainer
-import com.comphenix.protocol.wrappers.EnumWrappers
-import com.comphenix.protocol.wrappers.Pair
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -11,24 +7,16 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.commands.CosmoCommand
-import me.senseiju.cosmo_plugin.listeners.BackpackListener
-import me.senseiju.cosmo_plugin.listeners.HatListener
 import me.senseiju.cosmo_plugin.listeners.PlayerListener
-import me.senseiju.cosmo_plugin.listeners.playerBackpackArmorStand
-import me.senseiju.cosmo_plugin.packets.createDestroyEntityPacket
-import me.senseiju.cosmo_plugin.packets.createEntityEquipmentPacket
-import me.senseiju.cosmo_plugin.packets.createMountEntityPacket
+import me.senseiju.cosmo_plugin.models.backpack.BackpackHandler
+import me.senseiju.cosmo_plugin.models.hat.HatHandler
 import me.senseiju.cosmo_plugin.utils.datastorage.RawDataFile
 import me.senseiju.cosmo_plugin.utils.defaultScope
-import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.extensions.setUserAgent
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import org.bukkit.GameMode
-import org.bukkit.Material
-import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -47,12 +35,12 @@ class ModelManager(private val plugin: Cosmo) {
     }
     private var packSha1 = ""
 
-    private lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
+    lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
 
     private val activeModelsFile = RawDataFile(plugin, "active-models.json")
-    private val requireHelmets = plugin.configFile.config.getBoolean("require-helmets", false)
     private val logger = plugin.logger
-    private val protocolManager = ProtocolLibrary.getProtocolManager()
+    private val hatHandler = HatHandler(plugin, this)
+    private val backpackHandler = BackpackHandler(plugin, this)
 
     /**
      * Save all players active models
@@ -133,14 +121,14 @@ class ModelManager(private val plugin: Cosmo) {
             return
         }
 
-        updateBackpackEntity(player)
+        backpackHandler.updateBackpackEntity(player)
 
         defaultScope.launch {
             if (player.gameMode != GameMode.CREATIVE) {
-                sendHelmetModelPacket(player)
+                hatHandler.update(player, playersWithPack)
             }
 
-            sendBackpackModelPacket(player)
+            backpackHandler.update(player, playersWithPack)
         }
     }
 
@@ -150,9 +138,11 @@ class ModelManager(private val plugin: Cosmo) {
      * @param player the player
      */
     fun requestModelsFromActivePlayers(player: Player) {
-        playersWithPack.forEach {
-            sendHelmetModelPacket(it, listOf(player))
-            sendBackpackModelPacket(it, listOf(player))
+        defaultScope.launch {
+            playersWithPack.forEach {
+                hatHandler.update(it, listOf(player))
+                backpackHandler.update(it, listOf(player))
+            }
         }
     }
 
@@ -212,75 +202,6 @@ class ModelManager(private val plugin: Cosmo) {
     }
 
     /**
-     * Send helmet model packet
-     *
-     * @param player the player
-     * @param targets the target players, none to send to all
-     */
-    private fun sendHelmetModelPacket(player: Player, targets: Collection<Player> = playersWithPack) {
-        val packet = createHelmetModelPacket(player)
-            ?: createEntityEquipmentPacket(
-                player,
-                Pair(
-                    EnumWrappers.ItemSlot.HEAD, player.inventory.helmet
-                )
-            )
-
-        packet.broadcastPacket(targets)
-    }
-
-    /**
-     * Create helmet model packet
-     *
-     * @param player the player
-     *
-     * @return a packet or null if a packet cannot be created
-     */
-    private fun createHelmetModelPacket(player: Player): PacketContainer? {
-        if (requireHelmets && player.inventory.helmet == null) {
-            return null
-        }
-
-        val modelData = playersActiveModels[player.uniqueId]?.get(ModelType.HAT) ?: return null
-        val modelItem = models[ModelType.HAT]
-            ?.get(modelData)?.applyItemToModel(player.inventory.helmet ?: ItemStack(Material.AIR)) ?: return null
-
-        val slotItemPair = Pair(EnumWrappers.ItemSlot.HEAD, modelItem)
-
-        return createEntityEquipmentPacket(player, slotItemPair)
-    }
-
-    /**
-     * Send backpack model packet
-     *
-     * @param player the player
-     */
-    private fun sendBackpackModelPacket(player: Player, targets: Collection<Player> = playersWithPack) {
-        val armorStand = playerBackpackArmorStand[player.uniqueId] ?: return
-        val packet = createBackpackModelPacket(player, armorStand)
-            ?: createDestroyEntityPacket(armorStand)
-
-        packet.broadcastPacket(targets)
-    }
-
-    private fun createBackpackModelPacket(player: Player, armorStand: ArmorStand): PacketContainer? {
-        val modelData = playersActiveModels[player.uniqueId]?.get(ModelType.BACKPACK) ?: return null
-        val modelItem = models[ModelType.BACKPACK]?.get(modelData)?.item ?: return null
-
-        armorStand.equipment?.helmet = modelItem
-
-        return createMountEntityPacket(player, armorStand)
-    }
-
-    private fun updateBackpackEntity(player: Player) {
-        val armorStand = playerBackpackArmorStand[player.uniqueId] ?: return
-
-        armorStand.teleport(player.location.add(0.0, 1.2, 0.0))
-
-        protocolManager.updateEntity(armorStand, player.server.onlinePlayers.toMutableList())
-    }
-
-    /**
      * Called if initial requests for models succeeds
      */
     private fun requestModelsSuccess() {
@@ -304,11 +225,7 @@ class ModelManager(private val plugin: Cosmo) {
      * Register plugin events
      */
     private fun registerEvents() {
-        plugin.registerEvents(
-            PlayerListener(plugin),
-            HatListener(plugin),
-            BackpackListener(plugin)
-        )
+        plugin.registerEvents(PlayerListener(plugin))
     }
 
     /**

@@ -1,4 +1,4 @@
-package me.senseiju.cosmo_plugin.packets
+package me.senseiju.cosmo_plugin.models.backpack
 
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.events.PacketContainer

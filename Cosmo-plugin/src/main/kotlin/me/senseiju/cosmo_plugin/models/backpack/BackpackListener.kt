@@ -1,9 +1,7 @@
-package me.senseiju.cosmo_plugin.listeners
+package me.senseiju.cosmo_plugin.models.backpack
 
 import me.senseiju.cosmo_plugin.Cosmo
-import me.senseiju.cosmo_plugin.packets.createDestroyEntityPacket
-import me.senseiju.cosmo_plugin.packets.createMountEntityPacket
-import me.senseiju.cosmo_plugin.packets.createRotateEntityHeadPacket
+import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
@@ -19,15 +17,12 @@ import java.util.*
 
 val playerBackpackArmorStand = HashMap<UUID, ArmorStand>()
 
-class BackpackListener(plugin: Cosmo) : Listener {
-    private val modelManager = plugin.modelManager
+class BackpackListener(private val modelManager: ModelManager) : Listener {
 
     @EventHandler
     private fun playerResourcePackStatus(e: PlayerResourcePackStatusEvent) {
         if (e.status == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
             playerBackpackArmorStand[e.player.uniqueId] = createNewBackpackArmorStand(e.player)
-
-            modelManager.updateModelsToActivePlayers(e.player)
         }
     }
 

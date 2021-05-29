@@ -37,7 +37,7 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     private fun playerResourcePackStatus(e: PlayerResourcePackStatusEvent) {
         if (e.status == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
             modelManager.requestModelsFromActivePlayers(e.player)
@@ -57,19 +57,6 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
     @EventHandler
     private fun onPlayerQuit(e: PlayerQuitEvent) {
         modelManager.playersWithPack.remove(e.player)
-    }
-
-    @EventHandler
-    private fun onHelmetClick(e: InventoryClickEvent) {
-        if (e.slotType != InventoryType.SlotType.ARMOR) {
-            return
-        }
-
-        if (e.slot != 39) {
-            return
-        }
-
-        modelManager.updateModelsToActivePlayers(e.whoClicked as Player)
     }
 
     @EventHandler

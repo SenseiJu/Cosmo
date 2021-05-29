@@ -40,4 +40,10 @@ class CosmoCommand(private val plugin: Cosmo, private val modelManager: ModelMan
             sender.sendConfigMessage("DEBUG-MODE-DISABLED")
         }
     }
+
+    @SubCommand("reload")
+    @Permission("cosmo.command.reload")
+    fun reload(sender: CommandSender) {
+
+    }
 }
