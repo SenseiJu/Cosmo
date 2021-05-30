@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Added SpigotMC resource description so if they delete it again I don't have to rewrite everything which was very annoying :(">
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/ModelHandlerImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackHandler.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatHandler.kt" afterDir="false" />
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Refactoring for future additions to be made a lot easier">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/BackpackListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/HatListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/BackpackWrappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackWrappers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/packets/HatWrappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatWrappers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackListener.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,17 +145,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.Cosmo-plugin [build]">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Cosmo-plugin [build]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -344,7 +323,7 @@
       <workItem from="1622220196134" duration="9259000" />
       <workItem from="1622240420758" duration="2557000" />
       <workItem from="1622293351538" duration="1406000" />
-      <workItem from="1622301973408" duration="2638000" />
+      <workItem from="1622301973408" duration="4956000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -598,7 +577,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622243351550</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Refactoring for future additions to be made a lot easier">
+      <created>1622304860493</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1622304860493</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -621,7 +607,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Cleaned imports" />
     <MESSAGE value="Added color to gui&#10;Fixed bug with gui item being renamed&#10;Fixed bug onDisable when the plugin could not find a valid pack from the endpoint&#10;Renamed resource-pack-uuid to pack-id in config and through the plugin" />
     <MESSAGE value="Explicitly set jvm target to 1.8&#10;&#10;Added AWS Cognito dependencies" />
     <MESSAGE value="Web app progress&#10;&#10;Added discord Oauth2 integration for logins" />
@@ -646,7 +631,8 @@
     <MESSAGE value="Added ArmorEquipEvent from https://github.com/Arnuh/ArmorEquipEvent as Spigot does not contain an event that fires when armor is changed :( They should add it, Paperspigot has it :/&#10;&#10;Fixed a bug where the helmet would not be applied in some cases&#10;Fixed null error when making the hat packet sometimes, nobody knows why. Maybe ask Ben Awad even though he doesn't do plugin development :)&#10;&#10;Changed the gradle build files to completely remove Paper API, so long, you will be missed....&#10;&#10;Updated to version 0.8.0" />
     <MESSAGE value="Removed an event which I should not have, uh oh, added it back tho :) Check to see if helmet slot was clicked and update models&#10;&#10;Also did the optimize imports and reformat thing, shaving a few bytes of the plugin :O&#10;&#10;Updated to version 0.8.1" />
     <MESSAGE value="Added SpigotMC resource description so if they delete it again I don't have to rewrite everything which was very annoying :(" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added SpigotMC resource description so if they delete it again I don't have to rewrite everything which was very annoying :(" />
+    <MESSAGE value="Refactoring for future additions to be made a lot easier" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring for future additions to be made a lot easier" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
