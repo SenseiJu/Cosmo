@@ -6,6 +6,7 @@ import com.comphenix.protocol.wrappers.EnumWrappers
 import com.comphenix.protocol.wrappers.Pair
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import java.lang.NullPointerException
 
 
 fun createEntityEquipmentPacket(
@@ -14,7 +15,12 @@ fun createEntityEquipmentPacket(
 ): PacketContainer {
     val packet = PacketContainer(PacketType.Play.Server.ENTITY_EQUIPMENT)
     packet.integers.write(0, player.entityId)
-    packet.slotStackPairLists.write(0, listOf(*slotItemPairs))
+
+    // Until I figure this shit out, ima just catch the exception and move on with life :/
+    try {
+        packet.slotStackPairLists.write(0, listOf(*slotItemPairs))
+    } catch (ignored: NullPointerException) {
+    }
 
     return packet
 }

@@ -27,7 +27,7 @@ const val CUSTOM_MODEL_DATA_TAG = "CustomModelData"
 class ModelManager(private val plugin: Cosmo) {
     val models = hashMapOf<ModelType, HashMap<Int, Model>>()
     val playersWithPack = hashSetOf<Player>()
-    val packId = plugin.configFile.config.getString("pack-id", null)
+    lateinit var packId: String
     private val url: String = if (plugin.configFile.config.getBoolean("development-server", false)) {
         "http://dev.cosmo.senseiju.me:8080"
     } else {

@@ -8,8 +8,10 @@ import me.mattstudios.mf.base.CommandBase
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.guis.openCosmoGui
+import me.senseiju.cosmo_plugin.utils.extensions.color
 import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import org.bukkit.command.CommandSender
+import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
 
 @Command("Cosmo")
@@ -43,7 +45,9 @@ class CosmoCommand(private val plugin: Cosmo, private val modelManager: ModelMan
 
     @SubCommand("reload")
     @Permission("cosmo.command.reload")
-    fun reload(sender: CommandSender) {
-
+    fun reload(sender: ConsoleCommandSender) {
+        logger.info("&aReloading Cosmo...".color())
+        plugin.reload()
+        logger.info("&aReload complete!".color())
     }
 }

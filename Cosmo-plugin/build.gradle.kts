@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val version = "0.8.2"
+val version = "0.9.0"
 
 repositories {
     maven("https://repo.dmulloy2.net/nexus/repository/public/")

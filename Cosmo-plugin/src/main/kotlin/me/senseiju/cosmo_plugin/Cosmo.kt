@@ -11,33 +11,31 @@ import org.bukkit.plugin.java.JavaPlugin
 
 
 class Cosmo : JavaPlugin() {
-    val configFile = DataFile(this, "config.yml", true)
-    val messagesFile = DataFile(this, "messages.yml", true)
-
     var debugMode = false
 
     lateinit var commandManager: CommandManager
     lateinit var modelManager: ModelManager
+        private set
+    lateinit var configFile: DataFile
+        private set
+    lateinit var messagesFile: DataFile
+        private set
     lateinit var httpServer: InternalHttpServer
 
     override fun onEnable() {
+        reload()
+
         ArmorEquip(this)
-
-        httpServer = InternalHttpServer(this)
-        commandManager = CommandManager(this)
-        modelManager = ModelManager(this)
-
-        if (!modelManager.requestModelsJson()) {
-            server.pluginManager.disablePlugin(this)
-            return
-        }
-
         Metrics(this, 10975)
     }
 
     override fun onDisable() {
         httpServer.stop()
 
+        cleanUp()
+    }
+
+    private fun cleanUp() {
         if (modelManager.arePlayersActiveModelsInitialised()) {
             modelManager.saveActiveModels()
         }
@@ -49,5 +47,28 @@ class Cosmo : JavaPlugin() {
         }
 
         playerBackpackArmorStand.values.forEach { it.remove() }
+    }
+
+    fun reload() {
+        configFile = DataFile(this, "config.yml", true)
+        messagesFile = DataFile(this, "messages.yml", true)
+
+        if (::modelManager.isInitialized) {
+            cleanUp()
+        } else {
+            modelManager = ModelManager(this)
+        }
+        if (!::httpServer.isInitialized) {
+            httpServer = InternalHttpServer(this)
+        }
+        if (!::commandManager.isInitialized) {
+            commandManager = CommandManager(this)
+        }
+
+        modelManager.packId = configFile.config.getString("pack-id", "a939f783-3711-48ee-b2f5-69f66efcd1c2")!!
+        if (!modelManager.requestModelsJson()) {
+            server.pluginManager.disablePlugin(this)
+            return
+        }
     }
 }
