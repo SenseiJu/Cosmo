@@ -18,6 +18,7 @@ import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import java.io.File
+import java.math.BigInteger
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
@@ -33,7 +34,8 @@ class ModelManager(private val plugin: Cosmo) {
     } else {
         "https://cosmo.senseiju.me"
     }
-    private var packSha1 = ""
+    var packSha1 = ""
+        private set
 
     lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
 
@@ -41,6 +43,10 @@ class ModelManager(private val plugin: Cosmo) {
     private val logger = plugin.logger
     private val hatHandler = HatHandler(plugin, this)
     private val backpackHandler = BackpackHandler(plugin, this)
+
+    fun getPackSha1ByteArray(): ByteArray {
+        return BigInteger(packSha1, 16).toByteArray().copyOfRange(1, 21)
+    }
 
     /**
      * Save all players active models
@@ -216,8 +222,13 @@ class ModelManager(private val plugin: Cosmo) {
      * to the [playersWithPack] list so the plugin still recognises them
      */
     private fun handleOnlinePlayers() {
+        println(BigInteger(packSha1, 16).toByteArray().copyOfRange(1, 21).size)
+
         plugin.server.onlinePlayers.forEach {
-            it.setResourcePack("http://cosmo.senseiju.me:8080/api/packs/${packId}?type=zip")
+            it.setResourcePack(
+                "http://cosmo.senseiju.me:8080/api/packs/${packId}?type=zip",
+                getPackSha1ByteArray()
+            )
         }
     }
 

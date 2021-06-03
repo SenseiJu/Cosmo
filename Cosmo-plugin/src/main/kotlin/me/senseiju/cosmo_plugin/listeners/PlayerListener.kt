@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.*
 import us.myles.ViaVersion.api.Via
+import java.math.BigInteger
 
 class PlayerListener(private val plugin: Cosmo) : Listener {
     private val modelManager = plugin.modelManager
@@ -29,10 +30,12 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
         if (httpServer.isEnabled) {
             e.player.setResourcePack(
                 "http://${httpServer.ip.trimIndent()}:${httpServer.port}/cosmo",
+                modelManager.getPackSha1ByteArray()
             )
         } else {
             e.player.setResourcePack(
                 "http://cosmo.senseiju.me:8080/api/packs/${modelManager.packId}?type=zip",
+                modelManager.getPackSha1ByteArray()
             )
         }
     }

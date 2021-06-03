@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Updated to 0.8.2">
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatWrappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatWrappers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/messages.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +123,7 @@
     <property name="project.structure.side.proportion" value="0.3145072" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="build.tools" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -260,9 +260,6 @@
       <list>
         <item itemvalue="Gradle.Test.selectNModels" />
         <item itemvalue="Gradle.Test.buildPack" />
-        <item itemvalue="Gradle.Test.selectNModels" />
-        <item itemvalue="Gradle.Test.buildPack" />
-        <item itemvalue="Gradle.Test.selectNModels" />
       </list>
     </recent_temporary>
   </component>
@@ -330,7 +327,15 @@
       <workItem from="1622301973408" duration="4956000" />
       <workItem from="1622414142204" duration="743000" />
       <workItem from="1622455819961" duration="594000" />
-      <workItem from="1622460786335" duration="10196000" />
+      <workItem from="1622460786335" duration="11093000" />
+      <workItem from="1622499178625" duration="5000" />
+      <workItem from="1622556261440" duration="21000" />
+      <workItem from="1622556299447" duration="313000" />
+      <workItem from="1622579713302" duration="1044000" />
+      <workItem from="1622623329606" duration="2256000" />
+      <workItem from="1622654703476" duration="1106000" />
+      <workItem from="1622666406895" duration="5000" />
+      <workItem from="1622718752128" duration="1122000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -605,7 +610,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622414250574</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0">
+      <created>1622498291080</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1622498291080</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -628,7 +640,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Web app progress&#10;&#10;Added discord Oauth2 integration for logins" />
     <MESSAGE value="Major work on web app" />
     <MESSAGE value="Reworking routes and request functions" />
     <MESSAGE value="Stuff" />
@@ -653,7 +664,8 @@
     <MESSAGE value="Refactoring for future additions to be made a lot easier" />
     <MESSAGE value="Removed unused packets being created and not broadcasted :/" />
     <MESSAGE value="Updated to 0.8.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated to 0.8.2" />
+    <MESSAGE value="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

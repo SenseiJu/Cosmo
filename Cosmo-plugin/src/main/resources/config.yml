@@ -3,10 +3,6 @@
 # Pack id can be found under "Your packs" @ https://cosmo.senseiju.me
 pack-id: a939f783-3711-48ee-b2f5-69f66efcd1c2
 
-# This will kick all online players so they are
-# when the server is reloaded (It is highly recommended that you do not reload your server but restart instead)
-kick-players-on-reload: true
-
 # Setting this to true will mean that models will not show UNLESS the player is wearing a helmet
 # This could be useful if you want players to distinguish between
 require-helmets: false
