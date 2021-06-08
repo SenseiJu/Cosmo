@@ -222,8 +222,6 @@ class ModelManager(private val plugin: Cosmo) {
      * to the [playersWithPack] list so the plugin still recognises them
      */
     private fun handleOnlinePlayers() {
-        println(BigInteger(packSha1, 16).toByteArray().copyOfRange(1, 21).size)
-
         plugin.server.onlinePlayers.forEach {
             it.setResourcePack(
                 "http://cosmo.senseiju.me:8080/api/packs/${packId}?type=zip",

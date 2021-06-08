@@ -9,6 +9,7 @@ import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.guis.openCosmoGui
 import me.senseiju.cosmo_plugin.utils.extensions.color
+import me.senseiju.cosmo_plugin.utils.extensions.debug
 import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
@@ -26,7 +27,7 @@ class CosmoCommand(private val plugin: Cosmo, private val modelManager: ModelMan
             return
         }
 
-        if (plugin.debugMode) logger.info("Debug: Opening gui through command /cosmo")
+        if (plugin.debugMode) logger.debug("Opening gui through command /cosmo")
 
         openCosmoGui(player)
     }

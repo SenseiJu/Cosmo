@@ -8,6 +8,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.ProjectileLaunchEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.PlayerItemConsumeEvent
@@ -33,6 +34,15 @@ class HatListener(private val plugin: Cosmo, private val modelManager: ModelMana
     }
 
     @EventHandler
+    private fun onProjectileLaunch(e: ProjectileLaunchEvent) {
+        if (e.entity.shooter !is Player) {
+           return
+        }
+
+        modelManager.updateModelsToActivePlayers(e.entity.shooter as Player)
+    }
+
+    @EventHandler
     private fun onHelmetClick(e: InventoryClickEvent) {
         if (e.slotType != InventoryType.SlotType.ARMOR) {
             return
@@ -43,18 +53,5 @@ class HatListener(private val plugin: Cosmo, private val modelManager: ModelMana
         }
 
         modelManager.updateModelsToActivePlayers(e.whoClicked as Player)
-    }
-
-    @EventHandler
-    private fun onArmorChange(e: ArmorEquipEvent) {
-        if (e.type != ArmorType.HELMET) {
-            return
-        }
-
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(e.player) },
-            2L
-        )
     }
 }

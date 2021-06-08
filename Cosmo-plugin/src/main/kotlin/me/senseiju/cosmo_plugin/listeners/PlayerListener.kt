@@ -1,5 +1,7 @@
 package me.senseiju.cosmo_plugin.listeners
 
+import com.codingforcookies.armorequip.ArmorEquipEvent
+import com.codingforcookies.armorequip.ArmorType
 import me.senseiju.cosmo_plugin.Cosmo
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
@@ -44,11 +46,11 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
     private fun playerResourcePackStatus(e: PlayerResourcePackStatusEvent) {
         if (e.status == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
             modelManager.requestModelsFromActivePlayers(e.player)
-            modelManager.playersWithPack.add(e.player)
 
-            if (e.player.gameMode != GameMode.CREATIVE) {
+            plugin.server.scheduler.runTaskLater(plugin, Runnable {
+                modelManager.playersWithPack.add(e.player)
                 modelManager.updateModelsToActivePlayers(e.player)
-            }
+            }, 2L)
         }
     }
 
@@ -73,5 +75,14 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
                 1L
             )
         }
+    }
+
+    @EventHandler
+    private fun onArmorChange(e: ArmorEquipEvent) {
+        plugin.server.scheduler.runTaskLater(
+            plugin,
+            Runnable { modelManager.updateModelsToActivePlayers(e.player) },
+            1L
+        )
     }
 }

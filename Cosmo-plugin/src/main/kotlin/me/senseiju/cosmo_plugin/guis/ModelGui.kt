@@ -7,6 +7,7 @@ import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.utils.ColorScheme
 import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.color
+import me.senseiju.cosmo_plugin.utils.extensions.debug
 import me.senseiju.cosmo_plugin.utils.extensions.defaultGuiTemplate
 import me.senseiju.cosmo_plugin.utils.extensions.defaultPaginatedGuiTemplate
 import me.senseiju.sennetmc.utils.extensions.color
@@ -17,66 +18,59 @@ import org.bukkit.plugin.java.JavaPlugin
 
 private val plugin = JavaPlugin.getPlugin(Cosmo::class.java)
 private val logger = plugin.logger
-private val scheduler = plugin.server.scheduler
 private val modelManager = plugin.modelManager
 
 fun openCosmoGui(player: Player) {
-    if (plugin.debugMode) {
-        logger.info("Debug: Creating gui for ${player.name}")
-    }
+    if (plugin.debugMode) logger.debug("Creating gui for ${player.name}")
 
-    defaultScope.launch {
-        val gui = defaultGuiTemplate(3, "${ColorScheme.PRIMARY}&lCosmo")
+    val gui = defaultGuiTemplate(3, "${ColorScheme.PRIMARY}&lCosmo")
 
-        val modelLore = listOf(
-            "",
-            "&aLeft-click &7to select a different model",
-            "&aRight-click &7to remove your current model"
-        )
+    val modelLore = listOf(
+        "",
+        "&aLeft-click &7to select a different model",
+        "&aRight-click &7to remove your current model"
+    )
 
-        val helmetGuiItem = ItemBuilder
-            .from(getPlayersActiveModelAsItem(player, ModelType.HAT))
-            .setName("${ColorScheme.SECONDARY}Hats".color())
-            .setLore(modelLore.color())
-            .asGuiItem {
-                if (it.isRightClick) {
-                    modelManager.setActiveModel(player.uniqueId, ModelType.HAT, null)
-                    modelManager.updateModelsToActivePlayers(player)
+    val helmetGuiItem = ItemBuilder
+        .from(getPlayersActiveModelAsItem(player, ModelType.HAT))
+        .setName("${ColorScheme.SECONDARY}Hats".color())
+        .setLore(modelLore.color())
+        .asGuiItem {
+            if (it.isRightClick) {
+                modelManager.setActiveModel(player.uniqueId, ModelType.HAT, null)
+                modelManager.updateModelsToActivePlayers(player)
 
-                    openCosmoGui(player)
-                    return@asGuiItem
-                }
-
-                openSelectActiveModelGui(player, ModelType.HAT)
+                openCosmoGui(player)
+                return@asGuiItem
             }
-        if (plugin.debugMode) logger.info("Debug: Created helmet gui item for ${player.name}")
 
-        val backpackGuiItem = ItemBuilder
-            .from(getPlayersActiveModelAsItem(player, ModelType.BACKPACK))
-            .setName("${ColorScheme.SECONDARY}Backpacks".color())
-            .setLore(modelLore.color())
-            .asGuiItem {
-                if (it.isRightClick) {
-                    modelManager.setActiveModel(player.uniqueId, ModelType.BACKPACK, null)
-                    modelManager.updateModelsToActivePlayers(player)
+            openSelectActiveModelGui(player, ModelType.HAT)
+        }
+    if (plugin.debugMode) logger.debug("Created helmet gui item for ${player.name}")
 
-                    openCosmoGui(player)
-                    return@asGuiItem
-                }
+    val backpackGuiItem = ItemBuilder
+        .from(getPlayersActiveModelAsItem(player, ModelType.BACKPACK))
+        .setName("${ColorScheme.SECONDARY}Backpacks".color())
+        .setLore(modelLore.color())
+        .asGuiItem {
+            if (it.isRightClick) {
+                modelManager.setActiveModel(player.uniqueId, ModelType.BACKPACK, null)
+                modelManager.updateModelsToActivePlayers(player)
 
-                openSelectActiveModelGui(player, ModelType.BACKPACK)
+                openCosmoGui(player)
+                return@asGuiItem
             }
-        if (plugin.debugMode) logger.info("Debug: Created backpack gui item for ${player.name}")
 
-        gui.setItem(2, 4, helmetGuiItem)
-        gui.setItem(2, 6, backpackGuiItem)
+            openSelectActiveModelGui(player, ModelType.BACKPACK)
+        }
+    if (plugin.debugMode) logger.debug("Created backpack gui item for ${player.name}")
 
-        scheduler.runTask(plugin, Runnable {
-            gui.open(player)
+    gui.setItem(2, 4, helmetGuiItem)
+    gui.setItem(2, 6, backpackGuiItem)
 
-            if (plugin.debugMode) logger.info("Debug: Opened gui for ${player.name}")
-        })
-    }
+    gui.open(player)
+
+    if (plugin.debugMode) logger.debug("Opened gui for ${player.name}")
 }
 
 private fun getPlayersActiveModelAsItem(player: Player, modelType: ModelType): ItemStack {
@@ -97,5 +91,5 @@ private fun openSelectActiveModelGui(player: Player, modelType: ModelType) {
         })
     }
 
-    scheduler.runTask(plugin, Runnable { gui.open(player) })
+    gui.open(player)
 }

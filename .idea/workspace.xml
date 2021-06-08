@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0">
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1">
+      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/extensions/Logger.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/messages.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatListener.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,8 +78,8 @@
         <option value="Kotlin Data Class" />
         <option value="JavaScript File" />
         <option value="Less File" />
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -335,7 +336,12 @@
       <workItem from="1622623329606" duration="2256000" />
       <workItem from="1622654703476" duration="1106000" />
       <workItem from="1622666406895" duration="5000" />
-      <workItem from="1622718752128" duration="1122000" />
+      <workItem from="1622718752128" duration="1393000" />
+      <workItem from="1622720214578" duration="595000" />
+      <workItem from="1622732706242" duration="2096000" />
+      <workItem from="1622908781601" duration="460000" />
+      <workItem from="1623090579956" duration="607000" />
+      <workItem from="1623150660041" duration="631000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -617,7 +623,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622498291080</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1">
+      <created>1622719969838</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1622719969838</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -640,7 +653,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Major work on web app" />
     <MESSAGE value="Reworking routes and request functions" />
     <MESSAGE value="Stuff" />
     <MESSAGE value="Added HeaderComponent.kt&#10;&#10;Fixed transitions performing on load when they should not" />
@@ -665,7 +677,8 @@
     <MESSAGE value="Removed unused packets being created and not broadcasted :/" />
     <MESSAGE value="Updated to 0.8.2" />
     <MESSAGE value="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0" />
+    <MESSAGE value="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
