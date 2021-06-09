@@ -9,6 +9,12 @@ import me.senseiju.cosmo_plugin.utils.datastorage.DataFile
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 
+val usingPaperApi = try {
+    Class.forName("com.destroystokyo.paper.event.player.PlayerLaunchProjectileEvent")
+    true
+} catch (ex: ClassNotFoundException) {
+    false
+}
 
 class Cosmo : JavaPlugin() {
     var debugMode = false

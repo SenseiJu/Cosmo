@@ -7,6 +7,12 @@ pack-id: a939f783-3711-48ee-b2f5-69f66efcd1c2
 # This could be useful if you want players to distinguish between
 require-helmets: false
 
+# By default, the plugin does as much of its actions async to help reduce server load although it is
+# not a significant increase in performance until your running into the 100's of players.
+# However, if you are having issues with the plugin being buggy and not working as intended, you
+# can try set this to 'false' and see if anything improves
+use-async: true
+
 # Internal http server to deliver the pack
 #
 # By default, the internal server will not be used and your pack will be provided by the Cosmo servers.

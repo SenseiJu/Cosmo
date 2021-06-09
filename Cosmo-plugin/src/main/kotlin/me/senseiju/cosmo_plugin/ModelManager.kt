@@ -15,6 +15,7 @@ import me.senseiju.cosmo_plugin.utils.defaultScope
 import me.senseiju.cosmo_plugin.utils.extensions.registerEvents
 import me.senseiju.cosmo_plugin.utils.extensions.setUserAgent
 import me.senseiju.cosmo_plugin.utils.serializers.UUIDSerializer
+import me.senseiju.cosmo_plugin.utils.useCoroutine
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import java.io.File
@@ -34,8 +35,7 @@ class ModelManager(private val plugin: Cosmo) {
     } else {
         "https://cosmo.senseiju.me"
     }
-    var packSha1 = ""
-        private set
+    private var packSha1 = ""
 
     lateinit var playersActiveModels: HashMap<UUID, EnumMap<ModelType, Int>>
 
@@ -43,6 +43,7 @@ class ModelManager(private val plugin: Cosmo) {
     private val logger = plugin.logger
     private val hatHandler = HatHandler(plugin, this)
     private val backpackHandler = BackpackHandler(plugin, this)
+    private val useAsync = plugin.configFile.config.getBoolean("use-async", true)
 
     fun getPackSha1ByteArray(): ByteArray {
         return BigInteger(packSha1, 16).toByteArray().copyOfRange(1, 21)
@@ -122,19 +123,25 @@ class ModelManager(private val plugin: Cosmo) {
      *
      * @param player the player
      */
-    fun updateModelsToActivePlayers(player: Player) {
+    fun updateModelsToActivePlayers(player: Player, vararg modelType: ModelType = ModelType.values()) {
         if (!playersWithPack.contains(player)) {
             return
         }
 
-        backpackHandler.updateBackpackEntity(player)
+        if (modelType.contains(ModelType.BACKPACK)) {
+            backpackHandler.updateBackpackEntity(player)
+        }
 
-        defaultScope.launch {
-            if (player.gameMode != GameMode.CREATIVE) {
-                hatHandler.update(player, playersWithPack)
+        useCoroutine(useAsync) {
+            if (modelType.contains(ModelType.HAT)) {
+                if (player.gameMode != GameMode.CREATIVE) {
+                    hatHandler.update(player, playersWithPack)
+                }
             }
 
-            backpackHandler.update(player, playersWithPack)
+            if (modelType.contains(ModelType.BACKPACK)) {
+                backpackHandler.update(player, playersWithPack)
+            }
         }
     }
 
@@ -144,7 +151,7 @@ class ModelManager(private val plugin: Cosmo) {
      * @param player the player
      */
     fun requestModelsFromActivePlayers(player: Player) {
-        defaultScope.launch {
+        useCoroutine(useAsync) {
             playersWithPack.forEach {
                 hatHandler.update(it, listOf(player))
                 backpackHandler.update(it, listOf(player))

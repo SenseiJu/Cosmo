@@ -14,6 +14,7 @@ import me.senseiju.sennetmc.utils.extensions.sendConfigMessage
 import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
+import kotlin.math.log
 
 @Command("Cosmo")
 class CosmoCommand(private val plugin: Cosmo, private val modelManager: ModelManager) : CommandBase() {

@@ -1,14 +1,17 @@
 package me.senseiju.cosmo_plugin.models.backpack
 
+import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
+import org.bukkit.Bukkit
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.entity.Pose
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityPoseChangeEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
@@ -34,7 +37,7 @@ class BackpackListener(private val modelManager: ModelManager) : Listener {
         val stand = playerBackpackArmorStand[player.uniqueId] ?: return
 
         when (e.pose) {
-            Pose.STANDING, Pose.SNEAKING -> modelManager.updateModelsToActivePlayers(player)
+            Pose.STANDING, Pose.SNEAKING -> modelManager.updateModelsToActivePlayers(player, ModelType.BACKPACK)
             else -> createDestroyEntityPacket(stand).broadcastPacket(modelManager.playersWithPack)
         }
     }
@@ -50,9 +53,26 @@ class BackpackListener(private val modelManager: ModelManager) : Listener {
     private fun onPlayerQuit(e: PlayerQuitEvent) {
         playerBackpackArmorStand.remove(e.player.uniqueId)?.remove()
     }
+
+    @EventHandler
+    private fun onArmorStandRemove(e: EntityDeathEvent) {
+        playerBackpackArmorStand.forEach {
+            if (it.value != e.entity) {
+                return@forEach
+            }
+
+            val player = Bukkit.getPlayer(it.key) ?: return@forEach
+            if (!player.isOnline) {
+                return@forEach
+            }
+
+            playerBackpackArmorStand[it.key] = createNewBackpackArmorStand(player)
+            modelManager.updateModelsToActivePlayers(player, ModelType.BACKPACK)
+        }
+    }
 }
 
-fun createNewBackpackArmorStand(player: Player): ArmorStand {
+private fun createNewBackpackArmorStand(player: Player): ArmorStand {
     val stand = player.world.spawnEntity(player.location, EntityType.ARMOR_STAND) as ArmorStand
 
     stand.isInvisible = true

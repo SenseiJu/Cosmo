@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1">
-      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/extensions/Logger.kt" afterDir="false" />
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Fixed hats being removed when launching a projectile&#10;&#10;Changed some stuff with the logger&#10;&#10;Updated to 0.9.2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/Cosmo.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/ModelManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/commands/CosmoCommand.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackListener.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/CoroutineScopes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/CoroutineScopes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,6 +239,66 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="MainKt (1)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (2)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (3)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Web App [run]" type="KtorApplicationConfigurationType" factoryName="Ktor">
       <module name="Cosmo.Cosmo-web-app.test" />
       <option name="alternativeJrePath" />
@@ -256,6 +320,10 @@
       <item itemvalue="Gradle.Test.buildPack" />
       <item itemvalue="Gradle.Test.selectNModels" />
       <item itemvalue="Ktor.Web App [run]" />
+      <item itemvalue="Ktor.MainKt" />
+      <item itemvalue="Ktor.MainKt (1)" />
+      <item itemvalue="Ktor.MainKt (2)" />
+      <item itemvalue="Ktor.MainKt (3)" />
     </list>
     <recent_temporary>
       <list>
@@ -341,7 +409,10 @@
       <workItem from="1622732706242" duration="2096000" />
       <workItem from="1622908781601" duration="460000" />
       <workItem from="1623090579956" duration="607000" />
-      <workItem from="1623150660041" duration="631000" />
+      <workItem from="1623150660041" duration="2816000" />
+      <workItem from="1623194789657" duration="2766000" />
+      <workItem from="1623238961908" duration="1666000" />
+      <workItem from="1623247101249" duration="3287000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -630,7 +701,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622719969838</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Fixed hats being removed when launching a projectile&#10;&#10;Changed some stuff with the logger&#10;&#10;Updated to 0.9.2">
+      <created>1623151358432</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1623151358432</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -653,7 +731,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Reworking routes and request functions" />
     <MESSAGE value="Stuff" />
     <MESSAGE value="Added HeaderComponent.kt&#10;&#10;Fixed transitions performing on load when they should not" />
     <MESSAGE value="Removed home page, will now redirect straight to users packs page" />
@@ -678,7 +755,8 @@
     <MESSAGE value="Updated to 0.8.2" />
     <MESSAGE value="Added reload command to quickly update packs without restarting (Still not recommended)&#10;Added a temp/perm fix to some weird ass bugs with packets throwing null even though nothing is null????&#10;&#10;Updated to 0.9.0" />
     <MESSAGE value="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1" />
+    <MESSAGE value="Fixed hats being removed when launching a projectile&#10;&#10;Changed some stuff with the logger&#10;&#10;Updated to 0.9.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed hats being removed when launching a projectile&#10;&#10;Changed some stuff with the logger&#10;&#10;Updated to 0.9.2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

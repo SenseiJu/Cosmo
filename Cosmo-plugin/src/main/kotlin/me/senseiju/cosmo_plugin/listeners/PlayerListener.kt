@@ -1,18 +1,14 @@
 package me.senseiju.cosmo_plugin.listeners
 
 import com.codingforcookies.armorequip.ArmorEquipEvent
-import com.codingforcookies.armorequip.ArmorType
+import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
 import org.bukkit.GameMode
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.*
 import us.myles.ViaVersion.api.Via
-import java.math.BigInteger
 
 class PlayerListener(private val plugin: Cosmo) : Listener {
     private val modelManager = plugin.modelManager
@@ -71,7 +67,7 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
         } else {
             plugin.server.scheduler.runTaskLater(
                 plugin,
-                Runnable { modelManager.updateModelsToActivePlayers(e.player) },
+                Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
                 1L
             )
         }
@@ -79,6 +75,15 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
 
     @EventHandler
     private fun onArmorChange(e: ArmorEquipEvent) {
+        plugin.server.scheduler.runTaskLater(
+            plugin,
+            Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
+            1L
+        )
+    }
+
+    @EventHandler
+    private fun onRespawn(e: PlayerRespawnEvent) {
         plugin.server.scheduler.runTaskLater(
             plugin,
             Runnable { modelManager.updateModelsToActivePlayers(e.player) },

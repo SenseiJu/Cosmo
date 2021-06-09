@@ -1,9 +1,10 @@
 package me.senseiju.cosmo_plugin.models.hat
 
-import com.codingforcookies.armorequip.ArmorEquipEvent
-import com.codingforcookies.armorequip.ArmorType
+import com.destroystokyo.paper.event.player.PlayerLaunchProjectileEvent
+import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.ModelManager
+import me.senseiju.cosmo_plugin.usingPaperApi
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -23,23 +24,40 @@ class HatListener(private val plugin: Cosmo, private val modelManager: ModelMana
 
         plugin.server.scheduler.runTaskLater(
             plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(player) },
+            Runnable { modelManager.updateModelsToActivePlayers(player, ModelType.HAT) },
             2
         )
     }
 
     @EventHandler
     private fun onPlayerEat(e: PlayerItemConsumeEvent) {
-        modelManager.updateModelsToActivePlayers(e.player)
+        modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT)
     }
 
     @EventHandler
     private fun onProjectileLaunch(e: ProjectileLaunchEvent) {
+        if (usingPaperApi) {
+            return
+        }
+
         if (e.entity.shooter !is Player) {
            return
         }
 
-        modelManager.updateModelsToActivePlayers(e.entity.shooter as Player)
+        plugin.server.scheduler.runTaskLater(
+            plugin,
+            Runnable { modelManager.updateModelsToActivePlayers(e.entity.shooter as Player, ModelType.HAT) },
+            1
+        )
+    }
+
+    @EventHandler
+    private fun onProjectileLaunch(e: PlayerLaunchProjectileEvent) {
+        plugin.server.scheduler.runTaskLater(
+            plugin,
+            Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
+            1
+        )
     }
 
     @EventHandler
@@ -52,6 +70,6 @@ class HatListener(private val plugin: Cosmo, private val modelManager: ModelMana
             return
         }
 
-        modelManager.updateModelsToActivePlayers(e.whoClicked as Player)
+        modelManager.updateModelsToActivePlayers(e.whoClicked as Player, ModelType.HAT)
     }
 }
