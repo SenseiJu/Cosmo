@@ -16,11 +16,12 @@ import org.bukkit.event.entity.EntityPoseChangeEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerResourcePackStatusEvent
+import org.bukkit.event.player.PlayerTeleportEvent
 import java.util.*
 
 val playerBackpackArmorStand = HashMap<UUID, ArmorStand>()
 
-class BackpackListener(private val modelManager: ModelManager) : Listener {
+class BackpackListener(private val plugin: Cosmo, private val modelManager: ModelManager) : Listener {
 
     @EventHandler
     private fun playerResourcePackStatus(e: PlayerResourcePackStatusEvent) {
@@ -69,6 +70,15 @@ class BackpackListener(private val modelManager: ModelManager) : Listener {
             playerBackpackArmorStand[it.key] = createNewBackpackArmorStand(player)
             modelManager.updateModelsToActivePlayers(player, ModelType.BACKPACK)
         }
+    }
+
+    @EventHandler
+    private fun onPlayerTeleport(e: PlayerTeleportEvent) {
+        plugin.server.scheduler.runTaskLater(
+            plugin,
+            Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.BACKPACK) },
+            1L
+        )
     }
 }
 

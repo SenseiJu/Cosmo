@@ -17,7 +17,7 @@ class BackpackHandler(plugin: Cosmo, private val modelManager: ModelManager) : M
     private val protocolManager = ProtocolLibrary.getProtocolManager()
 
     init {
-        plugin.registerEvents(BackpackListener(modelManager))
+        plugin.registerEvents(BackpackListener(plugin, modelManager))
     }
 
     override fun update(player: Player, targets: Collection<Player>) {

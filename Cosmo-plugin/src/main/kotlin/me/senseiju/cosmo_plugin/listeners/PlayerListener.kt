@@ -60,27 +60,6 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
         modelManager.playersWithPack.remove(e.player)
     }
 
-    @EventHandler
-    private fun onGameModeChange(e: PlayerGameModeChangeEvent) {
-        if (e.newGameMode == GameMode.CREATIVE) {
-            e.player.updateInventory()
-        } else {
-            plugin.server.scheduler.runTaskLater(
-                plugin,
-                Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
-                1L
-            )
-        }
-    }
-
-    @EventHandler
-    private fun onArmorChange(e: ArmorEquipEvent) {
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
-            1L
-        )
-    }
 
     @EventHandler
     private fun onRespawn(e: PlayerRespawnEvent) {
