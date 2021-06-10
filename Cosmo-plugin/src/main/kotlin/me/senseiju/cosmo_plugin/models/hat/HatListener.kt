@@ -6,6 +6,7 @@ import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.usingPaperApi
+import me.senseiju.cosmo_plugin.utils.extensions.newRunnable
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -25,11 +26,9 @@ class HatListener(private val plugin: Cosmo, private val modelManager: ModelMana
             e.entity as Player
         } else return
 
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(player, ModelType.HAT) },
-            2
-        )
+        newRunnable {
+            modelManager.updateModelsToActivePlayers(player, ModelType.HAT)
+        }.runTaskLater(plugin, 1)
     }
 
     @EventHandler
@@ -43,24 +42,20 @@ class HatListener(private val plugin: Cosmo, private val modelManager: ModelMana
             return
         }
 
-        if (e.entity.shooter !is Player) {
-           return
-        }
+        val player = if (e.entity.shooter !is Player) {
+            e.entity.shooter as Player
+        } else return
 
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(e.entity.shooter as Player, ModelType.HAT) },
-            1
-        )
+        newRunnable {
+            modelManager.updateModelsToActivePlayers(player, ModelType.HAT)
+        }.runTaskLater(plugin, 1)
     }
 
     @EventHandler
     private fun onProjectileLaunch(e: PlayerLaunchProjectileEvent) {
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
-            1
-        )
+        newRunnable {
+            modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT)
+        }.runTaskLater(plugin, 1)
     }
 
     @EventHandler
@@ -81,20 +76,16 @@ class HatListener(private val plugin: Cosmo, private val modelManager: ModelMana
         if (e.newGameMode == GameMode.CREATIVE) {
             e.player.updateInventory()
         } else {
-            plugin.server.scheduler.runTaskLater(
-                plugin,
-                Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
-                1L
-            )
+            newRunnable {
+                modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT)
+            }.runTaskLater(plugin, 1)
         }
     }
 
     @EventHandler
     private fun onArmorChange(e: ArmorEquipEvent) {
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT) },
-            1L
-        )
+        newRunnable {
+            modelManager.updateModelsToActivePlayers(e.player, ModelType.HAT)
+        }.runTaskLater(plugin, 2)
     }
 }

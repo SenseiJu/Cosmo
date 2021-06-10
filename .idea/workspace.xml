@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Added back Paper API for compatability with some events&#10;Fixed hat being removed when launching a projectile&#10;When models are updated, only the ones required are updated&#10;Fixed a bug where the armor stand for backpacks was deleted and threw a bunch of errors&#10;Refit models on player respawn&#10;Added the option to no longer use async when updating models (Not recommended)&#10;&#10;Updated to 0.10.0">
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Fixed models not being updated on teleport sometimes :)&#10;&#10;Updated to 0.10.1">
+      <change afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/utils/extensions/Runnable.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackHandler.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/backpack/BackpackListener.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/models/hat/HatListener.kt" afterDir="false" />
     </list>
@@ -279,6 +279,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainKt (4)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (5)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainKt" type="KtorApplicationConfigurationType" factoryName="Ktor">
       <module name="Cosmo.Cosmo-web-app.main" />
       <option name="alternativeJrePath" value="" />
@@ -319,6 +349,8 @@
       <item itemvalue="Ktor.MainKt (1)" />
       <item itemvalue="Ktor.MainKt (2)" />
       <item itemvalue="Ktor.MainKt (3)" />
+      <item itemvalue="Ktor.MainKt (4)" />
+      <item itemvalue="Ktor.MainKt (5)" />
     </list>
     <recent_temporary>
       <list>
@@ -408,7 +440,9 @@
       <workItem from="1623194789657" duration="2766000" />
       <workItem from="1623238961908" duration="1666000" />
       <workItem from="1623247101249" duration="3695000" />
-      <workItem from="1623253582673" duration="1157000" />
+      <workItem from="1623253582673" duration="1185000" />
+      <workItem from="1623335831255" duration="4258000" />
+      <workItem from="1623356041599" duration="66000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -711,7 +745,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623252120846</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Fixed models not being updated on teleport sometimes :)&#10;&#10;Updated to 0.10.1">
+      <created>1623254769324</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1623254769324</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -734,7 +775,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added HeaderComponent.kt&#10;&#10;Fixed transitions performing on load when they should not" />
     <MESSAGE value="Removed home page, will now redirect straight to users packs page" />
     <MESSAGE value="Implemented caching for Discord users due to slow request times when getting user by id from Discord API" />
     <MESSAGE value="Fixed margins for index page&#10;Fixed script redirect after deleting a model from pack" />
@@ -759,7 +799,8 @@
     <MESSAGE value="Fixed a bug where the incorrect resource pack hash was sent and stopped getting the latest resource pack&#10;&#10;Updated to 0.9.1" />
     <MESSAGE value="Fixed hats being removed when launching a projectile&#10;&#10;Changed some stuff with the logger&#10;&#10;Updated to 0.9.2" />
     <MESSAGE value="Added back Paper API for compatability with some events&#10;Fixed hat being removed when launching a projectile&#10;When models are updated, only the ones required are updated&#10;Fixed a bug where the armor stand for backpacks was deleted and threw a bunch of errors&#10;Refit models on player respawn&#10;Added the option to no longer use async when updating models (Not recommended)&#10;&#10;Updated to 0.10.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added back Paper API for compatability with some events&#10;Fixed hat being removed when launching a projectile&#10;When models are updated, only the ones required are updated&#10;Fixed a bug where the armor stand for backpacks was deleted and threw a bunch of errors&#10;Refit models on player respawn&#10;Added the option to no longer use async when updating models (Not recommended)&#10;&#10;Updated to 0.10.0" />
+    <MESSAGE value="Fixed models not being updated on teleport sometimes :)&#10;&#10;Updated to 0.10.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed models not being updated on teleport sometimes :)&#10;&#10;Updated to 0.10.1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,9 +1,7 @@
 package me.senseiju.cosmo_plugin.listeners
 
-import com.codingforcookies.armorequip.ArmorEquipEvent
-import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
-import org.bukkit.GameMode
+import me.senseiju.cosmo_plugin.utils.extensions.newRunnable
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -25,6 +23,8 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
             return
         }
 
+        Runnable {  }
+
         if (httpServer.isEnabled) {
             e.player.setResourcePack(
                 "http://${httpServer.ip.trimIndent()}:${httpServer.port}/cosmo",
@@ -43,10 +43,10 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
         if (e.status == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
             modelManager.requestModelsFromActivePlayers(e.player)
 
-            plugin.server.scheduler.runTaskLater(plugin, Runnable {
+            newRunnable {
                 modelManager.playersWithPack.add(e.player)
                 modelManager.updateModelsToActivePlayers(e.player)
-            }, 2L)
+            }.runTaskLater(plugin, 2L)
         }
     }
 
@@ -63,10 +63,6 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
 
     @EventHandler
     private fun onRespawn(e: PlayerRespawnEvent) {
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(e.player) },
-            1L
-        )
+        newRunnable { modelManager.updateModelsToActivePlayers(e.player) }.runTaskLater(plugin, 1)
     }
 }

@@ -4,6 +4,7 @@ import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.ModelManager
 import me.senseiju.cosmo_plugin.utils.extensions.broadcastPacket
+import me.senseiju.cosmo_plugin.utils.extensions.newRunnable
 import org.bukkit.Bukkit
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
@@ -74,11 +75,9 @@ class BackpackListener(private val plugin: Cosmo, private val modelManager: Mode
 
     @EventHandler
     private fun onPlayerTeleport(e: PlayerTeleportEvent) {
-        plugin.server.scheduler.runTaskLater(
-            plugin,
-            Runnable { modelManager.updateModelsToActivePlayers(e.player, ModelType.BACKPACK) },
-            1L
-        )
+        newRunnable {
+            modelManager.updateModelsToActivePlayers(e.player, ModelType.BACKPACK)
+        }.runTaskLater(plugin, 1)
     }
 }
 

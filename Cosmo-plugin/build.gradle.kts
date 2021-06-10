@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val version = "0.10.1"
+val version = "0.10.2"
 
 repositories {
     maven("https://repo.dmulloy2.net/nexus/repository/public/")
@@ -44,6 +44,6 @@ tasks {
     register("copyJarToServer", Copy::class) {
         from(shadowJar)
         into("D:/Servers/Minecraft/Cosmo/plugins/update")
-        into("D:/Servers/Minecraft/SennetMC/plugins/update")
+        //into("D:/Servers/Minecraft/SennetMC/plugins/update")
     }
 }
