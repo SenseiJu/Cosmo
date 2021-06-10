@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val version = "0.10.2"
+val version = "0.10.3"
 
 repositories {
     maven("https://repo.dmulloy2.net/nexus/repository/public/")
@@ -11,9 +11,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.6.0")
-    compileOnly("us.myles:viaversion:3.2.1")
-
+    implementation("com.comphenix.protocol:ProtocolLib:4.6.0")
+    implementation("com.viaversion:viaversion-api:4.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
     implementation("me.mattstudios.utils:matt-framework-gui:2.0.2")
     implementation("me.mattstudios.utils:matt-framework:1.4.6")

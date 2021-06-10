@@ -1,19 +1,19 @@
 package me.senseiju.cosmo_plugin.listeners
 
+import com.viaversion.viaversion.api.Via
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.utils.extensions.newRunnable
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.*
-import us.myles.ViaVersion.api.Via
 
 class PlayerListener(private val plugin: Cosmo) : Listener {
     private val modelManager = plugin.modelManager
     private val httpServer = plugin.httpServer
     private val viaApi = try {
         Via.getAPI()
-    } catch (e: NoClassDefFoundError) {
+    } catch (e: Exception) {
         null
     }
 
@@ -22,8 +22,6 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
         if (viaApi != null && viaApi.getPlayerVersion(e.player) != 754) {
             return
         }
-
-        Runnable {  }
 
         if (httpServer.isEnabled) {
             e.player.setResourcePack(
