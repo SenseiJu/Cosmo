@@ -19,7 +19,7 @@ class PlayerListener(private val plugin: Cosmo) : Listener {
 
     @EventHandler
     private fun onPlayerJoin(e: PlayerJoinEvent) {
-        if (viaApi != null && viaApi.getPlayerVersion(e.player) != 754) {
+        if (viaApi != null && viaApi.getPlayerVersion(e.player) < 754) {
             return
         }
 
