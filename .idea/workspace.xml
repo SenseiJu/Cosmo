@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Fixed a bug where hats would not be replaced when equipping armor&#10;&#10;Cleaned some more code&#10;&#10;Updated to 0.10.2">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/listeners/PlayerListener.kt" afterDir="false" />
-    </list>
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -276,6 +272,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainKt (13)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainKt (1)" type="KtorApplicationConfigurationType" factoryName="Ktor">
       <module name="Cosmo.Cosmo-web-app.main" />
       <option name="alternativeJrePath" value="" />
@@ -460,6 +471,7 @@
       <item itemvalue="Ktor.MainKt (10)" />
       <item itemvalue="Ktor.MainKt (11)" />
       <item itemvalue="Ktor.MainKt (12)" />
+      <item itemvalue="Ktor.MainKt (13)" />
     </list>
     <recent_temporary>
       <list>
@@ -551,7 +563,7 @@
       <workItem from="1623247101249" duration="3695000" />
       <workItem from="1623253582673" duration="1185000" />
       <workItem from="1623335831255" duration="4258000" />
-      <workItem from="1623356041599" duration="1487000" />
+      <workItem from="1623356041599" duration="1644000" />
     </task>
     <task id="LOCAL-00001" summary="Big commit">
       <created>1616629334124</created>
@@ -868,7 +880,21 @@
       <option name="project" value="LOCAL" />
       <updated>1623356212000</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3">
+      <created>1623357613989</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1623357613989</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3">
+      <created>1623357690638</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1623357690638</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -891,7 +917,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Implemented caching for Discord users due to slow request times when getting user by id from Discord API" />
     <MESSAGE value="Fixed margins for index page&#10;Fixed script redirect after deleting a model from pack" />
     <MESSAGE value="More updates :)" />
     <MESSAGE value="Added bstats to the plugin for tracking of players and server usage" />
@@ -916,7 +941,8 @@
     <MESSAGE value="Added back Paper API for compatability with some events&#10;Fixed hat being removed when launching a projectile&#10;When models are updated, only the ones required are updated&#10;Fixed a bug where the armor stand for backpacks was deleted and threw a bunch of errors&#10;Refit models on player respawn&#10;Added the option to no longer use async when updating models (Not recommended)&#10;&#10;Updated to 0.10.0" />
     <MESSAGE value="Fixed models not being updated on teleport sometimes :)&#10;&#10;Updated to 0.10.1" />
     <MESSAGE value="Fixed a bug where hats would not be replaced when equipping armor&#10;&#10;Cleaned some more code&#10;&#10;Updated to 0.10.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug where hats would not be replaced when equipping armor&#10;&#10;Cleaned some more code&#10;&#10;Updated to 0.10.2" />
+    <MESSAGE value="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
