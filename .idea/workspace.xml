@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3" />
+    <list default="true" id="fe19c7e1-bd42-450a-bcf5-dbd7fd68a849" name="Default Changelist" comment="Revert &quot;Added support for 1.17 (Still needs testing when Spigot releases)&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmo-plugin/src/main/kotlin/me/senseiju/cosmo_plugin/guis/ModelGui.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,16 +51,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Cosmo" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Cosmo" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Cosmo" type="f1a62948:ProjectNode" />
-                <item name="Cosmo-commons" type="2d1252cf:ModuleNode" />
               </path>
             </expand>
             <select />
@@ -103,15 +99,19 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mariadb" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/settings.gradle.kts" />
+    <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/me/senseiju/sentils/1.0.0/sentils-1.0.0-javadoc.jar" />
     <property name="list.type.of.created.stylesheet" value="Less" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.11292076" />
     <property name="project.structure.side.proportion" value="0.3145072" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -287,7 +287,247 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainKt (14)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (15)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (16)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (17)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (18)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (19)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainKt (1)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (20)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (21)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (22)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (23)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (24)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (25)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (26)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (27)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (28)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (29)" type="KtorApplicationConfigurationType" factoryName="Ktor">
       <module name="Cosmo.Cosmo-web-app.main" />
       <option name="alternativeJrePath" value="" />
       <option name="alternativeJrePathEnabled" value="false" />
@@ -317,7 +557,247 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainKt (30)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (31)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (32)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (33)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (34)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (35)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (36)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (37)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (38)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (39)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainKt (3)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (40)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (41)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (42)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (43)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (44)" type="KtorApplicationConfigurationType" factoryName="Ktor">
+      <module name="Cosmo.Cosmo-web-app.main" />
+      <option name="alternativeJrePath" value="" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="true" />
+      <option name="mainClass" value="me.senseiju.cosmo_web_app.MainKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" value="" />
+      <option name="workingDirectory" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt (45)" type="KtorApplicationConfigurationType" factoryName="Ktor">
       <module name="Cosmo.Cosmo-web-app.main" />
       <option name="alternativeJrePath" value="" />
       <option name="alternativeJrePathEnabled" value="false" />
@@ -472,6 +952,38 @@
       <item itemvalue="Ktor.MainKt (11)" />
       <item itemvalue="Ktor.MainKt (12)" />
       <item itemvalue="Ktor.MainKt (13)" />
+      <item itemvalue="Ktor.MainKt (14)" />
+      <item itemvalue="Ktor.MainKt (15)" />
+      <item itemvalue="Ktor.MainKt (16)" />
+      <item itemvalue="Ktor.MainKt (17)" />
+      <item itemvalue="Ktor.MainKt (18)" />
+      <item itemvalue="Ktor.MainKt (19)" />
+      <item itemvalue="Ktor.MainKt (20)" />
+      <item itemvalue="Ktor.MainKt (21)" />
+      <item itemvalue="Ktor.MainKt (22)" />
+      <item itemvalue="Ktor.MainKt (23)" />
+      <item itemvalue="Ktor.MainKt (24)" />
+      <item itemvalue="Ktor.MainKt (25)" />
+      <item itemvalue="Ktor.MainKt (26)" />
+      <item itemvalue="Ktor.MainKt (27)" />
+      <item itemvalue="Ktor.MainKt (28)" />
+      <item itemvalue="Ktor.MainKt (29)" />
+      <item itemvalue="Ktor.MainKt (30)" />
+      <item itemvalue="Ktor.MainKt (31)" />
+      <item itemvalue="Ktor.MainKt (32)" />
+      <item itemvalue="Ktor.MainKt (33)" />
+      <item itemvalue="Ktor.MainKt (34)" />
+      <item itemvalue="Ktor.MainKt (35)" />
+      <item itemvalue="Ktor.MainKt (36)" />
+      <item itemvalue="Ktor.MainKt (37)" />
+      <item itemvalue="Ktor.MainKt (38)" />
+      <item itemvalue="Ktor.MainKt (39)" />
+      <item itemvalue="Ktor.MainKt (40)" />
+      <item itemvalue="Ktor.MainKt (41)" />
+      <item itemvalue="Ktor.MainKt (42)" />
+      <item itemvalue="Ktor.MainKt (43)" />
+      <item itemvalue="Ktor.MainKt (44)" />
+      <item itemvalue="Ktor.MainKt (45)" />
     </list>
     <recent_temporary>
       <list>
@@ -563,28 +1075,16 @@
       <workItem from="1623247101249" duration="3695000" />
       <workItem from="1623253582673" duration="1185000" />
       <workItem from="1623335831255" duration="4258000" />
-      <workItem from="1623356041599" duration="1644000" />
-    </task>
-    <task id="LOCAL-00001" summary="Big commit">
-      <created>1616629334124</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1616629334124</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Work on pack builder">
-      <created>1616803590006</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1616803590006</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Further fixes on the pack builder&#10;- Changed model types to lower case as Minecraft was not able to find capitalized directories :/&#10;&#10;Added pack.mcmeta">
-      <created>1616892385279</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1616892385279</updated>
+      <workItem from="1623356041599" duration="2239000" />
+      <workItem from="1623358341942" duration="465000" />
+      <workItem from="1623360590607" duration="2613000" />
+      <workItem from="1623413764952" duration="605000" />
+      <workItem from="1623434351293" duration="3064000" />
+      <workItem from="1623440180639" duration="1950000" />
+      <workItem from="1623516646659" duration="1227000" />
+      <workItem from="1623536327287" duration="752000" />
+      <workItem from="1623616701530" duration="312000" />
+      <workItem from="1623756501887" duration="1034000" />
     </task>
     <task id="LOCAL-00004" summary="Added custom model data constant for easier maintenance if ever changed">
       <created>1616929285938</created>
@@ -894,7 +1394,42 @@
       <option name="project" value="LOCAL" />
       <updated>1623357690638</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Added support for 1.17 (Still needs testing when Spigot releases)&#10;&#10;Updated to 0.10.3">
+      <created>1623357823566</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1623357823566</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Added support for 1.17 (Still needs testing when Spigot releases)">
+      <created>1623357893885</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1623357893885</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Added support for 1.17 (Still needs testing when Spigot releases)">
+      <created>1623357918459</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1623357918460</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Revert &quot;Added support for 1.17 (Still needs testing when Spigot releases)&quot;&#10;&#10;This reverts commit 2c48253a">
+      <created>1623357950308</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1623357950308</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Revert &quot;Added support for 1.17 (Still needs testing when Spigot releases)&quot;">
+      <created>1623357992743</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1623357992743</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -917,10 +1452,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fixed margins for index page&#10;Fixed script redirect after deleting a model from pack" />
-    <MESSAGE value="More updates :)" />
-    <MESSAGE value="Added bstats to the plugin for tracking of players and server usage" />
-    <MESSAGE value="Combined pack builder into the web app&#10;&#10;More stuff done" />
     <MESSAGE value="Added hash checker to plugin so active models are reset if new pack is detected" />
     <MESSAGE value="Fixed model not being removed from pack&#10;&#10;Changed query to now return ModelWrapper over result sets for easier user in other components" />
     <MESSAGE value="Added getting last models for gallery" />
@@ -942,7 +1473,11 @@
     <MESSAGE value="Fixed models not being updated on teleport sometimes :)&#10;&#10;Updated to 0.10.1" />
     <MESSAGE value="Fixed a bug where hats would not be replaced when equipping armor&#10;&#10;Cleaned some more code&#10;&#10;Updated to 0.10.2" />
     <MESSAGE value="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Updated to 0.10.3" />
+    <MESSAGE value="Updated ViaVersion API to 4.0.0 in Gradle&#10;&#10;Added support for 1.17 (Still needs testing when Spigot releases)&#10;&#10;Updated to 0.10.3" />
+    <MESSAGE value="Revert &quot;Added support for 1.17 (Still needs testing when Spigot releases)&quot;&#10;&#10;This reverts commit 2c48253a" />
+    <MESSAGE value="Added support for 1.17 (Still needs testing when Spigot releases)" />
+    <MESSAGE value="Revert &quot;Added support for 1.17 (Still needs testing when Spigot releases)&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;Added support for 1.17 (Still needs testing when Spigot releases)&quot;" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

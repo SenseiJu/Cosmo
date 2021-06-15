@@ -1,13 +1,13 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val version = "0.10.3"
+val version = "0.10.4"
 
 repositories {
+    mavenCentral()
     maven("https://repo.dmulloy2.net/nexus/repository/public/")
     maven("https://repo.codemc.org/repository/maven-public/")
     maven("https://repo.viaversion.com")
     maven("https://papermc.io/repo/repository/maven-public/")
-    mavenCentral()
 }
 
 dependencies {
@@ -16,7 +16,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
     implementation("me.mattstudios.utils:matt-framework-gui:2.0.2")
     implementation("me.mattstudios.utils:matt-framework:1.4.6")
-    implementation("de.tr7zw:item-nbt-api:2.7.1")
+    implementation("de.tr7zw:item-nbt-api:2.8.0")
     implementation("org.bstats:bstats-bukkit:2.2.1")
     implementation("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     implementation(kotlin("stdlib-jdk8"))

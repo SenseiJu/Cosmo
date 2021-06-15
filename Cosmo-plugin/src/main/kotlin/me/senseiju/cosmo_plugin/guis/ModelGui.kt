@@ -1,15 +1,10 @@
 package me.senseiju.cosmo_plugin.guis
 
-import kotlinx.coroutines.launch
 import me.mattstudios.mfgui.gui.components.ItemBuilder
 import me.senseiju.cosmo_commons.ModelType
 import me.senseiju.cosmo_plugin.Cosmo
 import me.senseiju.cosmo_plugin.utils.ColorScheme
-import me.senseiju.cosmo_plugin.utils.defaultScope
-import me.senseiju.cosmo_plugin.utils.extensions.color
-import me.senseiju.cosmo_plugin.utils.extensions.debug
-import me.senseiju.cosmo_plugin.utils.extensions.defaultGuiTemplate
-import me.senseiju.cosmo_plugin.utils.extensions.defaultPaginatedGuiTemplate
+import me.senseiju.cosmo_plugin.utils.extensions.*
 import me.senseiju.sennetmc.utils.extensions.color
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -81,7 +76,7 @@ private fun openSelectActiveModelGui(player: Player, modelType: ModelType) {
     val gui = defaultPaginatedGuiTemplate(6, 45, "${ColorScheme.PRIMARY}&lSelect model")
 
     gui.setCloseGuiAction {
-        openCosmoGui(player)
+        newRunnable { openCosmoGui(player) }.runTaskLater(plugin, 1L)
     }
 
     modelManager.models[modelType]?.forEach { (modelData, model) ->
